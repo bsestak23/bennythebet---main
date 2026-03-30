@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bennythebet — Picks · Parlays · Profit</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   DESIGN TOKENS — Sports Betting
+   Feel: Bold, modern sportsbook app. Electric teal accent,
+   charcoal backgrounds, sharp edges, dense data-forward UI.
+   Deliberately different from the racing site's old-money serif look.
+============================================================ */
+:root {
+  --bg:         #0a0c12;
+  --bg-card:    #10141f;
+  --bg-mid:     #0d1018;
+  --bg-hover:   #161b2a;
+  --teal:       #00e5a0;
+  --teal-dim:   rgba(0,229,160,.12);
+  --teal-glow:  rgba(0,229,160,.25);
+  --gold:       #f0c040;
+  --gold-dim:   rgba(240,192,64,.1);
+  --white:      #ffffff;
+  --text:       #e4e8f0;
+  --text-muted: #7a8499;
+  --text-dim:   #4a5568;
+  --green:      #22c55e;
+  --red:        #ef4444;
+  --blue:       #3b82f6;
+  --border:     rgba(255,255,255,.07);
+  --border-hi:  rgba(0,229,160,.25);
+  --radius:     6px;
+  --radius-sm:  3px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   SITE HEADER — brand + nav tabs
+============================================================ */
+.site-header {
+  background: var(--bg-mid);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header__inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: stretch;
+  min-height: 56px;
+}
+
+/* Logo */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 24px;
+  border-right: 1px solid var(--border);
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.brand__diamond {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--teal) 0%, #00b87a 100%);
+  clip-path: polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+
+.brand__name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: .03em;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.brand__name span {
+  display: block;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: .22em;
+  color: var(--text-muted);
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+/* Nav tabs */
+.site-tabs {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  overflow-x: auto;
+}
+
+.site-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 22px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+  white-space: nowrap;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.site-tab:hover {
+  color: var(--text);
+  background: rgba(255,255,255,.03);
+}
+
+.site-tab.active {
+  color: var(--teal);
+  border-bottom-color: var(--teal);
+}
+
+/* Horse Racing tab — uses gold to hint at its distinct identity */
+.site-tab.racing {
+  color: var(--text-muted);
+}
+.site-tab.racing:hover {
+  color: #c9a227;
+  background: rgba(201,162,39,.05);
+}
+.site-tab.racing .tab-icon {
+  font-size: 14px;
+}
+
+/* Tab right side: live clock */
+.site-header__right {
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  border-left: 1px solid var(--border);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.live-clock {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.live-clock .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  margin-right: 6px;
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: .3; }
+}
+
+/* ============================================================
+   TICKER
+============================================================ */
+.ticker {
+  background: #060810;
+  border-bottom: 1px solid var(--border);
+  height: 34px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.ticker__label {
+  background: var(--teal);
+  color: var(--bg);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: 0 14px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.ticker__wrap { overflow: hidden; flex: 1; }
+
+.ticker__track {
+  display: flex;
+  animation: scroll 55s linear infinite;
+}
+
+.ticker__track:hover { animation-play-state: paused; }
+
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 22px;
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.ticker__item .teams { font-weight: 700; color: var(--text); }
+.ticker__item .odds  { color: var(--teal); font-weight: 700; font-size: 11px; }
+.ticker__item .sport { font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+                       background: var(--teal-dim); color: var(--teal);
+                       padding: 1px 5px; border-radius: 2px; }
+
+/* ============================================================
+   PAGE LAYOUT
+============================================================ */
+.page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+
+/* ============================================================
+   SECTION LABELS
+============================================================ */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.section-label__text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.section-label__bar {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border-hi), transparent);
+}
+
+.section-label__chip {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  border: 1px solid var(--border-hi);
+  background: var(--teal-dim);
+  padding: 2px 9px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   NEWS — horizontal scroll on mobile, 3-col grid on desktop
+============================================================ */
+.news-section { margin-bottom: 44px; }
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.news-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.news-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .2s;
+}
+
+.news-card:hover {
+  border-color: var(--border-hi);
+  background: var(--bg-hover);
+  transform: translateY(-2px);
+}
+
+.news-card:hover::after { transform: scaleX(1); }
+
+.news-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.news-card__tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.tag-nba  { background: rgba(23,110,255,.15); color: #178fff; border: 1px solid rgba(23,110,255,.25); }
+.tag-ncaab{ background: rgba(240,192,64,.1);  color: var(--gold); border: 1px solid rgba(240,192,64,.2); }
+.tag-mlb  { background: rgba(34,197,94,.1);   color: #22c55e; border: 1px solid rgba(34,197,94,.2); }
+.tag-nfl  { background: rgba(239,68,68,.1);   color: #ef4444; border: 1px solid rgba(239,68,68,.2); }
+.tag-bet  { background: var(--teal-dim);      color: var(--teal); border: 1px solid var(--border-hi); }
+.tag-nhl  { background: rgba(100,116,139,.15);color: #94a3b8; border: 1px solid rgba(100,116,139,.2); }
+
+.news-card__date {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.news-card__title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .01em;
+  line-height: 1.25;
+  color: var(--white);
+}
+
+.news-card__body {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.news-card__link {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ============================================================
+   LINES BOARD
+============================================================ */
+.lines-section { margin-bottom: 44px; }
+
+.sport-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sport-tab-btn {
+  padding: 10px 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  transition: color .15s, border-color .15s;
+  flex-shrink: 0;
+}
+
+.sport-tab-btn:hover { color: var(--text); }
+.sport-tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
+
+.sport-panel { display: none; }
+.sport-panel.active { display: block; }
+
+/* Lines table */
+.lines-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  overflow: hidden;
+}
+
+.lines-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lines-table thead tr {
+  background: rgba(0,229,160,.05);
+  border-bottom: 1px solid var(--border);
+}
+
+.lines-table th {
+  padding: 10px 16px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  text-align: left;
+}
+
+.lines-table th.c { text-align: center; }
+.lines-table th.r { text-align: right; }
+
+.lines-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .12s;
+}
+
+.lines-table tbody tr:last-child { border-bottom: none; }
+.lines-table tbody tr:hover { background: var(--bg-hover); }
+
+.lines-table td {
+  padding: 14px 16px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+/* Matchup cell */
+.td-matchup { font-weight: 600; }
+.td-matchup .away { display: block; color: var(--text); font-size: 13px; }
+.td-matchup .home {
+  display: block;
+  color: var(--text-muted);
+  font-size: 11px;
+  margin-top: 2px;
+}
+.td-matchup .home::before { content: 'vs '; }
+
+/* Pill */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  min-width: 50px;
+}
+
+.pill-spread { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid var(--border); }
+.pill-ou     { background: rgba(59,130,246,.1);   color: #7eb5fa; border: 1px solid rgba(59,130,246,.2); }
+.pill-ml-fav { background: rgba(34,197,94,.1);    color: #4ade80; border: 1px solid rgba(34,197,94,.2); }
+.pill-ml-dog { background: rgba(239,68,68,.1);    color: #f87171; border: 1px solid rgba(239,68,68,.2); }
+
+.td-time-net { font-size: 12px; }
+.td-time-net .time    { color: var(--text-muted); display: block; }
+.td-time-net .network { color: var(--text-dim); font-size: 11px; display: block; margin-top: 1px; }
+
+.td-edge { text-align: right; padding-right: 18px; }
+
+.edge-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.chip-sharp  { background: rgba(0,229,160,.12); color: var(--teal); border: 1px solid rgba(0,229,160,.25); }
+.chip-public { background: rgba(239,68,68,.12); color: #f87171;    border: 1px solid rgba(239,68,68,.25); }
+.chip-none   { color: var(--text-dim); }
+
+/* ============================================================
+   TRENDS & EDGES
+============================================================ */
+.edges-section { margin-bottom: 44px; }
+
+.edges-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.edge-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: flex;
+  gap: 14px;
+  transition: border-color .15s, background .15s;
+}
+
+.edge-card:hover {
+  border-color: var(--border-hi);
+  background: var(--bg-hover);
+}
+
+.edge-card__icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.edge-card__body { flex: 1; min-width: 0; }
+
+.edge-card__tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.edge-card__game {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.edge-type {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.et-sharp   { background: rgba(0,229,160,.12); color: var(--teal); }
+.et-public  { background: rgba(239,68,68,.12); color: #f87171; }
+.et-system  { background: rgba(240,192,64,.1); color: var(--gold); }
+.et-injury  { background: rgba(251,146,60,.1); color: #fb923c; }
+.et-weather { background: rgba(99,179,237,.1); color: #63b3ed; }
+
+.edge-card__title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: .01em;
+  color: var(--white);
+  margin-bottom: 7px;
+  line-height: 1.3;
+}
+
+.edge-card__desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.edge-stat {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+  background: var(--teal-dim);
+  border-left: 2px solid var(--teal);
+  padding: 5px 12px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* ============================================================
+   MY PICKS — Firebase live board
+============================================================ */
+.picks-section { margin-bottom: 44px; }
+
+.picks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Live indicator */
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.live-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: .4; transform: scale(1.4); }
+}
+
+/* Add pick button */
+.btn-add {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: var(--teal);
+  color: var(--bg);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity .15s;
+}
+
+.btn-add:hover { opacity: .85; }
+
+/* Admin form */
+.add-pick-form {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.add-pick-form.open { display: block; }
+
+.add-pick-form h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 18px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.form-row.two-col  { grid-template-columns: repeat(2, 1fr); }
+.form-row.full-col { grid-template-columns: 1fr; }
+
+.fld { display: flex; flex-direction: column; gap: 5px; }
+
+.fld label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.fld input,
+.fld select,
+.fld textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 12px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color .15s;
+}
+
+.fld input:focus,
+.fld select:focus,
+.fld textarea:focus { border-color: var(--teal); }
+
+.fld select option { background: #10141f; }
+.fld textarea { resize: vertical; min-height: 68px; }
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.btn-submit {
+  padding: 10px 26px;
+  background: var(--teal);
+  color: var(--bg);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity .15s;
+}
+
+.btn-submit:hover { opacity: .85; }
+
+.btn-cancel {
+  padding: 10px 18px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color .15s;
+}
+
+.btn-cancel:hover { color: var(--text); }
+
+/* Picks grid */
+.picks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.pick-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .15s, transform .15s;
+}
+
+.pick-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--teal), #00b87a);
+}
+
+.pick-card:hover {
+  border-color: var(--border-hi);
+  transform: translateY(-2px);
+}
+
+.pick-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pick-card__matchup {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .02em;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.pick-card__chips {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.pick-chip {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.chip-pick   { background: rgba(0,229,160,.12); color: var(--teal);  border: 1px solid rgba(0,229,160,.25); }
+.chip-odds   { background: rgba(240,192,64,.1);  color: var(--gold);  border: 1px solid rgba(240,192,64,.2); }
+.chip-units  { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid var(--border); }
+.chip-type   { background: rgba(59,130,246,.1);  color: #7eb5fa;     border: 1px solid rgba(59,130,246,.2); }
+
+.pick-card__notes {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  font-style: italic;
+}
+
+.picks-empty {
+  grid-column: 1 / -1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.picks-empty .icon { font-size: 36px; margin-bottom: 12px; }
+.picks-empty p { font-size: 14px; }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: #060810;
+  padding: 24px;
+  text-align: center;
+}
+
+.footer-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.footer-brand span { color: var(--teal); }
+
+.footer-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.footer-disc {
+  font-size: 11px;
+  color: var(--text-dim);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 1024px) {
+  .news-grid  { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .edges-grid { grid-template-columns: 1fr; }
+  .form-row   { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .news-grid  { grid-template-columns: 1fr; }
+  .form-row   { grid-template-columns: 1fr; }
+  .page       { padding: 18px 14px 60px; }
+  .brand__name span { display: none; }
+  /* Hide less critical table cols */
+  .col-net, .col-edge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SITE HEADER
+============================================================ -->
+<header class="site-header">
+  <div class="site-header__inner">
+
+    <div class="brand">
+      <div class="brand__diamond">B</div>
+      <div class="brand__name">
+        bennythebet
+        <span>Picks · Parlays · Profit</span>
+      </div>
+    </div>
+
+    <nav class="site-tabs">
+      <button class="site-tab active" id="tab-sports">
+        🏈&nbsp; Sports Betting
+      </button>
+      <a class="site-tab racing"
+         href="https://bsestak23.github.io/bennythebet-racing/"
+         target="_blank" rel="noopener">
+        <span class="tab-icon">🏇</span>&nbsp; Horse Racing
+      </a>
+    </nav>
+
+    <div class="site-header__right">
+      <div class="live-clock">
+        <span class="dot"></span>
+        <span id="clockDisplay"></span>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- ============================================================
+     TICKER
+============================================================ -->
+<div class="ticker">
+  <div class="ticker__label">Lines</div>
+  <div class="ticker__wrap">
+    <div class="ticker__track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MAIN CONTENT
+============================================================ -->
+<main class="page" id="sports-section">
+
+  <!-- ─── NEWS ────────────────────────────────────── -->
+  <section class="news-section">
+    <div class="section-label">
+      <span class="section-label__text">Sports News</span>
+      <div class="section-label__bar"></div>
+      <span class="section-label__chip" id="dateChip"></span>
+    </div>
+    <div class="news-grid" id="newsGrid"></div>
+  </section>
+
+  <!-- ─── LINES BOARD ─────────────────────────────── -->
+  <section class="lines-section">
+    <div class="section-label">
+      <span class="section-label__text">Today's Lines</span>
+      <div class="section-label__bar"></div>
+      <span class="section-label__chip">Live Odds</span>
+    </div>
+    <div class="sport-tabs" id="sportTabsBar" role="tablist"></div>
+    <div class="lines-wrap" id="sportPanels"></div>
+  </section>
+
+  <!-- ─── TRENDS & EDGES ──────────────────────────── -->
+  <section class="edges-section">
+    <div class="section-label">
+      <span class="section-label__text">Trends &amp; Edges</span>
+      <div class="section-label__bar"></div>
+      <span class="section-label__chip">Sharp Action</span>
+    </div>
+    <div class="edges-grid" id="edgesGrid"></div>
+  </section>
+
+  <!-- ─── MY PICKS ────────────────────────────────── -->
+  <section class="picks-section">
+
+    <div class="picks-header">
+      <div class="section-label" style="margin-bottom:0; flex:1; align-items:center;">
+        <span class="section-label__text">My Picks</span>
+        <div class="section-label__bar"></div>
+        <span class="live-badge">Live</span>
+      </div>
+      <button class="btn-add" id="addPickBtn" onclick="toggleAdd()">
+        ＋ Add Pick
+      </button>
+    </div>
+
+    <div class="add-pick-form" id="addPickForm">
+      <h3>Post a Pick</h3>
+      <div class="form-row">
+        <div class="fld">
+          <label for="f-sport">Sport</label>
+          <select id="f-sport">
+            <option>NBA</option><option>NFL</option><option>NCAAB</option>
+            <option>NCAAF</option><option>MLB</option><option>NHL</option>
+            <option>MMA</option><option>Other</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label for="f-matchup">Matchup</label>
+          <input id="f-matchup" type="text" placeholder="e.g. Celtics vs. Heat">
+        </div>
+        <div class="fld">
+          <label for="f-pick">Pick</label>
+          <input id="f-pick" type="text" placeholder="e.g. Celtics -7">
+        </div>
+      </div>
+      <div class="form-row two-col">
+        <div class="fld">
+          <label for="f-odds">Odds</label>
+          <input id="f-odds" type="text" placeholder="-110">
+        </div>
+        <div class="fld">
+          <label for="f-units">Units</label>
+          <input id="f-units" type="text" placeholder="2u">
+        </div>
+        <div class="fld">
+          <label for="f-bettype">Bet Type</label>
+          <select id="f-bettype">
+            <option>Spread</option><option>Moneyline</option>
+            <option>Over</option><option>Under</option>
+            <option>Prop</option><option>Parlay</option><option>Teaser</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full-col">
+        <div class="fld">
+          <label for="f-notes">Analysis / Notes</label>
+          <textarea id="f-notes" placeholder="Why do you like this pick? Sharp action, trends, matchup edges…"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-submit" onclick="submitPick()">Post Pick</button>
+        <button class="btn-cancel" onclick="toggleAdd()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="picks-grid" id="picksGrid">
+      <div class="picks-empty">
+        <div class="icon">🎯</div>
+        <p>Loading picks…</p>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer">
+  <div class="footer-brand">benny<span>the</span>bet</div>
+  <div class="footer-tag">Picks · Parlays · Profit</div>
+  <p class="footer-disc">For entertainment purposes only. All picks represent the personal opinions of @bennythebet and are not financial advice. Please gamble responsibly.</p>
+</footer>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy }
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const cfg = {
+    apiKey:            "AIzaSyBqP6KmhN6TMzQADGQ9a_dBuXrqTPOhSFw",
+    authDomain:        "bennythebet.firebaseapp.com",
+    projectId:         "bennythebet",
+    storageBucket:     "bennythebet.appspot.com",
+    messagingSenderId: "1063217878903",
+    appId:             "1:1063217878903:web:f3b4c1e8d9a2b5c6d7e8f9"
+  };
+
+  const app = initializeApp(cfg);
+  const db  = getFirestore(app);
+  const col = collection(db, 'sports_picks');
+
+  // Live listener
+  onSnapshot(query(col, orderBy('ts', 'desc')), snap => {
+    const grid = document.getElementById('picksGrid');
+    if (snap.empty) {
+      grid.innerHTML = `<div class="picks-empty"><div class="icon">🎯</div><p>No picks yet — check back soon.</p></div>`;
+      return;
+    }
+    grid.innerHTML = snap.docs.map(d => {
+      const p = d.data();
+      const dt = p.date || (p.ts?.toDate
+        ? p.ts.toDate().toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '');
+      return `
+        <div class="pick-card">
+          <div class="pick-card__top">
+            ${p.sport ? `<span class="pick-chip chip-type">${esc(p.sport)}</span>` : ''}
+            <span style="font-size:11px;color:var(--text-dim)">${esc(dt)}</span>
+          </div>
+          <div class="pick-card__matchup">${esc(p.matchup||p.game||'')}</div>
+          <div class="pick-card__chips">
+            ${p.pick    ? `<span class="pick-chip chip-pick">${esc(p.pick)}</span>` : ''}
+            ${p.odds    ? `<span class="pick-chip chip-odds">${esc(p.odds)}</span>` : ''}
+            ${p.units   ? `<span class="pick-chip chip-units">${esc(p.units)}</span>` : ''}
+            ${p.betType ? `<span class="pick-chip chip-units">${esc(p.betType)}</span>` : ''}
+          </div>
+          ${p.notes ? `<div class="pick-card__notes">${esc(p.notes)}</div>` : ''}
+        </div>`;
+    }).join('');
+  }, err => {
+    document.getElementById('picksGrid').innerHTML =
+      `<div class="picks-empty"><div class="icon">⚠️</div><p>Picks unavailable — check Firebase config.</p></div>`;
+  });
+
+  window.submitPick = async function() {
+    const matchup = document.getElementById('f-matchup').value.trim();
+    const pick    = document.getElementById('f-pick').value.trim();
+    if (!matchup || !pick) { alert('Matchup and Pick are required.'); return; }
+    await addDoc(col, {
+      sport:   document.getElementById('f-sport').value,
+      matchup, pick,
+      odds:    document.getElementById('f-odds').value.trim(),
+      units:   document.getElementById('f-units').value.trim(),
+      betType: document.getElementById('f-bettype').value,
+      notes:   document.getElementById('f-notes').value.trim(),
+      date:    new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
+      ts:      serverTimestamp()
+    });
+    ['f-matchup','f-pick','f-odds','f-units','f-notes'].forEach(id =>
+      document.getElementById(id).value = '');
+    toggleAdd();
+  };
+</script>
+
+<!-- App JS -->
+<script>
+/* ── Utils ───────────────────────────── */
+function esc(s) {
+  return String(s||'')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function toggleAdd() {
+  const f = document.getElementById('addPickForm');
+  const b = document.getElementById('addPickBtn');
+  const open = f.classList.toggle('open');
+  b.textContent = open ? '✕ Cancel' : '＋ Add Pick';
+}
+
+/* ── Clock ───────────────────────────── */
+(function clock() {
+  const el = document.getElementById('clockDisplay');
+  function tick() {
+    const now = new Date();
+    el.textContent = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ── Date chip ───────────────────────── */
+(function() {
+  const d = document.getElementById('dateChip');
+  if (d) d.textContent = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+})();
+
+/* ── NEWS DATA ────────────────────────── */
+// Update these daily — or hook into a scheduled task
+const newsData = [
+  {
+    sport:'NCAA', tagClass:'tag-ncaab',
+    title:'Final Four Set — Championship Lines Opening With Real Value',
+    body: 'Duke and Auburn lock in as co-favorites at -115. The 152.5 O/U has been bet up from 149, creating under value if you trust the elite defenses in this matchup.',
+    date:'Mar 30', url:''
+  },
+  {
+    sport:'NBA', tagClass:'tag-nba',
+    title:'Luka Dončić Return Timeline: Impact on Mavs ATS Record',
+    body: 'Dončić listed questionable for tonight. Dallas is 8-14 ATS without him this season — sharp money already moving toward Denver. Monitor warmup reports.',
+    date:'Mar 30', url:''
+  },
+  {
+    sport:'MLB', tagClass:'tag-mlb',
+    title:'Opening Day Reverse-Line Movement: Yankees Getting Steamed',
+    body: 'Yankees opened +130 vs Houston, steamed to +108 despite heavy public money on the Astros. Classic sharp Opening Day fade of the popular team.',
+    date:'Mar 30', url:''
+  },
+  {
+    sport:'NBA', tagClass:'tag-nba',
+    title:'Lakers vs Warriors: Public Money vs. Sharp Action Split',
+    body: 'Lakers drawing 74% of tickets but line moved from GSW +4 to +2.5 — classic reverse-line movement pointing to sharp side on Golden State.',
+    date:'Mar 30', url:''
+  },
+  {
+    sport:'NFL', tagClass:'tag-nfl',
+    title:'NFL Draft Futures: QB Prop Market Moving Fast',
+    body: 'Cam Ward to #1 overall sits at -260. Sharp books showing value on unders for total QBs taken in Round 1 — currently sitting at 5.5u -130.',
+    date:'Mar 30', url:''
+  },
+  {
+    sport:'Betting', tagClass:'tag-bet',
+    title:'Sharp Books Adjust Lines Faster Than Ever — Get In Early',
+    body: 'Opening-line windows are narrowing. Twelve NBA spreads moved 2+ points within 5 minutes of open last night. Line value evaporates quickly in 2026.',
+    date:'Mar 30', url:''
+  }
+];
+
+(function() {
+  document.getElementById('newsGrid').innerHTML = newsData.map(s => {
+    const tag = `tag-${s.sport.toLowerCase()}`;
+    return `
+    <${s.url ? `a href="${esc(s.url)}" target="_blank" rel="noopener"` : 'div'} class="news-card">
+      <div class="news-card__top">
+        <span class="news-card__tag ${s.tagClass}">${esc(s.sport)}</span>
+        <span class="news-card__date">${esc(s.date)}</span>
+      </div>
+      <div class="news-card__title">${esc(s.title)}</div>
+      <div class="news-card__body">${esc(s.body)}</div>
+      ${s.url ? `<span class="news-card__link">Read more →</span>` : ''}
+    </${s.url ? 'a' : 'div'}>`;
+  }).join('');
+})();
+
+/* ── LINES DATA ───────────────────────── */
+// Replace each morning with that day's slate
+const lines = {
+  NBA: [
+    { away:'Boston Celtics',     home:'Miami Heat',
+      spread:'BOS -7',   ou:'216.5', awayML:'-310', homeML:'+250',
+      time:'7:30 PM ET', net:'ESPN',  edge:'sharp' },
+    { away:'Golden State Warriors', home:'Los Angeles Lakers',
+      spread:'LAL -2.5', ou:'228',   awayML:'+115', homeML:'-135',
+      time:'10:00 PM ET', net:'TNT',  edge:'public' },
+    { away:'Denver Nuggets',     home:'Dallas Mavericks',
+      spread:'DEN -1',   ou:'223.5', awayML:'-120', homeML:'+100',
+      time:'9:30 PM ET', net:'NBA TV', edge:null }
+  ],
+  NCAAB: [
+    { away:'Duke Blue Devils',  home:'Auburn Tigers',
+      spread:'DUKE -1.5', ou:'152.5', awayML:'-115', homeML:'-105',
+      time:'Sat 6:09 PM ET', net:'CBS', edge:'sharp' },
+    { away:'Florida Gators',    home:'Houston Cougars',
+      spread:'HOU -3',    ou:'139',   awayML:'+135', homeML:'-160',
+      time:'Sat 8:49 PM ET', net:'CBS', edge:null }
+  ],
+  MLB: [
+    { away:'NY Yankees',    home:'Houston Astros',
+      spread:'HOU -1.5 (+115)', ou:'8',   awayML:'+108', homeML:'-128',
+      time:'7:10 PM ET',   net:'Apple TV+', edge:'sharp' },
+    { away:'LA Dodgers',    home:'San Francisco Giants',
+      spread:'LAD -1.5 (-145)', ou:'8.5', awayML:'-160', homeML:'+135',
+      time:'9:45 PM ET',   net:'ESPN',     edge:null },
+    { away:'Chicago Cubs',  home:'St. Louis Cardinals',
+      spread:'STL -1.5 (+105)', ou:'8',   awayML:'+115', homeML:'-135',
+      time:'7:15 PM ET',   net:'MLB Network', edge:'public' }
+  ],
+  NHL: [
+    { away:'NY Rangers',        home:'Carolina Hurricanes',
+      spread:'CAR -1.5 (+175)', ou:'6',   awayML:'+130', homeML:'-155',
+      time:'7:00 PM ET',  net:'ESPN+', edge:null },
+    { away:'Colorado Avalanche', home:'Vegas Golden Knights',
+      spread:'VGK -1.5 (+165)', ou:'6.5', awayML:'+120', homeML:'-145',
+      time:'10:00 PM ET', net:'TNT',   edge:'public' }
+  ]
+};
+
+function edgeChip(e) {
+  if (e==='sharp')  return `<span class="edge-chip chip-sharp">⚡ Sharp</span>`;
+  if (e==='public') return `<span class="edge-chip chip-public">🔥 Public</span>`;
+  return `<span class="edge-chip chip-none">—</span>`;
+}
+
+(function() {
+  const bar    = document.getElementById('sportTabsBar');
+  const panels = document.getElementById('sportPanels');
+  const sports = Object.keys(lines);
+
+  bar.innerHTML = sports.map((s,i) => `
+    <button class="sport-tab-btn ${i===0?'active':''}" role="tab"
+      onclick="switchTab(this,'lp-${s}')">${s}</button>
+  `).join('');
+
+  panels.innerHTML = sports.map((s,i) => `
+    <div class="sport-panel ${i===0?'active':''}" id="lp-${s}">
+      <table class="lines-table">
+        <thead><tr>
+          <th>Matchup</th>
+          <th>Spread</th>
+          <th class="c">O/U</th>
+          <th class="c">Moneyline</th>
+          <th class="col-net">Time / Network</th>
+          <th class="r col-edge">Edge</th>
+        </tr></thead>
+        <tbody>
+          ${lines[s].map(g=>`
+          <tr>
+            <td class="td-matchup">
+              <span class="away">${esc(g.away)}</span>
+              <span class="home">${esc(g.home)}</span>
+            </td>
+            <td><span class="pill pill-spread">${esc(g.spread)}</span></td>
+            <td class="c"><span class="pill pill-ou">${esc(g.ou)}</span></td>
+            <td class="c" style="white-space:nowrap">
+              <span class="pill pill-ml-fav" style="margin-right:4px">${esc(g.awayML)}</span>
+              <span class="pill pill-ml-dog">${esc(g.homeML)}</span>
+            </td>
+            <td class="td-time-net col-net">
+              <span class="time">${esc(g.time)}</span>
+              <span class="network">${esc(g.net)}</span>
+            </td>
+            <td class="td-edge col-edge">${edgeChip(g.edge)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  `).join('');
+})();
+
+function switchTab(btn, id) {
+  document.querySelectorAll('.sport-tab-btn').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+  document.querySelectorAll('.sport-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+/* ── TICKER ───────────────────────────── */
+(function() {
+  const items = [
+    {sport:'NBA', teams:'BOS -7 @ MIA',    odds:'216.5 O/U'},
+    {sport:'NBA', teams:'LAL -2.5 vs GSW', odds:'228 O/U'},
+    {sport:'NBA', teams:'DEN -1 vs DAL',   odds:'223.5 O/U'},
+    {sport:'NCAAB', teams:'DUKE -1.5 vs AUB', odds:'152.5 O/U'},
+    {sport:'NCAAB', teams:'HOU -3 vs FLA',    odds:'139 O/U'},
+    {sport:'MLB', teams:'NYY +108 vs HOU', odds:'8 O/U'},
+    {sport:'MLB', teams:'LAD -160 vs SF',  odds:'8.5 O/U'},
+    {sport:'NHL', teams:'NYR +130 @ CAR',  odds:'6 O/U'},
+    {sport:'NHL', teams:'COL +120 @ VGK',  odds:'6.5 O/U'},
+  ];
+  const both = [...items,...items];
+  document.getElementById('tickerTrack').innerHTML = both.map(t => `
+    <div class="ticker__item">
+      <span class="sport">${esc(t.sport)}</span>
+      <span class="teams">${esc(t.teams)}</span>
+      <span class="odds">${esc(t.odds)}</span>
+    </div>`).join('');
+})();
+
+/* ── EDGES ────────────────────────────── */
+const edges = [
+  { icon:'⚡', game:'BOS vs MIA — NBA',
+    type:'et-sharp', typeLabel:'Sharp Money',
+    title:'Celtics ATS cover rate in back-to-backs: 71% this season',
+    desc: 'Boston is playing the second game of a B2B but has dominated covering as a road favorite in this spot. Sharp books show 68% of money on BOS -7 despite only 51% of tickets.',
+    stat:'B2B fav ATS record: 12–5 (71%)' },
+  { icon:'🔥', game:'LAL vs GSW — NBA',
+    type:'et-public', typeLabel:'Fade the Public',
+    title:'Lakers drawing 74% of public tickets — line moving toward Warriors',
+    desc: 'This line moved from GSW +4 to +2.5 despite massive public money on LA. Classic reverse-line movement points to sharp action on Golden State.',
+    stat:'Public bet %: LAL 74% | GSW 26%' },
+  { icon:'📊', game:'DUKE vs AUB — NCAAB',
+    type:'et-system', typeLabel:'System',
+    title:'Championship unders hitting 56% historically — buy the under',
+    desc: 'Both teams rank top-5 in adjusted defensive efficiency. The 152.5 O/U opened at 149 — public bet it up, creating a legitimate under edge for sharp bettors.',
+    stat:'Under in title games vs. top-10 DEff: 18-14 (56%)' },
+  { icon:'🏥', game:'DEN vs DAL — NBA',
+    type:'et-injury', typeLabel:'Injury Alert',
+    title:"Luka game-time — Mavs are 8-14 ATS without him this season",
+    desc: 'Monitor warmup reports. If Luka sits, Nuggets should be immediate -4 to -5 favorites. Dallas opened -2 with him expected to play — big line volatility at tip.',
+    stat:'DAL ATS without Luka: 8-14 (-6.2 units)' },
+  { icon:'📈', game:'NYY vs HOU — MLB',
+    type:'et-sharp', typeLabel:'Line Move',
+    title:'Yankees steamed 22 cents — reverse line movement off Opening Day public',
+    desc: 'Heavy public money on Houston for Opening Day, yet the line moved NYY +130 → +108. Biggest sharp tell in baseball: the line moving TOWARD the less popular team.',
+    stat:'Line move: NYY +130 → +108 (22¢ of sharp action)' },
+  { icon:'🌧️', game:'CHC vs STL — MLB',
+    type:'et-weather', typeLabel:'Weather',
+    title:'Wind blowing in at Busch — under value with 15 mph headwinds',
+    desc: 'Forecast shows 15 mph winds blowing in from CF. Both starters are strikeout pitchers. Wind-in games at Busch historically suppress scoring by ~0.4 runs per game.',
+    stat:'Wind-in games at Busch: under 58% in comparable conditions' }
+];
+
+(function() {
+  document.getElementById('edgesGrid').innerHTML = edges.map(e => `
+    <div class="edge-card">
+      <div class="edge-card__icon">${e.icon}</div>
+      <div class="edge-card__body">
+        <div class="edge-card__tags">
+          <span class="edge-card__game">${esc(e.game)}</span>
+          <span class="edge-type ${e.type}">${esc(e.typeLabel)}</span>
+        </div>
+        <div class="edge-card__title">${esc(e.title)}</div>
+        <div class="edge-card__desc">${esc(e.desc)}</div>
+        <div class="edge-stat">${esc(e.stat)}</div>
+      </div>
+    </div>`).join('');
+})();
+</script>
+</body>
+</html>
