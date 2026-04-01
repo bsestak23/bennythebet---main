@@ -1259,43 +1259,43 @@ function switchPage(page) {
 })();
 
 /* ── NEWS DATA ────────────────────────── */
-// Updated Mar 31, 2026
+// Updated Wed Apr 1, 2026
 const newsData = [
   {
     sport:'NCAA', tagClass:'tag-ncaab',
-    title:'Final Four Lines: Michigan -1.5 vs Arizona, Illinois -1.5 vs UConn — April 4',
-    body: 'The Final Four is set at Lucas Oil Stadium in Indianapolis. Michigan opened -1.5 vs Arizona (O/U 157.5) and Illinois -1.5 vs UConn (O/U 139.5). Michigan and Arizona co-favorites to win the title at +175.',
-    date:'Mar 31', url:''
+    title:'Final Four Preview: Illinois vs UConn, Michigan vs Arizona — Saturday April 4 at Lucas Oil',
+    body: 'The 2026 Final Four is set in Indianapolis. Illinois (-1.5, O/U 139.5) faces UConn Saturday. Michigan (-1.5, O/U 157.5) takes on Arizona in the nightcap. Michigan and Arizona co-favorites to win the title at +175. Championship Monday April 6.',
+    date:'Apr 1', url:''
   },
   {
     sport:'NBA', tagClass:'tag-nba',
-    title:'Spurs on 8-Game Win Streak — San Antonio (56-18) Rolling Into Playoffs',
-    body: 'The Spurs have won 13 of their last 14 and are 18.5-point favorites vs Chicago tonight. Second-best record in the NBA behind OKC. Playoff seeding implications in every game down the stretch.',
-    date:'Mar 31', url:''
+    title:'Spurs (57-18) Face Warriors Tonight at Chase Center — San Antonio Seeking 9th Straight',
+    body: 'San Antonio is on an 8-game win streak and owns the second-best record in the NBA. The Spurs visit Golden State (36-39) tonight as -3.5 road favorites. Warriors at home desperate for a play-in spot. Tip 10:00 PM ET.',
+    date:'Apr 1', url:''
   },
   {
     sport:'NBA', tagClass:'tag-nba',
-    title:'Pistons (54-20) Visit Thunder (59-16) — East Meets West Leaders',
-    body: 'The top two teams in the NBA squared off last night in OKC. Detroit as a 13.5-point road dog drew 92% of ATS tickets from the public. Eight-game NBA slate tonight led by Knicks-Rockets and Cavs-Lakers.',
-    date:'Mar 31', url:''
+    title:'Rockets (45-29) Host Bucks (29-45) — Houston Locks Up Play-In Spot',
+    body: 'Houston is fighting for home court in the play-in round and hosts a Milwaukee team that has been eliminated from playoff contention. Rockets -6 in a game with massive motivation mismatch. Ime Udoka\'s squad has covered 7 of their last 9 as home favorites.',
+    date:'Apr 1', url:''
   },
   {
     sport:'MLB', tagClass:'tag-mlb',
-    title:'MLB Week 1 Underway — deGrom vs Eflin Highlights Tuesday Card',
-    body: 'Jacob deGrom starts for the Rangers at Baltimore tonight (TEX -131, O/U 8). Andrew Painter makes his MLB debut for the Phillies vs the Nationals. Full 15-game slate continues early-season action.',
-    date:'Mar 31', url:''
+    title:'Paul Skenes Starts as Pirates Visit Reds — CIN -156 on the Board',
+    body: 'Paul Skenes (2-0, 1.80 ERA) takes the mound at Great American Ballpark tonight vs Andrew Abbott. Cincinnati opened -140 and has been bet to -156. Despite Skenes\' brilliance, Pittsburgh is 1-4 in his starts this year. LAD -246 vs Guardians as Yamamoto goes.',
+    date:'Apr 1', url:''
   },
   {
     sport:'NHL', tagClass:'tag-nhl',
-    title:'Devils-Rangers Rivalry Tonight — NHL Playoff Race Tightening',
-    body: 'NJ Devils (-120) visit the NY Rangers (+102) in a Metro division showdown at 7:08 PM ET. Also on tap: Hurricanes at Blue Jackets and Oilers (-186) hosting the Kraken.',
-    date:'Mar 31', url:''
+    title:'NHL Wild Card Race — Bruins, Blue Jackets, Senators & Red Wings All Within 4 Points',
+    body: 'The Eastern wild card race is a four-team scrum with 15 games left. Boston (90 pts) leads Columbus (87), Ottawa (86), and Detroit (86). All four teams in action this week. Colorado and Dallas have clinched in the West. Regular season ends April 16.',
+    date:'Apr 1', url:''
   },
   {
     sport:'Betting', tagClass:'tag-bet',
-    title:'Late-Season NBA Motivation Edges: Playoff Race Creates Exploitable Spots',
-    body: 'With the regular season winding down, rest and motivation mismatches are everywhere. Teams in the play-in fight are covering at 58% ATS in March. Look for teams with nothing to play for laying big numbers.',
-    date:'Mar 31', url:''
+    title:'Early MLB Season Trends: Fade the Ace in High-Chalk Spots',
+    body: 'Early MLB data shows star pitchers priced above -200 moneyline are covering only 41% of the time in the first three weeks of the season. Yamamoto (-246), Sale (-207), and Skenes (-156) are all on the board tonight. Fading the chalk or taking the under offers better value.',
+    date:'Apr 1', url:''
   }
 ];
 
@@ -1316,57 +1316,60 @@ const newsData = [
 })();
 
 /* ── LINES DATA ───────────────────────── */
-// Updated Tue Mar 31, 2026
+// Updated Wed Apr 1, 2026
 const lines = {
   NBA: [
-    { away:'Phoenix Suns',       home:'Orlando Magic',
-      spread:'ORL -2.5', ou:'224.5', awayML:'+115', homeML:'-135',
-      time:'7:00 PM ET', net:'',      edge:null },
-    { away:'Brooklyn Nets',      home:'Charlotte Hornets',
-      spread:'CHA -16',  ou:'218.5', awayML:'+950', homeML:'-1500',
-      time:'7:30 PM ET', net:'',      edge:'public' },
-    { away:'New York Knicks',    home:'Houston Rockets',
-      spread:'NYK -1',   ou:'220',   awayML:'-106', homeML:'-114',
-      time:'8:00 PM ET', net:'',      edge:'sharp' },
-    { away:'Dallas Mavericks',   home:'Milwaukee Bucks',
-      spread:'DAL -1',   ou:'222',   awayML:'-115', homeML:'-105',
-      time:'8:00 PM ET', net:'',      edge:null },
-    { away:'Chicago Bulls',      home:'San Antonio Spurs',
-      spread:'SAS -18.5', ou:'225',  awayML:'+1200', homeML:'-2000',
-      time:'8:00 PM ET', net:'Peacock', edge:'public' },
-    { away:'Cleveland Cavaliers', home:'Los Angeles Lakers',
-      spread:'CLE -15.5', ou:'225.5', awayML:'-1100', homeML:'+750',
-      time:'10:30 PM ET', net:'',     edge:null }
+    { away:'Milwaukee Bucks',    home:'Houston Rockets',
+      spread:'HOU -6',   ou:'222', awayML:'+210', homeML:'-255',
+      time:'7:00 PM ET', net:'',       edge:'sharp' },
+    { away:'Boston Celtics',     home:'Miami Heat',
+      spread:'BOS -5.5', ou:'215', awayML:'-220', homeML:'+184',
+      time:'7:30 PM ET', net:'',       edge:null },
+    { away:'Philadelphia 76ers', home:'Washington Wizards',
+      spread:'PHI -12.5', ou:'220', awayML:'-750', homeML:'+550',
+      time:'7:00 PM ET', net:'',       edge:'public' },
+    { away:'Orlando Magic',      home:'Atlanta Hawks',
+      spread:'ORL -3',   ou:'223', awayML:'-148', homeML:'+125',
+      time:'7:30 PM ET', net:'',       edge:null },
+    { away:'Indiana Pacers',     home:'Chicago Bulls',
+      spread:'CHI -1',   ou:'219', awayML:'+104', homeML:'-124',
+      time:'8:00 PM ET', net:'',       edge:null },
+    { away:'San Antonio Spurs',  home:'Golden State Warriors',
+      spread:'SAS -3.5', ou:'228', awayML:'-172', homeML:'+145',
+      time:'10:00 PM ET', net:'ESPN',  edge:'sharp' }
   ],
   'FINAL 4': [
-    { away:'UConn Huskies',     home:'Illinois Fighting Illini',
-      spread:'ILL -1.5', ou:'139.5', awayML:'+180', homeML:'-220',
-      time:'Sat Apr 4 TBD', net:'CBS', edge:'sharp' },
-    { away:'Arizona Wildcats',  home:'Michigan Wolverines',
+    { away:'UConn Huskies',      home:'Illinois Fighting Illini',
+      spread:'ILL -1.5', ou:'139.5', awayML:'+175', homeML:'-215',
+      time:'Sat Apr 4 6:09 PM', net:'CBS', edge:'sharp' },
+    { away:'Arizona Wildcats',   home:'Michigan Wolverines',
       spread:'MICH -1.5', ou:'157.5', awayML:'+115', homeML:'-135',
-      time:'Sat Apr 4 TBD', net:'CBS', edge:null }
+      time:'Sat Apr 4 8:49 PM', net:'CBS', edge:null }
   ],
   MLB: [
+    { away:'Athletics',          home:'Atlanta Braves',
+      spread:'ATL -1.5 (-145)', ou:'8', awayML:'+175', homeML:'-207',
+      time:'7:20 PM ET',  net:'', edge:'public' },
     { away:'Texas Rangers',      home:'Baltimore Orioles',
-      spread:'TEX -1.5 (+130)', ou:'8',   awayML:'-131', homeML:'+111',
-      time:'6:35 PM ET',   net:'', edge:'sharp' },
-    { away:'Philadelphia Phillies', home:'Washington Nationals',
-      spread:'PHI -1.5 (-125)', ou:'8.5', awayML:'-175', homeML:'+148',
-      time:'6:40 PM ET',   net:'', edge:null },
+      spread:'BAL -1.5 (+130)', ou:'8', awayML:'+102', homeML:'-121',
+      time:'6:35 PM ET',  net:'', edge:null },
+    { away:'Pittsburgh Pirates', home:'Cincinnati Reds',
+      spread:'CIN -1.5 (+120)', ou:'7.5', awayML:'+132', homeML:'-156',
+      time:'6:40 PM ET',  net:'', edge:'sharp' },
     { away:'Cleveland Guardians', home:'Los Angeles Dodgers',
-      spread:'LAD -1.5 (-130)', ou:'8',   awayML:'-180', homeML:'+152',
-      time:'10:10 PM ET',  net:'', edge:'public' }
+      spread:'LAD -1.5 (-195)', ou:'7.5', awayML:'+205', homeML:'-246',
+      time:'10:10 PM ET', net:'', edge:'public' }
   ],
   NHL: [
-    { away:'New Jersey Devils',  home:'New York Rangers',
-      spread:'NJ -1.5 (+190)',  ou:'6',   awayML:'-120', homeML:'+102',
-      time:'7:08 PM ET',  net:'', edge:'sharp' },
-    { away:'Carolina Hurricanes', home:'Columbus Blue Jackets',
-      spread:'CAR -1.5 (+155)', ou:'6',   awayML:'-135', homeML:'+114',
-      time:'7:38 PM ET',  net:'', edge:null },
-    { away:'Seattle Kraken',     home:'Edmonton Oilers',
-      spread:'EDM -1.5 (+130)', ou:'6.5', awayML:'-186', homeML:'+154',
-      time:'9:08 PM ET',  net:'', edge:'public' }
+    { away:'Colorado Avalanche', home:'Minnesota Wild',
+      spread:'COL -1.5 (+170)', ou:'6', awayML:'-190', homeML:'+160',
+      time:'7:00 PM ET',  net:'', edge:null },
+    { away:'Boston Bruins',      home:'Ottawa Senators',
+      spread:'BOS -1.5 (+155)', ou:'5.5', awayML:'-160', homeML:'+135',
+      time:'7:00 PM ET',  net:'',  edge:'sharp' },
+    { away:'Tampa Bay Lightning', home:'Buffalo Sabres',
+      spread:'TBL -1.5 (+135)', ou:'6',  awayML:'-152', homeML:'+128',
+      time:'7:00 PM ET',  net:'', edge:null }
   ]
 };
 
@@ -1432,16 +1435,17 @@ function switchTab(btn, id) {
 /* ── TICKER ───────────────────────────── */
 (function() {
   const items = [
-    {sport:'NBA', teams:'ORL -2.5 vs PHX',     odds:'224.5 O/U'},
-    {sport:'NBA', teams:'CHA -16 vs BKN',      odds:'218.5 O/U'},
-    {sport:'NBA', teams:'NYK -1 @ HOU',        odds:'220 O/U'},
-    {sport:'NBA', teams:'SAS -18.5 vs CHI',    odds:'225 O/U'},
-    {sport:'NBA', teams:'CLE -15.5 @ LAL',     odds:'225.5 O/U'},
-    {sport:'NCAAB', teams:'ILL -1.5 vs UCONN', odds:'139.5 O/U'},
-    {sport:'NCAAB', teams:'MICH -1.5 vs ARIZ', odds:'157.5 O/U'},
-    {sport:'MLB', teams:'TEX -131 @ BAL',      odds:'8 O/U'},
-    {sport:'NHL', teams:'NJ -120 @ NYR',       odds:'6 O/U'},
-    {sport:'NHL', teams:'EDM -186 vs SEA',     odds:'6.5 O/U'},
+    {sport:'NBA',   teams:'HOU -6 vs MIL',        odds:'222 O/U'},
+    {sport:'NBA',   teams:'BOS -5.5 @ MIA',        odds:'215 O/U'},
+    {sport:'NBA',   teams:'PHI -12.5 @ WAS',       odds:'220 O/U'},
+    {sport:'NBA',   teams:'SAS -3.5 @ GSW',        odds:'228 O/U'},
+    {sport:'NCAAB', teams:'ILL -1.5 vs UCONN',     odds:'139.5 O/U • Apr 4'},
+    {sport:'NCAAB', teams:'MICH -1.5 vs ARIZ',     odds:'157.5 O/U • Apr 4'},
+    {sport:'MLB',   teams:'ATL -207 vs OAK (Sale)', odds:'8 O/U'},
+    {sport:'MLB',   teams:'CIN -156 vs PIT (Skenes)',odds:'7.5 O/U'},
+    {sport:'MLB',   teams:'LAD -246 vs CLE (Yama)', odds:'7.5 O/U'},
+    {sport:'NHL',   teams:'BOS -160 @ OTT',        odds:'5.5 O/U'},
+    {sport:'NHL',   teams:'COL -190 @ MIN',        odds:'6 O/U'},
   ];
   const both = [...items,...items];
   document.getElementById('tickerTrack').innerHTML = both.map(t => `
@@ -1454,36 +1458,36 @@ function switchTab(btn, id) {
 
 /* ── EDGES ────────────────────────────── */
 const edges = [
-  { icon:'⚡', game:'NYK vs HOU — NBA',
+  { icon:'⚡', game:'SAS at GSW — NBA',
     type:'et-sharp', typeLabel:'Sharp Money',
-    title:'Knicks -1 despite 0-2 road trip start — sharps still on New York',
-    desc: 'New York has dropped two straight on the road but the line has barely moved. Houston won their last two by an average of 21 points but the market still trusts the Knicks. When books refuse to adjust despite public losses, it signals sharp side.',
-    stat:'NYK road ATS when coming off 2+ losses: 14-8 (64%)' },
-  { icon:'🔥', game:'SAS vs CHI — NBA',
-    type:'et-public', typeLabel:'Fade the Public',
-    title:'Spurs -18.5 drawing 90%+ public action — massive number to cover',
-    desc: 'San Antonio is 13-1 in their last 14 games but this is the largest spread on the board tonight. Public is piling on the Spurs, but teams favored by 18+ points cover only 42% of the time historically.',
-    stat:'NBA favs -18 or more ATS: 42% cover rate over 3 seasons' },
+    title:'Warriors (+145) at home vs the Spurs — sharp fade on a big road favorite',
+    desc: 'San Antonio is 57-18 and a justified road favorite at -3.5, but Golden State is 22-17 at Chase Center and desperately needs this game for play-in seeding. Road teams favored by 3+ in these late-season desperation spots cover at only 44% historically.',
+    stat:'NBA road fav -3 to -5 in last 3 weeks of season: 44% ATS' },
+  { icon:'🔥', game:'MIL at HOU — NBA',
+    type:'et-sharp', typeLabel:'Sharp Money',
+    title:'Rockets -6 draws sharp action — Bucks eliminated, Houston fighting for play-in',
+    body: 'Houston has covered 7 of their last 9 as home favorites. Milwaukee (29-45) has nothing to play for and is 5-15 ATS on the road over their last 20 games. Massive motivation mismatch makes HOU -6 a strong lean.',
+    stat:'HOU home as fav last 9 games: 7-2 ATS | MIL road last 20: 5-15 ATS' },
   { icon:'📊', game:'UCONN vs ILL — Final Four',
-    type:'et-system', typeLabel:'System',
-    title:'UConn +180 most-bet underdog — sharps loading up on the Huskies',
-    desc: 'Illinois opened -2.5 but the line moved to -1.5 despite public money on the Illini. UConn is the most bet underdog on the board at +180 moneyline. The Huskies know how to win in March.',
-    stat:'Line move: ILL -2.5 → -1.5 (sharp action on UCONN)' },
-  { icon:'🏥', game:'DAL vs MIL — NBA',
-    type:'et-injury', typeLabel:'Injury Alert',
-    title:'Bucks (29-45) vs Mavs (24-51) — two struggling squads with nothing to play for',
-    desc: 'Both teams are effectively eliminated from playoff contention. When two teams with sub-.400 records meet in late March, unders hit at 57% and the team with the worse record covers as a dog 55% of the time.',
-    stat:'Sub-.400 vs sub-.400 late-season: UNDER 57% ATS' },
-  { icon:'📈', game:'TEX vs BAL — MLB',
-    type:'et-sharp', typeLabel:'Line Move',
-    title:'deGrom starting for Rangers — Texas steamed to -131 on the road',
-    desc: 'Jacob deGrom takes the mound at Camden Yards against Zach Eflin. The Rangers opened -118 and have been steamed to -131, a clear sharp move. deGrom in his first road start of the season creates a high-leverage betting spot.',
-    stat:'deGrom career road ERA: 2.45 | Rangers line: -118 → -131' },
-  { icon:'🏈', game:'MICH vs ARIZ — Final Four',
-    type:'et-system', typeLabel:'System',
-    title:'Michigan -1.5 vs Arizona with O/U 157.5 — highest total in the Final Four',
-    desc: 'Michigan and Arizona are co-title favorites at +175. The 157.5 total is the highest in the Final Four by 18 points. Both teams play fast and shoot threes — but public is betting the over heavily, creating potential under value.',
-    stat:'Title favorites: MICH +175 | ARIZ +175 | ILL +400 | UCONN +550' }
+    type:'et-system', typeLabel:'Reverse Line Move',
+    title:'UConn +175 reverse line movement — sharp money on the Huskies',
+    desc: 'Illinois opened -2.5 and has moved to -1.5 despite 72% of public bets on the Illini. The book is moving toward UConn, signaling sharp money on the underdog. The Huskies won their last Final Four appearance and own the most experienced roster.',
+    stat:'Line move: ILL -2.5 → -1.5 despite 72% public on Illinois' },
+  { icon:'📈', game:'PIT at CIN — MLB',
+    type:'et-sharp', typeLabel:'Fade the Ace',
+    title:'Fade Skenes -156? Reds drawing sharp steam despite public on Pittsburgh',
+    desc: 'Paul Skenes is the biggest name on the board but Cincinnati opened -140 and has been bet to -156 by sharps, not the public. Pirates are 1-4 in Skenes\' starts this year despite his 1.80 ERA — run support kills them. Andrew Abbott has been solid at home.',
+    stat:'Pirates run support in Skenes starts: 2.4 runs/game (MLB worst)' },
+  { icon:'🏥', game:'CLE at LAD — MLB',
+    type:'et-public', typeLabel:'Fade the Chalk',
+    title:'Dodgers -246 with Yamamoto — massive chalk creates alt market value',
+    desc: 'Yoshinobu Yamamoto is dominant but LAD -246 requires $246 risk to win $100. At these prices, skip the moneyline. Instead: Dodgers first 5 innings (-1.5 runs, around -145) or Yamamoto strikeout props offer far better ROI than the full game line.',
+    stat:'Teams priced -220 or higher MLB 2025: 67% win rate, -3.1% ROI flat' },
+  { icon:'🏒', game:'BOS at OTT — NHL',
+    type:'et-system', typeLabel:'Must-Win Spot',
+    title:'Bruins -160 visiting Ottawa in a true must-win — Boston covers in pressure games',
+    desc: 'Boston (90 pts) leads the East wild card by 3 points over Ottawa (87 pts). This is a direct head-to-head matchup between two wild card contenders. The Bruins are 8-3 ATS in games where the playoff spot is on the line this season.',
+    stat:'BOS ATS in direct playoff-seeding matchups this season: 8-3 (73%)' }
 ];
 
 (function() {
