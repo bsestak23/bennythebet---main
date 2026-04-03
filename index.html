@@ -4,1507 +4,1036 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>bennythebet — Picks · Parlays · Profit</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================================
-   DESIGN TOKENS — Sports Betting
-   Feel: Bold, modern sportsbook app. Electric teal accent,
-   charcoal backgrounds, sharp edges, dense data-forward UI.
-   Deliberately different from the racing site's old-money serif look.
+   SHARED BASE
 ============================================================ */
-:root {
-  --bg:         #0a0c12;
-  --bg-card:    #10141f;
-  --bg-mid:     #0d1018;
-  --bg-hover:   #161b2a;
-  --teal:       #00e5a0;
-  --teal-dim:   rgba(0,229,160,.12);
-  --teal-glow:  rgba(0,229,160,.25);
-  --gold:       #f0c040;
-  --gold-dim:   rgba(240,192,64,.1);
-  --white:      #ffffff;
-  --text:       #e4e8f0;
-  --text-muted: #7a8499;
-  --text-dim:   #4a5568;
-  --green:      #22c55e;
-  --red:        #ef4444;
-  --blue:       #3b82f6;
-  --border:     rgba(255,255,255,.07);
-  --border-hi:  rgba(0,229,160,.25);
-  --radius:     6px;
-  --radius-sm:  3px;
-}
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-  line-height: 1.5;
-}
-
+html { font-size: 15px; scroll-behavior: smooth; }
+body { background: #07080d; color: #e2e6f0; font-family: 'Inter', sans-serif; min-height: 100vh; }
 a { color: inherit; text-decoration: none; }
 
 /* ============================================================
-   SITE HEADER — brand + nav tabs
+   SPORTS DESIGN TOKENS  (rich green + near-black)
 ============================================================ */
-.site-header {
-  background: var(--bg-mid);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+:root {
+  --s-bg:        #07080d;
+  --s-bg2:       #0d0f18;
+  --s-bg3:       #12151f;
+  --s-bg4:       #171b27;
+  --s-green:     #00d46a;
+  --s-green-dim: rgba(0,212,106,.10);
+  --s-green-glo: rgba(0,212,106,.22);
+  --s-white:     #ffffff;
+  --s-text:      #e2e6f0;
+  --s-muted:     #505972;
+  --s-dim:       #2e3347;
+  --s-pos:       #22c55e;
+  --s-neg:       #ef4444;
+  --s-border:    rgba(255,255,255,.06);
+  --s-bhi:       rgba(0,212,106,.22);
+  --r:           5px;
 }
 
-.site-header__inner {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  align-items: stretch;
-  min-height: 56px;
+/* ============================================================
+   RACING DESIGN TOKENS  (dark navy + warm gold — Jockey Club)
+============================================================ */
+.racing-scope {
+  --r-bg:        #060b14;
+  --r-bg2:       #0c1220;
+  --r-bg3:       #111c30;
+  --r-bg4:       #172540;
+  --r-gold:      #c9a227;
+  --r-gold-dim:  rgba(201,162,39,.12);
+  --r-gold-glo:  rgba(201,162,39,.28);
+  --r-blue:      #1a4fa0;
+  --r-blue-dim:  rgba(26,79,160,.15);
+  --r-cream:     #f0e8d0;
+  --r-text:      #d8cdb0;
+  --r-muted:     #5a6880;
+  --r-dim:       #1e2d45;
+  --r-border:    rgba(201,162,39,.12);
+  --r-bhi:       rgba(201,162,39,.32);
+  --r-pos:       #4ade80;
+  --r-neg:       #f87171;
 }
 
-/* Logo */
+/* ============================================================
+   SHARED NAV
+============================================================ */
+.nav {
+  background: #07080d;
+  border-bottom: 2px solid var(--s-green);
+  position: sticky; top: 0; z-index: 200;
+  transition: border-color .3s;
+}
+.nav.racing-active { border-bottom-color: #c9a227; }
+.nav-inner {
+  max-width: 1260px; margin: 0 auto;
+  padding: 0 24px; height: 54px;
+  display: flex; align-items: center; gap: 20px;
+}
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-right: 24px;
-  border-right: 1px solid var(--border);
-  margin-right: 4px;
-  flex-shrink: 0;
-}
-
-.brand__diamond {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, var(--teal) 0%, #00b87a 100%);
-  clip-path: polygon(50% 0%,100% 50%,50% 100%,0% 50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 18px;
-  color: var(--bg);
-  flex-shrink: 0;
+  font-size: 1.5rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase;
+  color: #ffffff; white-space: nowrap; flex-shrink: 0;
 }
-
-.brand__name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 22px;
-  letter-spacing: .03em;
-  color: var(--white);
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-.brand__name span {
-  display: block;
-  font-weight: 500;
-  font-size: 9px;
-  letter-spacing: .22em;
-  color: var(--text-muted);
-  margin-top: 3px;
-  text-transform: uppercase;
-}
-
-/* Nav tabs */
-.site-tabs {
-  display: flex;
-  align-items: stretch;
-  flex: 1;
-  overflow-x: auto;
-}
-
+.brand .s-accent { color: var(--s-green); transition: color .3s; }
+.nav.racing-active .brand .s-accent { color: #c9a227; }
+.site-tabs { display: flex; flex-shrink: 0; }
 .site-tab {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 0 22px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-  transition: color .15s, border-color .15s, background .15s;
-  white-space: nowrap;
-  background: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-}
-
-.site-tab:hover {
-  color: var(--text);
-  background: rgba(255,255,255,.03);
-}
-
-.site-tab.active {
-  color: var(--teal);
-  border-bottom-color: var(--teal);
-}
-
-/* Horse Racing tab — uses gold to hint at its distinct identity */
-.site-tab.racing {
-  color: var(--text-muted);
-}
-.site-tab.racing:hover {
-  color: #c9a227;
-  background: rgba(201,162,39,.05);
-}
-.site-tab.racing.active {
-  color: #c9a227;
-  border-bottom-color: #c9a227;
-}
-.site-tab.racing .tab-icon {
-  font-size: 14px;
-}
-
-/* Tab right side: live clock */
-.site-header__right {
-  display: flex;
-  align-items: center;
-  padding-left: 16px;
-  border-left: 1px solid var(--border);
-  margin-left: auto;
-  flex-shrink: 0;
-}
-
-.live-clock {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: .04em;
-  white-space: nowrap;
-}
-
-.live-clock .dot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--teal);
-  margin-right: 6px;
-  animation: blink 2s ease-in-out infinite;
-}
-
-@keyframes blink {
-  0%,100% { opacity: 1; }
-  50%      { opacity: .3; }
-}
-
-/* ============================================================
-   TICKER
-============================================================ */
-.ticker {
-  background: #060810;
-  border-bottom: 1px solid var(--border);
-  height: 34px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.ticker__label {
-  background: var(--teal);
-  color: var(--bg);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  padding: 0 14px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.ticker__wrap { overflow: hidden; flex: 1; }
-
-.ticker__track {
-  display: flex;
-  animation: scroll 55s linear infinite;
-}
-
-.ticker__track:hover { animation-play-state: paused; }
-
-@keyframes scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.ticker__item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 22px;
-  border-right: 1px solid var(--border);
-  white-space: nowrap;
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.ticker__item .teams { font-weight: 700; color: var(--text); }
-.ticker__item .odds  { color: var(--teal); font-weight: 700; font-size: 11px; }
-.ticker__item .sport { font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
-                       background: var(--teal-dim); color: var(--teal);
-                       padding: 1px 5px; border-radius: 2px; }
-
-/* ============================================================
-   PAGE LAYOUT
-============================================================ */
-.page {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 28px 24px 80px;
-}
-
-/* ============================================================
-   SECTION LABELS
-============================================================ */
-.section-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.section-label__text {
+  padding: 0 20px; height: 54px; display: flex; align-items: center;
+  border: none; background: transparent;
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--white);
-}
-
-.section-label__bar {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, var(--border-hi), transparent);
-}
-
-.section-label__chip {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--teal);
-  border: 1px solid var(--border-hi);
-  background: var(--teal-dim);
-  padding: 2px 9px;
-  border-radius: var(--radius-sm);
-}
-
-/* ============================================================
-   NEWS — horizontal scroll on mobile, 3-col grid on desktop
-============================================================ */
-.news-section { margin-bottom: 44px; }
-
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.news-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  cursor: pointer;
-  transition: border-color .15s, background .15s, transform .15s;
-  position: relative;
-  overflow: hidden;
-}
-
-.news-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--teal);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .2s;
-}
-
-.news-card:hover {
-  border-color: var(--border-hi);
-  background: var(--bg-hover);
-  transform: translateY(-2px);
-}
-
-.news-card:hover::after { transform: scaleX(1); }
-
-.news-card__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.news-card__tag {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
-}
-
-.tag-nba  { background: rgba(23,110,255,.15); color: #178fff; border: 1px solid rgba(23,110,255,.25); }
-.tag-ncaab{ background: rgba(240,192,64,.1);  color: var(--gold); border: 1px solid rgba(240,192,64,.2); }
-.tag-mlb  { background: rgba(34,197,94,.1);   color: #22c55e; border: 1px solid rgba(34,197,94,.2); }
-.tag-nfl  { background: rgba(239,68,68,.1);   color: #ef4444; border: 1px solid rgba(239,68,68,.2); }
-.tag-bet  { background: var(--teal-dim);      color: var(--teal); border: 1px solid var(--border-hi); }
-.tag-nhl  { background: rgba(100,116,139,.15);color: #94a3b8; border: 1px solid rgba(100,116,139,.2); }
-
-.news-card__date {
-  font-size: 11px;
-  color: var(--text-dim);
-}
-
-.news-card__title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: .01em;
-  line-height: 1.25;
-  color: var(--white);
-}
-
-.news-card__body {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  line-height: 1.6;
-  flex: 1;
-}
-
-.news-card__link {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--teal);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* ============================================================
-   LINES BOARD
-============================================================ */
-.lines-section { margin-bottom: 44px; }
-
-.sport-tabs {
-  display: flex;
-  gap: 0;
-  border-bottom: 1px solid var(--border);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.sport-tab-btn {
-  padding: 10px 20px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-  white-space: nowrap;
-  background: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--s-muted); cursor: pointer;
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
   transition: color .15s, border-color .15s;
-  flex-shrink: 0;
 }
+.site-tab:hover { color: var(--s-text); }
+.site-tab.active-sports { color: var(--s-green); border-bottom-color: var(--s-green); }
+.site-tab.active-racing { color: #c9a227;       border-bottom-color: #c9a227; }
+.nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.clock { font-size: .7rem; font-weight: 600; color: var(--s-muted); letter-spacing: .04em; white-space: nowrap; }
+.x-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--s-muted); border: 1px solid var(--s-dim); border-radius: var(--r);
+  padding: 5px 11px; transition: all .15s;
+}
+.x-btn:hover { color: var(--s-green); border-color: var(--s-bhi); }
 
-.sport-tab-btn:hover { color: var(--text); }
-.sport-tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
+/* ============================================================
+   PAGE CONTAINERS
+============================================================ */
+#sports-page  { display: block; }
+#racing-page  { display: none; }
 
+/* ============================================================
+   SPORTS TICKER
+============================================================ */
+.ticker-sports {
+  background: var(--s-bg2); border-bottom: 1px solid var(--s-border);
+  overflow: hidden; height: 32px; display: flex; align-items: center;
+}
+.ticker-lbl-s {
+  flex-shrink: 0; padding: 0 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--s-green); border-right: 1px solid var(--s-dim);
+}
+.ticker-wrap { flex: 1; overflow: hidden; }
+.ticker-track { display: flex; width: max-content; animation: scroll-l 40s linear infinite; }
+@keyframes scroll-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.st-item {
+  display: flex; align-items: center; gap: 7px;
+  padding: 0 20px; white-space: nowrap; font-size: .7rem;
+  border-right: 1px solid var(--s-dim);
+}
+.st-item .t-sport {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: .68rem; letter-spacing: .12em;
+  color: var(--s-green); text-transform: uppercase;
+}
+.st-item .t-teams { color: var(--s-text); font-weight: 500; }
+.st-item .t-odds  { color: var(--s-muted); }
+
+/* ============================================================
+   SPORTS SECTION WRAPPERS
+============================================================ */
+.s-section { max-width: 1260px; margin: 0 auto; padding: 36px 24px; }
+.s-section + .s-section { padding-top: 0; }
+.s-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.s-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--s-white);
+}
+.s-title span { color: var(--s-green); }
+.s-badge {
+  font-size: .6rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--s-green); background: var(--s-green-dim);
+  border: 1px solid var(--s-bhi); border-radius: 20px; padding: 2px 9px;
+}
+.s-meta { font-size: .68rem; color: var(--s-muted); margin-left: auto; }
+.s-hr { border: none; border-top: 1px solid var(--s-border); margin: 0 24px; }
+
+/* Sport tab buttons */
+.sport-tabs-row { display: flex; gap: 2px; margin-bottom: 16px; }
+.st-btn {
+  padding: 7px 16px; background: var(--s-bg3); border: 1px solid var(--s-border); border-radius: var(--r);
+  cursor: pointer; font-family: 'Barlow Condensed', sans-serif;
+  font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--s-muted); transition: all .15s;
+}
+.st-btn:hover { color: var(--s-text); border-color: var(--s-dim); }
+.st-btn.active { background: var(--s-green-dim); border-color: var(--s-bhi); color: var(--s-green); }
 .sport-panel { display: none; }
 .sport-panel.active { display: block; }
 
-/* Lines table */
-.lines-wrap {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-top: none;
-  border-radius: 0 0 var(--radius) var(--radius);
-  overflow: hidden;
+/* Game cards */
+.games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(305px, 1fr)); gap: 10px; }
+.game-card {
+  background: var(--s-bg2); border: 1px solid var(--s-border); border-radius: var(--r);
+  overflow: hidden; transition: border-color .15s, transform .1s;
 }
-
-.lines-table {
-  width: 100%;
-  border-collapse: collapse;
+.game-card:hover { border-color: var(--s-dim); transform: translateY(-1px); }
+.game-card__time {
+  background: var(--s-bg3); border-bottom: 1px solid var(--s-border);
+  padding: 6px 12px; display: flex; align-items: center; justify-content: space-between;
 }
+.game-card__when { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--s-muted); }
+.game-card__net  { font-size: .62rem; color: var(--s-dim); }
+.game-card__teams { padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+.team-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.team-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 800; color: var(--s-white); flex: 1; }
+.team-name.away { color: var(--s-text); }
+.team-odds { display: flex; gap: 5px; }
+.o-pill { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: .72rem; font-weight: 600; white-space: nowrap; min-width: 46px; text-align: center; }
+.o-spread { background: var(--s-bg4); border: 1px solid var(--s-dim); color: var(--s-text); }
+.o-ml     { background: var(--s-bg4); border: 1px solid var(--s-dim); color: var(--s-muted); }
+.o-fav    { background: var(--s-green-dim); border: 1px solid var(--s-bhi); color: var(--s-green); }
+.game-card__footer { padding: 8px 12px; border-top: 1px solid var(--s-border); display: flex; align-items: center; justify-content: space-between; }
+.game-ou { font-size: .7rem; color: var(--s-muted); }
+.game-note { font-size: .62rem; color: var(--s-dim); }
+.ec-sharp  { font-size: .6rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: rgba(0,212,106,.1); color: var(--s-green); border: 1px solid rgba(0,212,106,.22); }
+.ec-public { font-size: .6rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: rgba(239,68,68,.08); color: #f87171; border: 1px solid rgba(239,68,68,.2); }
+.ec-none   { font-size: .6rem; color: var(--s-dim); }
 
-.lines-table thead tr {
-  background: rgba(0,229,160,.05);
-  border-bottom: 1px solid var(--border);
+/* News */
+.s-news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.s-news-card { background: var(--s-bg2); border: 1px solid var(--s-border); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 8px; transition: border-color .15s; }
+.s-news-card:hover { border-color: var(--s-dim); }
+.s-news-top { display: flex; align-items: center; justify-content: space-between; }
+.s-tag { font-size: .6rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; }
+.tag-nba   { background: rgba(29,78,216,.18);  color: #93b4fd; border: 1px solid rgba(29,78,216,.3); }
+.tag-ncaab { background: rgba(124,58,237,.18); color: #c4b5fd; border: 1px solid rgba(124,58,237,.3); }
+.tag-mlb   { background: rgba(5,150,105,.18);  color: #6ee7b7; border: 1px solid rgba(5,150,105,.3); }
+.tag-nhl   { background: rgba(37,99,235,.18);  color: #93c5fd; border: 1px solid rgba(37,99,235,.3); }
+.tag-bet   { background: var(--s-green-dim); color: var(--s-green); border: 1px solid var(--s-bhi); }
+.s-news-date { font-size: .65rem; color: var(--s-muted); }
+.s-news-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 800; line-height: 1.22; color: var(--s-white); }
+.s-news-body  { font-size: .76rem; color: var(--s-muted); line-height: 1.55; flex: 1; }
+
+/* Edges */
+.s-edges-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.s-edge-card { background: var(--s-bg2); border: 1px solid var(--s-border); border-radius: var(--r); padding: 16px 18px; display: flex; gap: 14px; transition: border-color .15s; }
+.s-edge-card:hover { border-color: var(--s-dim); }
+.s-edge-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+.s-edge-body { display: flex; flex-direction: column; gap: 6px; }
+.s-edge-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.s-edge-game { font-size: .66rem; color: var(--s-muted); }
+.s-edge-type { font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; }
+.et-sharp  { background: rgba(0,212,106,.1);  color: var(--s-green); }
+.et-public { background: rgba(239,68,68,.08); color: #f87171; }
+.et-system { background: rgba(99,102,241,.1); color: #a5b4fc; }
+.et-injury { background: rgba(245,158,11,.08); color: #fcd34d; }
+.s-edge-title { font-family: 'Barlow Condensed', sans-serif; font-size: .98rem; font-weight: 800; color: var(--s-white); line-height: 1.2; }
+.s-edge-desc  { font-size: .76rem; color: var(--s-muted); line-height: 1.5; }
+.s-edge-stat  { font-size: .7rem; font-weight: 700; color: var(--s-green); background: var(--s-green-dim); border: 1px solid var(--s-bhi); border-radius: 3px; padding: 3px 9px; width: fit-content; }
+
+/* Sports picks */
+.s-picks-layout { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
+.s-picks-form { background: var(--s-bg2); border: 1px solid var(--s-border); border-radius: var(--r); overflow: hidden; position: sticky; top: 70px; }
+.s-picks-form-head { padding: 13px 16px; border-bottom: 1px solid var(--s-border); display: flex; align-items: center; justify-content: space-between; }
+.s-picks-form-title { font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--s-white); }
+.toggle-form-btn { font-family: 'Barlow Condensed', sans-serif; font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 4px 11px; border-radius: var(--r); background: var(--s-green); color: var(--s-bg); border: none; cursor: pointer; transition: opacity .15s; }
+.toggle-form-btn:hover { opacity: .85; }
+.s-form-body { padding: 14px 16px; display: none; flex-direction: column; gap: 9px; }
+.s-form-body.open { display: flex; }
+.fg  { display: flex; flex-direction: column; gap: 4px; }
+.fg-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.fg label { font-size: .6rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--s-muted); }
+.fg input, .fg select, .fg textarea {
+  background: var(--s-bg3); border: 1px solid var(--s-dim); border-radius: var(--r);
+  padding: 8px 10px; color: var(--s-white); font-family: 'Inter'; font-size: .8rem;
+  outline: none; width: 100%; transition: border-color .15s;
 }
-
-.lines-table th {
-  padding: 10px 16px;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--teal);
-  text-align: left;
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--s-green); }
+.fg input::placeholder { color: var(--s-muted); }
+.fg select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23505972'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+.fg select option { background: var(--s-bg2); }
+.fg textarea { resize: vertical; min-height: 64px; line-height: 1.45; }
+.s-form-actions { display: flex; }
+.btn-post-s {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .8rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: 9px 18px; border-radius: var(--r);
+  background: var(--s-green); color: var(--s-bg); border: none; cursor: pointer;
+  transition: opacity .15s, transform .1s; flex: 1;
 }
+.btn-post-s:hover { opacity: .86; }
+.btn-post-s:active { transform: scale(.98); }
+.s-post-status { font-size: .7rem; font-weight: 500; color: var(--s-muted); padding: 0 16px 12px; min-height: 16px; }
+.s-post-status.ok  { color: var(--s-pos); }
+.s-post-status.err { color: var(--s-neg); }
 
-.lines-table th.c { text-align: center; }
-.lines-table th.r { text-align: right; }
+/* Picks grid (sports) */
+.s-picks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.s-pick-card { background: var(--s-bg2); border: 1px solid var(--s-border); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 9px; transition: border-color .15s; }
+.s-pick-card:hover { border-color: var(--s-dim); }
+.s-pick-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
+.s-pick-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--s-green); }
+.s-pick-conf { font-family: 'Barlow Condensed', sans-serif; font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; flex-shrink: 0; }
+.sc-lock   { background: rgba(0,212,106,.15);  color: var(--s-green); border: 1px solid var(--s-bhi); }
+.sc-strong { background: rgba(34,197,94,.12);  color: #4ade80; border: 1px solid rgba(34,197,94,.3); }
+.sc-lean   { background: rgba(255,255,255,.06); color: var(--s-muted); border: 1px solid var(--s-border); }
+.s-pick-main { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--s-white); line-height: 1.1; }
+.s-pick-sub  { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.s-pick-odds { font-family: 'Barlow Condensed', sans-serif; font-size: .82rem; font-weight: 800; color: var(--s-green); }
+.s-pick-ts   { font-size: .66rem; color: var(--s-muted); }
+.s-pick-note { font-size: .75rem; color: var(--s-muted); line-height: 1.5; border-top: 1px solid var(--s-border); padding-top: 9px; }
+.s-empty { grid-column: 1/-1; text-align: center; padding: 44px 16px; color: var(--s-muted); }
+.s-empty .ei { font-size: 28px; margin-bottom: 8px; }
+.s-empty p { font-size: .82rem; }
 
-.lines-table tbody tr {
-  border-bottom: 1px solid var(--border);
-  transition: background .12s;
-}
-
-.lines-table tbody tr:last-child { border-bottom: none; }
-.lines-table tbody tr:hover { background: var(--bg-hover); }
-
-.lines-table td {
-  padding: 14px 16px;
-  font-size: 13px;
-  vertical-align: middle;
-}
-
-/* Matchup cell */
-.td-matchup { font-weight: 600; }
-.td-matchup .away { display: block; color: var(--text); font-size: 13px; }
-.td-matchup .home {
-  display: block;
-  color: var(--text-muted);
-  font-size: 11px;
-  margin-top: 2px;
-}
-.td-matchup .home::before { content: 'vs '; }
-
-/* Pill */
-.pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 10px;
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .02em;
-  white-space: nowrap;
-  min-width: 50px;
-}
-
-.pill-spread { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid var(--border); }
-.pill-ou     { background: rgba(59,130,246,.1);   color: #7eb5fa; border: 1px solid rgba(59,130,246,.2); }
-.pill-ml-fav { background: rgba(34,197,94,.1);    color: #4ade80; border: 1px solid rgba(34,197,94,.2); }
-.pill-ml-dog { background: rgba(239,68,68,.1);    color: #f87171; border: 1px solid rgba(239,68,68,.2); }
-
-.td-time-net { font-size: 12px; }
-.td-time-net .time    { color: var(--text-muted); display: block; }
-.td-time-net .network { color: var(--text-dim); font-size: 11px; display: block; margin-top: 1px; }
-
-.td-edge { text-align: right; padding-right: 18px; }
-
-.edge-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  padding: 3px 9px;
-  border-radius: var(--radius-sm);
-  white-space: nowrap;
-}
-
-.chip-sharp  { background: rgba(0,229,160,.12); color: var(--teal); border: 1px solid rgba(0,229,160,.25); }
-.chip-public { background: rgba(239,68,68,.12); color: #f87171;    border: 1px solid rgba(239,68,68,.25); }
-.chip-none   { color: var(--text-dim); }
+/* Sports footer */
+.s-footer { background: var(--s-bg2); border-top: 1px solid var(--s-border); padding: 24px; text-align: center; margin-top: 20px; }
+.s-footer p { font-size: .72rem; color: var(--s-muted); line-height: 1.8; }
+.s-footer strong { color: var(--s-green); }
 
 /* ============================================================
-   TRENDS & EDGES
+   RACING — Jockey Club (dark navy + warm gold)
 ============================================================ */
-.edges-section { margin-bottom: 44px; }
-
-.edges-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+#racing-page {
+  background: var(--r-bg);
+  min-height: calc(100vh - 54px);
 }
 
-.edge-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 22px;
-  display: flex;
-  gap: 14px;
-  transition: border-color .15s, background .15s;
+/* Racing header strip */
+.r-header-strip {
+  background: linear-gradient(135deg, #0a1428 0%, #0f1d35 50%, #0a1428 100%);
+  border-bottom: 2px solid var(--r-gold);
+  padding: 20px 24px;
 }
-
-.edge-card:hover {
-  border-color: var(--border-hi);
-  background: var(--bg-hover);
+.r-header-inner {
+  max-width: 1260px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
 }
-
-.edge-card__icon {
-  font-size: 22px;
-  line-height: 1;
-  flex-shrink: 0;
-  padding-top: 2px;
-}
-
-.edge-card__body { flex: 1; min-width: 0; }
-
-.edge-card__tags {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.edge-card__game {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.edge-type {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 2px;
-}
-
-.et-sharp   { background: rgba(0,229,160,.12); color: var(--teal); }
-.et-public  { background: rgba(239,68,68,.12); color: #f87171; }
-.et-system  { background: rgba(240,192,64,.1); color: var(--gold); }
-.et-injury  { background: rgba(251,146,60,.1); color: #fb923c; }
-.et-weather { background: rgba(99,179,237,.1); color: #63b3ed; }
-
-.edge-card__title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: .01em;
-  color: var(--white);
-  margin-bottom: 7px;
-  line-height: 1.3;
-}
-
-.edge-card__desc {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 10px;
-}
-
-.edge-stat {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--teal);
-  background: var(--teal-dim);
-  border-left: 2px solid var(--teal);
-  padding: 5px 12px;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-
-/* ============================================================
-   MY PICKS — Firebase live board
-============================================================ */
-.picks-section { margin-bottom: 44px; }
-
-.picks-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-/* Live indicator */
-.live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--teal);
-}
-
-.live-badge::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--teal);
-  animation: pulse 1.8s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: .4; transform: scale(1.4); }
-}
-
-/* Add pick button */
-.btn-add {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 18px;
-  background: var(--teal);
-  color: var(--bg);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: opacity .15s;
-}
-
-.btn-add:hover { opacity: .85; }
-
-/* Admin form */
-.add-pick-form {
-  display: none;
-  background: var(--bg-card);
-  border: 1px solid var(--border-hi);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 16px;
-}
-
-.add-pick-form.open { display: block; }
-
-.add-pick-form h3 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 18px;
+.r-brand-block {}
+.r-brand-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem; font-weight: 700;
+  color: var(--r-gold);
   letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--teal);
-  margin-bottom: 18px;
+  line-height: 1;
 }
-
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.form-row.two-col  { grid-template-columns: repeat(2, 1fr); }
-.form-row.full-col { grid-template-columns: 1fr; }
-
-.fld { display: flex; flex-direction: column; gap: 5px; }
-
-.fld label {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.fld input,
-.fld select,
-.fld textarea {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 9px 12px;
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  border-radius: var(--radius-sm);
-  outline: none;
-  transition: border-color .15s;
-}
-
-.fld input:focus,
-.fld select:focus,
-.fld textarea:focus { border-color: var(--teal); }
-
-.fld select option { background: #10141f; }
-.fld textarea { resize: vertical; min-height: 68px; }
-
-.form-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.btn-submit {
-  padding: 10px 26px;
-  background: var(--teal);
-  color: var(--bg);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: opacity .15s;
-}
-
-.btn-submit:hover { opacity: .85; }
-
-.btn-cancel {
-  padding: 10px 18px;
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: color .15s;
-}
-
-.btn-cancel:hover { color: var(--text); }
-
-/* Picks grid */
-.picks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 12px;
-}
-
-.pick-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color .15s, transform .15s;
-}
-
-.pick-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, var(--teal), #00b87a);
-}
-
-.pick-card:hover {
-  border-color: var(--border-hi);
-  transform: translateY(-2px);
-}
-
-.pick-card__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.pick-card__matchup {
+.r-brand-sub {
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: .02em;
-  color: var(--white);
-  line-height: 1.2;
+  font-size: .7rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--r-muted); margin-top: 4px;
 }
-
-.pick-card__chips {
-  display: flex;
-  gap: 7px;
-  flex-wrap: wrap;
-}
-
-.pick-chip {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: var(--radius-sm);
-}
-
-.chip-pick   { background: rgba(0,229,160,.12); color: var(--teal);  border: 1px solid rgba(0,229,160,.25); }
-.chip-odds   { background: rgba(240,192,64,.1);  color: var(--gold);  border: 1px solid rgba(240,192,64,.2); }
-.chip-units  { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid var(--border); }
-.chip-type   { background: rgba(59,130,246,.1);  color: #7eb5fa;     border: 1px solid rgba(59,130,246,.2); }
-
-.pick-card__notes {
-  font-size: 12px;
-  color: var(--text-muted);
-  line-height: 1.6;
-  border-top: 1px solid var(--border);
-  padding-top: 10px;
-  font-style: italic;
-}
-
-.picks-empty {
-  grid-column: 1 / -1;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 48px 24px;
+.r-derby-box {
   text-align: center;
-  color: var(--text-muted);
+  border: 1px solid rgba(201,162,39,.3);
+  border-radius: 4px;
+  padding: 10px 20px;
+  background: rgba(201,162,39,.06);
 }
-
-.picks-empty .icon { font-size: 36px; margin-bottom: 12px; }
-.picks-empty p { font-size: 14px; }
-
-/* ============================================================
-   FOOTER
-============================================================ */
-.site-footer {
-  border-top: 1px solid var(--border);
-  background: #060810;
-  padding: 24px;
-  text-align: center;
-}
-
-.footer-brand {
+.r-derby-label {
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 26px;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 4px;
+  font-size: .62rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--r-muted);
+}
+.r-derby-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; font-weight: 700; color: var(--r-gold);
+  line-height: 1; margin: 2px 0;
+}
+.r-derby-unit {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--r-muted);
 }
 
-.footer-brand span { color: var(--teal); }
-
-.footer-tag {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 12px;
+/* Racing ticker */
+.r-ticker {
+  background: var(--r-bg3);
+  border-bottom: 1px solid rgba(201,162,39,.18);
+  overflow: hidden; height: 32px; display: flex; align-items: center;
 }
-
-.footer-disc {
-  font-size: 11px;
-  color: var(--text-dim);
-  max-width: 580px;
-  margin: 0 auto;
-  line-height: 1.6;
+.r-ticker-lbl {
+  flex-shrink: 0; padding: 0 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--r-gold); border-right: 1px solid rgba(201,162,39,.2);
 }
+.r-ticker-track { display: flex; width: max-content; animation: scroll-l 46s linear infinite; }
+.r-t-item {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--r-text); padding: 0 22px; white-space: nowrap;
+  border-right: 1px solid rgba(201,162,39,.15);
+}
+.r-t-item .r-t-hl { color: var(--r-gold); }
+
+/* Derby points leaderboard */
+.r-lb-strip { background: var(--r-bg2); border-bottom: 1px solid rgba(201,162,39,.18); }
+.r-lb-inner { max-width: 1260px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 7px; overflow-x: auto; }
+.r-lb-label { font-family: 'Barlow Condensed', sans-serif; font-size: .62rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; color: var(--r-muted); flex-shrink: 0; margin-right: 8px; }
+.r-lb-horse { display: flex; align-items: center; gap: 9px; background: var(--r-bg3); border: 1px solid var(--r-dim); border-radius: 4px; padding: 8px 14px; flex-shrink: 0; transition: border-color .15s; }
+.r-lb-horse.top { border-color: rgba(201,162,39,.4); background: var(--r-gold-dim); }
+.r-lb-pos { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--r-muted); width: 16px; text-align: center; }
+.r-lb-horse.top .r-lb-pos { color: var(--r-gold); }
+.r-lb-name { font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; font-weight: 800; color: var(--r-cream); line-height: 1; letter-spacing: .02em; }
+.r-lb-pts { font-size: .65rem; font-weight: 600; color: var(--r-muted); margin-top: 1px; }
+.r-lb-pts strong { color: var(--r-gold); }
+
+/* Racing section wrappers */
+.r-section { max-width: 1260px; margin: 0 auto; padding: 36px 24px; }
+.r-section + .r-section { padding-top: 0; }
+.r-head { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.r-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--r-cream);
+}
+.r-title-rule { flex: 1; height: 1px; background: rgba(201,162,39,.18); }
+.r-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--r-gold); background: var(--r-gold-dim);
+  border: 1px solid rgba(201,162,39,.28); border-radius: 3px; padding: 2px 9px;
+}
+.r-hr { border: none; border-top: 1px solid rgba(201,162,39,.12); margin: 0 24px; }
+
+/* Racing news */
+.r-news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.r-news-card {
+  background: var(--r-bg2); border: 1px solid var(--r-dim); border-radius: 4px;
+  padding: 20px; display: flex; flex-direction: column; gap: 10px;
+  transition: border-color .15s, transform .12s;
+}
+.r-news-card:hover { border-color: rgba(201,162,39,.3); transform: translateY(-2px); }
+.r-news-cat {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; color: var(--r-gold);
+}
+.r-news-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--r-cream); line-height: 1.3; }
+.r-news-body  { font-size: .76rem; color: var(--r-muted); line-height: 1.6; flex: 1; }
+.r-news-foot  { display: flex; align-items: center; justify-content: space-between; margin-top: auto; border-top: 1px solid rgba(201,162,39,.1); padding-top: 10px; }
+.r-news-date  { font-size: .65rem; color: var(--r-muted); }
+.r-news-link  { font-family: 'Barlow Condensed', sans-serif; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--r-gold); transition: opacity .15s; }
+.r-news-link:hover { opacity: .7; }
+
+/* Racing stakes table */
+.r-stakes-wrap { background: var(--r-bg2); border: 1px solid var(--r-dim); border-radius: 4px; overflow: hidden; }
+.r-stakes-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.r-stakes-table th { font-family: 'Barlow Condensed', sans-serif; font-size: .6rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; color: var(--r-gold); background: var(--r-bg3); padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(201,162,39,.2); white-space: nowrap; }
+.r-stakes-table td { padding: 10px 12px; border-bottom: 1px solid var(--r-dim); vertical-align: middle; color: var(--r-text); }
+.r-stakes-table tr:last-child td { border-bottom: none; }
+.r-stakes-table tr:hover td { background: var(--r-bg3); }
+.r-grade { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; }
+.rg1 { background: var(--r-gold-dim); color: var(--r-gold); border: 1px solid rgba(201,162,39,.3); }
+.rg2 { background: rgba(26,79,160,.15); color: #93b4fd; border: 1px solid rgba(26,79,160,.3); }
+.rg3 { background: rgba(255,255,255,.04); color: var(--r-muted); border: 1px solid var(--r-dim); }
+.r-pts { font-family: 'Barlow Condensed', sans-serif; font-size: .82rem; font-weight: 800; color: var(--r-gold); }
+.r-result { font-size: .72rem; font-weight: 600; color: var(--r-pos); font-style: italic; }
+.r-race-name { font-weight: 600; color: var(--r-cream); }
+.r-track-name { color: var(--r-muted); font-size: .75rem; }
+
+/* Upcoming cards */
+.r-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.r-race-card { background: var(--r-bg2); border: 1px solid var(--r-dim); border-radius: 4px; padding: 18px; display: flex; flex-direction: column; gap: 10px; transition: border-color .15s; }
+.r-race-card:hover { border-color: rgba(201,162,39,.3); }
+.r-rc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.r-rc-track { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--r-cream); }
+.r-rc-date { font-family: 'Barlow Condensed', sans-serif; font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--r-muted); background: var(--r-bg3); border: 1px solid var(--r-dim); border-radius: 3px; padding: 3px 7px; white-space: nowrap; flex-shrink: 0; }
+.r-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.r-chip { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; background: var(--r-bg3); border: 1px solid var(--r-dim); color: var(--r-text); }
+.r-chip.feat { background: var(--r-gold-dim); border-color: rgba(201,162,39,.3); color: var(--r-gold); }
+.r-purse { font-size: .74rem; color: var(--r-muted); }
+.r-purse strong { color: var(--r-gold); font-weight: 700; }
+
+/* Racing picks form */
+.r-picks-form-card { background: var(--r-bg2); border: 1px solid rgba(201,162,39,.28); border-radius: 4px; padding: 22px; margin-bottom: 20px; }
+.r-picks-form-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--r-gold); margin-bottom: 16px; }
+.r-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.r-form-span { grid-column: 1/-1; }
+.r-fg { display: flex; flex-direction: column; gap: 4px; }
+.r-fg label { font-family: 'Barlow Condensed', sans-serif; font-size: .6rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: var(--r-muted); }
+.r-fg input, .r-fg select, .r-fg textarea { background: var(--r-bg3); border: 1px solid var(--r-dim); border-radius: 3px; padding: 8px 10px; color: var(--r-cream); font-family: 'Inter'; font-size: .8rem; outline: none; width: 100%; transition: border-color .15s; }
+.r-fg input:focus, .r-fg select:focus, .r-fg textarea:focus { border-color: rgba(201,162,39,.5); }
+.r-fg input::placeholder { color: var(--r-muted); }
+.r-fg select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a6880'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+.r-fg select option { background: var(--r-bg2); }
+.r-fg textarea { resize: vertical; min-height: 60px; line-height: 1.45; }
+.btn-post-r { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; padding: 10px 24px; border-radius: 3px; background: var(--r-gold); color: #06090f; border: none; cursor: pointer; transition: opacity .15s, transform .1s; }
+.btn-post-r:hover { opacity: .86; }
+.btn-post-r:active { transform: scale(.98); }
+.r-post-status { font-size: .7rem; color: var(--r-muted); margin-top: 8px; min-height: 16px; }
+.r-post-status.ok  { color: var(--r-pos); }
+.r-post-status.err { color: var(--r-neg); }
+
+/* Racing picks grid */
+.r-picks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.r-pick-card { background: var(--r-bg2); border: 1px solid var(--r-dim); border-radius: 4px; padding: 18px; display: flex; flex-direction: column; gap: 10px; transition: border-color .15s; }
+.r-pick-card:hover { border-color: rgba(201,162,39,.3); }
+.r-pick-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
+.r-pick-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: var(--r-gold); }
+.r-pick-conf { font-family: 'Barlow Condensed', sans-serif; font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; flex-shrink: 0; }
+.rc-lock   { background: var(--r-gold-dim); color: var(--r-gold); border: 1px solid rgba(201,162,39,.3); }
+.rc-strong { background: rgba(74,222,128,.1); color: #4ade80; border: 1px solid rgba(74,222,128,.3); }
+.rc-lean   { background: rgba(255,255,255,.04); color: var(--r-muted); border: 1px solid var(--r-dim); }
+.r-pick-main { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--r-cream); line-height: 1.1; }
+.r-pick-sub  { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.r-pick-odds { font-family: 'Barlow Condensed', sans-serif; font-size: .82rem; font-weight: 800; color: var(--r-gold); }
+.r-pick-ts   { font-size: .66rem; color: var(--r-muted); }
+.r-pick-note { font-size: .75rem; color: var(--r-muted); line-height: 1.5; border-top: 1px solid rgba(201,162,39,.12); padding-top: 9px; }
+.r-empty { grid-column: 1/-1; text-align: center; padding: 48px 16px; color: var(--r-muted); }
+.r-empty .ri { font-size: 30px; margin-bottom: 8px; }
+.r-empty p { font-size: .82rem; font-family: 'Playfair Display', serif; }
+
+/* Racing footer */
+.r-footer { background: var(--r-bg2); border-top: 1px solid rgba(201,162,39,.18); padding: 28px; text-align: center; margin-top: 20px; }
+.r-footer p { font-size: .72rem; color: var(--r-muted); line-height: 1.9; font-family: 'Inter', sans-serif; }
+.r-footer strong { color: var(--r-gold); }
+.r-footer .r-tagline { font-family: 'Playfair Display', serif; font-size: .85rem; color: var(--r-text); display: block; margin-bottom: 6px; }
 
 /* ============================================================
    RESPONSIVE
 ============================================================ */
-@media (max-width: 1024px) {
-  .news-grid  { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 900px) {
+  .s-news-grid { grid-template-columns: 1fr 1fr; }
+  .s-edges-grid { grid-template-columns: 1fr; }
+  .s-picks-layout { grid-template-columns: 1fr; }
+  .s-picks-form { position: static; }
 }
-
-@media (max-width: 768px) {
-  .edges-grid { grid-template-columns: 1fr; }
-  .form-row   { grid-template-columns: repeat(2, 1fr); }
-}
-
 @media (max-width: 640px) {
-  .news-grid  { grid-template-columns: 1fr; }
-  .form-row   { grid-template-columns: 1fr; }
-  .page       { padding: 18px 14px 60px; }
-  .brand__name span { display: none; }
-  /* Hide less critical table cols */
-  .col-net, .col-edge { display: none; }
+  .clock { display: none; }
+  .s-news-grid { grid-template-columns: 1fr; }
+  .r-form-grid { grid-template-columns: 1fr; }
+  .r-stakes-table { font-size: .72rem; }
+  .r-stakes-table td, .r-stakes-table th { padding: 8px 8px; }
+  .r-header-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .s-section, .r-section { padding: 24px 16px; }
 }
 </style>
 </head>
 <body>
 
 <!-- ============================================================
-     SITE HEADER
+     SHARED NAV
 ============================================================ -->
-<header class="site-header">
-  <div class="site-header__inner">
-
-    <div class="brand">
-      <div class="brand__diamond">B</div>
-      <div class="brand__name">
-        bennythebet
-        <span>Picks · Parlays · Profit</span>
-      </div>
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <div class="brand">benny<span class="s-accent">thebet</span></div>
+    <div class="site-tabs">
+      <button class="site-tab active-sports" id="tab-sports" onclick="switchPage('sports')">⚡ Sports</button>
+      <button class="site-tab" id="tab-racing" onclick="switchPage('racing')">🏇 Racing</button>
     </div>
-
-    <nav class="site-tabs">
-      <button class="site-tab active" id="tab-sports" onclick="switchPage('sports')">
-        🏈&nbsp; Sports Betting
-      </button>
-      <button class="site-tab racing" id="tab-racing" onclick="switchPage('racing')">
-        <span class="tab-icon">🏇</span>&nbsp; Horse Racing
-      </button>
-    </nav>
-
-    <div class="site-header__right">
-      <div class="live-clock">
-        <span class="dot"></span>
-        <span id="clockDisplay"></span>
-      </div>
+    <div class="nav-right">
+      <span class="clock" id="liveClock"></span>
+      <a class="x-btn" href="https://x.com/bennythebet" target="_blank" rel="noopener">@bennythebet</a>
     </div>
-
   </div>
-</header>
+</nav>
 
 <!-- ============================================================
-     TICKER
+     ███ SPORTS BETTING SITE ███
 ============================================================ -->
-<div class="ticker">
-  <div class="ticker__label">Lines</div>
-  <div class="ticker__wrap">
-    <div class="ticker__track" id="tickerTrack"></div>
+<div id="sports-page">
+
+  <div class="ticker-sports">
+    <div class="ticker-lbl-s">Live Lines</div>
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Thunder @ Nuggets</span><span class="t-odds">DEN -3 · O/U 223</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Cavaliers vs Pistons</span><span class="t-odds">CLE -10 · O/U 215</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Lakers vs Trail Blazers</span><span class="t-odds">LAL -8 · O/U 225</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Heat vs Sixers</span><span class="t-odds">PHI -2.5 · O/U 216</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Yankees @ Orioles · Cole</span><span class="t-odds">NYY -130 · O/U 7.5</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Brewers @ Cardinals · Burnes</span><span class="t-odds">MIL -120 · O/U 8</span></span>
+        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Rangers vs Bruins</span><span class="t-odds">NYR -115 · O/U 5.5</span></span>
+        <span class="st-item"><span class="t-sport">NCAAB</span><span class="t-teams">Final Four Tomorrow — Apr 4</span><span class="t-odds">UConn -3.5 · Arizona -6.5</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Thunder @ Nuggets</span><span class="t-odds">DEN -3 · O/U 223</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Cavaliers vs Pistons</span><span class="t-odds">CLE -10 · O/U 215</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Lakers vs Trail Blazers</span><span class="t-odds">LAL -8 · O/U 225</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Heat vs Sixers</span><span class="t-odds">PHI -2.5 · O/U 216</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Yankees @ Orioles · Cole</span><span class="t-odds">NYY -130 · O/U 7.5</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Brewers @ Cardinals · Burnes</span><span class="t-odds">MIL -120 · O/U 8</span></span>
+        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Rangers vs Bruins</span><span class="t-odds">NYR -115 · O/U 5.5</span></span>
+        <span class="st-item"><span class="t-sport">NCAAB</span><span class="t-teams">Final Four Tomorrow — Apr 4</span><span class="t-odds">UConn -3.5 · Arizona -6.5</span></span>
+      </div>
+    </div>
   </div>
+
+  <section class="s-section">
+    <div class="s-head">
+      <div class="s-title">Today's <span>Lines</span></div>
+      <span class="s-badge">Apr 3, 2026</span>
+      <span class="s-meta">All times ET</span>
+    </div>
+    <div class="sport-tabs-row">
+      <button class="st-btn active" onclick="showSport('nba',this)">NBA</button>
+      <button class="st-btn" onclick="showSport('ncaab',this)">NCAAB</button>
+      <button class="st-btn" onclick="showSport('mlb',this)">MLB</button>
+      <button class="st-btn" onclick="showSport('nhl',this)">NHL</button>
+    </div>
+    <div class="sport-panel active" id="panel-nba"><div class="games-grid" id="grid-nba"></div></div>
+    <div class="sport-panel" id="panel-ncaab"><div class="games-grid" id="grid-ncaab"></div></div>
+    <div class="sport-panel" id="panel-mlb"><div class="games-grid" id="grid-mlb"></div></div>
+    <div class="sport-panel" id="panel-nhl"><div class="games-grid" id="grid-nhl"></div></div>
+  </section>
+
+  <hr class="s-hr">
+
+  <section class="s-section">
+    <div class="s-head"><div class="s-title">Today's <span>News</span></div><span class="s-badge">Apr 3, 2026</span></div>
+    <div class="s-news-grid" id="sportsNewsGrid"></div>
+  </section>
+
+  <hr class="s-hr">
+
+  <section class="s-section">
+    <div class="s-head"><div class="s-title">Sharp <span>Edges</span></div><span class="s-badge">Line Moves</span></div>
+    <div class="s-edges-grid" id="sportsEdgesGrid"></div>
+  </section>
+
+  <hr class="s-hr">
+
+  <section class="s-section">
+    <div class="s-head"><div class="s-title">Benny's <span>Picks</span></div><span class="s-badge">Live</span></div>
+    <div class="s-picks-layout">
+      <div class="s-picks-form">
+        <div class="s-picks-form-head">
+          <div class="s-picks-form-title">Post a Pick</div>
+          <button class="toggle-form-btn" onclick="toggleSportsForm()">+ Add</button>
+        </div>
+        <div class="s-form-body" id="sportsFormBody">
+          <div class="fg"><label>Game / Event</label><input id="sGame" type="text" placeholder="e.g. Thunder vs Nuggets"></div>
+          <div class="fg-2">
+            <div class="fg"><label>Pick / Bet</label><input id="sPick" type="text" placeholder="e.g. Nuggets -3"></div>
+            <div class="fg"><label>Odds</label><input id="sOdds" type="text" placeholder="e.g. -110"></div>
+          </div>
+          <div class="fg"><label>Confidence</label>
+            <select id="sConf"><option value="lock">🔒 Lock</option><option value="strong" selected>💪 Strong</option><option value="lean">🤔 Lean</option></select>
+          </div>
+          <div class="fg"><label>Analysis</label><textarea id="sNote" placeholder="Why do you like this…"></textarea></div>
+          <div class="s-form-actions"><button class="btn-post-s" onclick="postSportsPick()">Post Pick</button></div>
+        </div>
+        <div class="s-post-status" id="sPostStatus"></div>
+      </div>
+      <div class="s-picks-grid" id="sportsPicksGrid">
+        <div class="s-empty"><div class="ei">⚡</div><p>Loading picks…</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="s-footer">
+    <p><strong>bennythebet</strong> — Sports Betting · Picks · Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Data current as of <strong>April 3, 2026</strong></p>
+  </footer>
 </div>
 
 <!-- ============================================================
-     MAIN CONTENT
+     ███ RACING SITE — Jockey Club ███
 ============================================================ -->
-<main class="page" id="sports-section">
+<div id="racing-page" class="racing-scope">
 
-  <!-- ─── NEWS ────────────────────────────────────── -->
-  <section class="news-section">
-    <div class="section-label">
-      <span class="section-label__text">Sports News</span>
-      <div class="section-label__bar"></div>
-      <span class="section-label__chip" id="dateChip"></span>
+  <!-- Header -->
+  <div class="r-header-strip">
+    <div class="r-header-inner">
+      <div class="r-brand-block">
+        <div class="r-brand-title">bennythebet Racing</div>
+        <div class="r-brand-sub">Derby Trail · Form · Analysis · Picks</div>
+      </div>
+      <div class="r-derby-box">
+        <div class="r-derby-label">Kentucky Derby</div>
+        <div class="r-derby-num" id="derbyDays">29</div>
+        <div class="r-derby-unit">Days Away · May 2, 2026</div>
+      </div>
     </div>
-    <div class="news-grid" id="newsGrid"></div>
+  </div>
+
+  <!-- Racing ticker -->
+  <div class="r-ticker">
+    <div class="r-ticker-lbl">🏇 Derby Trail</div>
+    <div class="ticker-wrap">
+      <div class="r-ticker-track">
+        <span class="r-t-item"><span class="r-t-hl">APR 5</span> — Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1</span>
+        <span class="r-t-item">Blue Grass: 8 declared — morning line out Friday</span>
+        <span class="r-t-item">Wood Memorial: <span class="r-t-hl">Talk To Me Jimmy</span> 5-2 morning line fav</span>
+        <span class="r-t-item">Santa Anita Derby: Baffert sends Potente + Cherokee Nation</span>
+        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · The Puma 60</span>
+        <span class="r-t-item">Commandment skipping Saturday — pointing straight to <span class="r-t-hl">Churchill Downs</span></span>
+        <span class="r-t-item"><span class="r-t-hl">APR 5</span> — Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1</span>
+        <span class="r-t-item">Blue Grass: 8 declared — morning line out Friday</span>
+        <span class="r-t-item">Wood Memorial: <span class="r-t-hl">Talk To Me Jimmy</span> 5-2 morning line fav</span>
+        <span class="r-t-item">Santa Anita Derby: Baffert sends Potente + Cherokee Nation</span>
+        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · The Puma 60</span>
+        <span class="r-t-item">Commandment skipping Saturday — pointing straight to <span class="r-t-hl">Churchill Downs</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Derby points leaderboard -->
+  <div class="r-lb-strip">
+    <div class="r-lb-inner">
+      <span class="r-lb-label">Derby Points</span>
+      <div class="r-lb-horse top"><div class="r-lb-pos">1</div><div><div class="r-lb-name">Commandment</div><div class="r-lb-pts"><strong>150</strong> pts</div></div></div>
+      <div class="r-lb-horse top"><div class="r-lb-pos">2</div><div><div class="r-lb-name">Renegade</div><div class="r-lb-pts"><strong>125</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">3</div><div><div class="r-lb-name">The Puma</div><div class="r-lb-pts"><strong>60</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">4</div><div><div class="r-lb-name">Silent Tactic</div><div class="r-lb-pts"><strong>40</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">5</div><div><div class="r-lb-name">Taptastic</div><div class="r-lb-pts"><strong>20</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">6</div><div><div class="r-lb-name">Potente</div><div class="r-lb-pts"><strong>14</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">7</div><div><div class="r-lb-name">Cherokee Nation</div><div class="r-lb-pts"><strong>12</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">8</div><div><div class="r-lb-name">Talk To Me Jimmy</div><div class="r-lb-pts"><strong>10</strong> pts</div></div></div>
+    </div>
+  </div>
+
+  <!-- News -->
+  <section class="r-section">
+    <div class="r-head"><div class="r-title">Latest News</div><div class="r-title-rule"></div><span class="r-badge">Apr 3, 2026</span></div>
+    <div class="r-news-grid" id="racingNewsGrid"></div>
   </section>
 
-  <!-- ─── LINES BOARD ─────────────────────────────── -->
-  <section class="lines-section">
-    <div class="section-label">
-      <span class="section-label__text">Today's Lines</span>
-      <div class="section-label__bar"></div>
-      <span class="section-label__chip">Live Odds</span>
-    </div>
-    <div class="sport-tabs" id="sportTabsBar" role="tablist"></div>
-    <div class="lines-wrap" id="sportPanels"></div>
-  </section>
+  <hr class="r-hr">
 
-  <!-- ─── TRENDS & EDGES ──────────────────────────── -->
-  <section class="edges-section">
-    <div class="section-label">
-      <span class="section-label__text">Trends &amp; Edges</span>
-      <div class="section-label__bar"></div>
-      <span class="section-label__chip">Sharp Action</span>
-    </div>
-    <div class="edges-grid" id="edgesGrid"></div>
-  </section>
-
-  <!-- ─── MY PICKS ────────────────────────────────── -->
-  <section class="picks-section">
-
-    <div class="picks-header">
-      <div class="section-label" style="margin-bottom:0; flex:1; align-items:center;">
-        <span class="section-label__text">My Picks</span>
-        <div class="section-label__bar"></div>
-        <span class="live-badge">Live</span>
-      </div>
-      <button class="btn-add" id="addPickBtn" onclick="toggleAdd()">
-        ＋ Add Pick
-      </button>
-    </div>
-
-    <div class="add-pick-form" id="addPickForm">
-      <h3>Post a Pick</h3>
-      <div class="form-row">
-        <div class="fld">
-          <label for="f-sport">Sport</label>
-          <select id="f-sport">
-            <option>NBA</option><option>NFL</option><option>NCAAB</option>
-            <option>NCAAF</option><option>MLB</option><option>NHL</option>
-            <option>MMA</option><option>Other</option>
-          </select>
-        </div>
-        <div class="fld">
-          <label for="f-matchup">Matchup</label>
-          <input id="f-matchup" type="text" placeholder="e.g. Celtics vs. Heat">
-        </div>
-        <div class="fld">
-          <label for="f-pick">Pick</label>
-          <input id="f-pick" type="text" placeholder="e.g. Celtics -7">
-        </div>
-      </div>
-      <div class="form-row two-col">
-        <div class="fld">
-          <label for="f-odds">Odds</label>
-          <input id="f-odds" type="text" placeholder="-110">
-        </div>
-        <div class="fld">
-          <label for="f-units">Units</label>
-          <input id="f-units" type="text" placeholder="2u">
-        </div>
-        <div class="fld">
-          <label for="f-bettype">Bet Type</label>
-          <select id="f-bettype">
-            <option>Spread</option><option>Moneyline</option>
-            <option>Over</option><option>Under</option>
-            <option>Prop</option><option>Parlay</option><option>Teaser</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row full-col">
-        <div class="fld">
-          <label for="f-notes">Analysis / Notes</label>
-          <textarea id="f-notes" placeholder="Why do you like this pick? Sharp action, trends, matchup edges…"></textarea>
-        </div>
-      </div>
-      <div class="form-actions">
-        <button class="btn-submit" onclick="submitPick()">Post Pick</button>
-        <button class="btn-cancel" onclick="toggleAdd()">Cancel</button>
-      </div>
-    </div>
-
-    <div class="picks-grid" id="picksGrid">
-      <div class="picks-empty">
-        <div class="icon">🎯</div>
-        <p>Loading picks…</p>
-      </div>
-    </div>
-
-  </section>
-
-</main>
-
-<!-- ============================================================
-     RACING SECTION — embedded iframe
-============================================================ -->
-<div id="racing-section" style="display:none;">
-  <iframe id="racingFrame"
-    src=""
-    style="width:100%; height:calc(100vh - 92px); border:none; display:block;"
-    loading="lazy"
-    title="BennyTheBet Racing">
-  </iframe>
-</div>
-
-<!-- ============================================================
-     FOOTER
-============================================================ -->
-<footer class="site-footer">
-  <div class="footer-brand">benny<span>the</span>bet</div>
-  <div class="footer-tag">Picks · Parlays · Profit</div>
-  <p class="footer-disc">For entertainment purposes only. All picks represent the personal opinions of @bennythebet and are not financial advice. Please gamble responsibly.</p>
-</footer>
-
-<!-- Firebase -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy }
-    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  const cfg = {
-    apiKey:            "AIzaSyBennyTheBetFirebaseKey",
-    authDomain:        "bennythebet.firebaseapp.com",
-    projectId:         "bennythebet",
-    storageBucket:     "bennythebet.appspot.com",
-    messagingSenderId: "123456789",
-    appId:             "1:123456789:web:bennythebet"
-  };
-
-  const app = initializeApp(cfg);
-  const db  = getFirestore(app);
-  const col = collection(db, 'sports_picks');
-
-  // Live listener
-  onSnapshot(query(col, orderBy('ts', 'desc')), snap => {
-    const grid = document.getElementById('picksGrid');
-    if (snap.empty) {
-      grid.innerHTML = `<div class="picks-empty"><div class="icon">🎯</div><p>No picks yet — check back soon.</p></div>`;
-      return;
-    }
-    grid.innerHTML = snap.docs.map(d => {
-      const p = d.data();
-      const dt = p.date || (p.ts?.toDate
-        ? p.ts.toDate().toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '');
-      return `
-        <div class="pick-card">
-          <div class="pick-card__top">
-            ${p.sport ? `<span class="pick-chip chip-type">${esc(p.sport)}</span>` : ''}
-            <span style="font-size:11px;color:var(--text-dim)">${esc(dt)}</span>
-          </div>
-          <div class="pick-card__matchup">${esc(p.matchup||p.game||'')}</div>
-          <div class="pick-card__chips">
-            ${p.pick    ? `<span class="pick-chip chip-pick">${esc(p.pick)}</span>` : ''}
-            ${p.odds    ? `<span class="pick-chip chip-odds">${esc(p.odds)}</span>` : ''}
-            ${p.units   ? `<span class="pick-chip chip-units">${esc(p.units)}</span>` : ''}
-            ${p.betType ? `<span class="pick-chip chip-units">${esc(p.betType)}</span>` : ''}
-          </div>
-          ${p.notes ? `<div class="pick-card__notes">${esc(p.notes)}</div>` : ''}
-        </div>`;
-    }).join('');
-  }, err => {
-    document.getElementById('picksGrid').innerHTML =
-      `<div class="picks-empty"><div class="icon">⚠️</div><p>Picks unavailable — check Firebase config.</p></div>`;
-  });
-
-  window.submitPick = async function() {
-    const matchup = document.getElementById('f-matchup').value.trim();
-    const pick    = document.getElementById('f-pick').value.trim();
-    if (!matchup || !pick) { alert('Matchup and Pick are required.'); return; }
-    await addDoc(col, {
-      sport:   document.getElementById('f-sport').value,
-      matchup, pick,
-      odds:    document.getElementById('f-odds').value.trim(),
-      units:   document.getElementById('f-units').value.trim(),
-      betType: document.getElementById('f-bettype').value,
-      notes:   document.getElementById('f-notes').value.trim(),
-      date:    new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
-      ts:      serverTimestamp()
-    });
-    ['f-matchup','f-pick','f-odds','f-units','f-notes'].forEach(id =>
-      document.getElementById(id).value = '');
-    toggleAdd();
-  };
-</script>
-
-<!-- App JS -->
-<script>
-/* ── Utils ───────────────────────────── */
-function esc(s) {
-  return String(s||'')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-
-function toggleAdd() {
-  const f = document.getElementById('addPickForm');
-  const b = document.getElementById('addPickBtn');
-  const open = f.classList.toggle('open');
-  b.textContent = open ? '✕ Cancel' : '＋ Add Pick';
-}
-
-/* ── Page switching (Sports / Racing) ── */
-function switchPage(page) {
-  const sportsSection = document.getElementById('sports-section');
-  const racingSection = document.getElementById('racing-section');
-  const ticker        = document.querySelector('.ticker');
-  const footer        = document.querySelector('.site-footer');
-  const tabSports     = document.getElementById('tab-sports');
-  const tabRacing     = document.getElementById('tab-racing');
-
-  if (page === 'racing') {
-    sportsSection.style.display = 'none';
-    racingSection.style.display = 'block';
-    ticker.style.display        = 'none';
-    footer.style.display        = 'none';
-    tabSports.classList.remove('active');
-    tabRacing.classList.add('active');
-    // Lazy-load iframe on first switch
-    const frame = document.getElementById('racingFrame');
-    if (!frame.src || frame.src === '' || frame.src === window.location.href) {
-      frame.src = 'https://bsestak23.github.io/bennythebet---racing/';
-    }
-  } else {
-    sportsSection.style.display = '';
-    racingSection.style.display = 'none';
-    ticker.style.display        = '';
-    footer.style.display        = '';
-    tabSports.classList.add('active');
-    tabRacing.classList.remove('active');
-  }
-}
-
-/* ── Clock ───────────────────────────── */
-(function clock() {
-  const el = document.getElementById('clockDisplay');
-  function tick() {
-    const now = new Date();
-    el.textContent = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
-
-/* ── Date chip ───────────────────────── */
-(function() {
-  const d = document.getElementById('dateChip');
-  if (d) d.textContent = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-})();
-
-/* ── NEWS DATA ────────────────────────── */
-// Updated Wed Apr 1, 2026
-const newsData = [
-  {
-    sport:'NCAA', tagClass:'tag-ncaab',
-    title:'Final Four Preview: Illinois vs UConn, Michigan vs Arizona — Saturday April 4 at Lucas Oil',
-    body: 'The 2026 Final Four is set in Indianapolis. Illinois (-1.5, O/U 139.5) faces UConn Saturday. Michigan (-1.5, O/U 157.5) takes on Arizona in the nightcap. Michigan and Arizona co-favorites to win the title at +175. Championship Monday April 6.',
-    date:'Apr 1', url:''
-  },
-  {
-    sport:'NBA', tagClass:'tag-nba',
-    title:'Spurs (57-18) Face Warriors Tonight at Chase Center — San Antonio Seeking 9th Straight',
-    body: 'San Antonio is on an 8-game win streak and owns the second-best record in the NBA. The Spurs visit Golden State (36-39) tonight as -3.5 road favorites. Warriors at home desperate for a play-in spot. Tip 10:00 PM ET.',
-    date:'Apr 1', url:''
-  },
-  {
-    sport:'NBA', tagClass:'tag-nba',
-    title:'Rockets (45-29) Host Bucks (29-45) — Houston Locks Up Play-In Spot',
-    body: 'Houston is fighting for home court in the play-in round and hosts a Milwaukee team that has been eliminated from playoff contention. Rockets -6 in a game with massive motivation mismatch. Ime Udoka\'s squad has covered 7 of their last 9 as home favorites.',
-    date:'Apr 1', url:''
-  },
-  {
-    sport:'MLB', tagClass:'tag-mlb',
-    title:'Paul Skenes Starts as Pirates Visit Reds — CIN -156 on the Board',
-    body: 'Paul Skenes (2-0, 1.80 ERA) takes the mound at Great American Ballpark tonight vs Andrew Abbott. Cincinnati opened -140 and has been bet to -156. Despite Skenes\' brilliance, Pittsburgh is 1-4 in his starts this year. LAD -246 vs Guardians as Yamamoto goes.',
-    date:'Apr 1', url:''
-  },
-  {
-    sport:'NHL', tagClass:'tag-nhl',
-    title:'NHL Wild Card Race — Bruins, Blue Jackets, Senators & Red Wings All Within 4 Points',
-    body: 'The Eastern wild card race is a four-team scrum with 15 games left. Boston (90 pts) leads Columbus (87), Ottawa (86), and Detroit (86). All four teams in action this week. Colorado and Dallas have clinched in the West. Regular season ends April 16.',
-    date:'Apr 1', url:''
-  },
-  {
-    sport:'Betting', tagClass:'tag-bet',
-    title:'Early MLB Season Trends: Fade the Ace in High-Chalk Spots',
-    body: 'Early MLB data shows star pitchers priced above -200 moneyline are covering only 41% of the time in the first three weeks of the season. Yamamoto (-246), Sale (-207), and Skenes (-156) are all on the board tonight. Fading the chalk or taking the under offers better value.',
-    date:'Apr 1', url:''
-  }
-];
-
-(function() {
-  document.getElementById('newsGrid').innerHTML = newsData.map(s => {
-    const tag = `tag-${s.sport.toLowerCase()}`;
-    return `
-    <${s.url ? `a href="${esc(s.url)}" target="_blank" rel="noopener"` : 'div'} class="news-card">
-      <div class="news-card__top">
-        <span class="news-card__tag ${s.tagClass}">${esc(s.sport)}</span>
-        <span class="news-card__date">${esc(s.date)}</span>
-      </div>
-      <div class="news-card__title">${esc(s.title)}</div>
-      <div class="news-card__body">${esc(s.body)}</div>
-      ${s.url ? `<span class="news-card__link">Read more →</span>` : ''}
-    </${s.url ? 'a' : 'div'}>`;
-  }).join('');
-})();
-
-/* ── LINES DATA ───────────────────────── */
-// Updated Wed Apr 1, 2026
-const lines = {
-  NBA: [
-    { away:'Milwaukee Bucks',    home:'Houston Rockets',
-      spread:'HOU -6',   ou:'222', awayML:'+210', homeML:'-255',
-      time:'7:00 PM ET', net:'',       edge:'sharp' },
-    { away:'Boston Celtics',     home:'Miami Heat',
-      spread:'BOS -5.5', ou:'215', awayML:'-220', homeML:'+184',
-      time:'7:30 PM ET', net:'',       edge:null },
-    { away:'Philadelphia 76ers', home:'Washington Wizards',
-      spread:'PHI -12.5', ou:'220', awayML:'-750', homeML:'+550',
-      time:'7:00 PM ET', net:'',       edge:'public' },
-    { away:'Orlando Magic',      home:'Atlanta Hawks',
-      spread:'ORL -3',   ou:'223', awayML:'-148', homeML:'+125',
-      time:'7:30 PM ET', net:'',       edge:null },
-    { away:'Indiana Pacers',     home:'Chicago Bulls',
-      spread:'CHI -1',   ou:'219', awayML:'+104', homeML:'-124',
-      time:'8:00 PM ET', net:'',       edge:null },
-    { away:'San Antonio Spurs',  home:'Golden State Warriors',
-      spread:'SAS -3.5', ou:'228', awayML:'-172', homeML:'+145',
-      time:'10:00 PM ET', net:'ESPN',  edge:'sharp' }
-  ],
-  'FINAL 4': [
-    { away:'UConn Huskies',      home:'Illinois Fighting Illini',
-      spread:'ILL -1.5', ou:'139.5', awayML:'+175', homeML:'-215',
-      time:'Sat Apr 4 6:09 PM', net:'CBS', edge:'sharp' },
-    { away:'Arizona Wildcats',   home:'Michigan Wolverines',
-      spread:'MICH -1.5', ou:'157.5', awayML:'+115', homeML:'-135',
-      time:'Sat Apr 4 8:49 PM', net:'CBS', edge:null }
-  ],
-  MLB: [
-    { away:'Athletics',          home:'Atlanta Braves',
-      spread:'ATL -1.5 (-145)', ou:'8', awayML:'+175', homeML:'-207',
-      time:'7:20 PM ET',  net:'', edge:'public' },
-    { away:'Texas Rangers',      home:'Baltimore Orioles',
-      spread:'BAL -1.5 (+130)', ou:'8', awayML:'+102', homeML:'-121',
-      time:'6:35 PM ET',  net:'', edge:null },
-    { away:'Pittsburgh Pirates', home:'Cincinnati Reds',
-      spread:'CIN -1.5 (+120)', ou:'7.5', awayML:'+132', homeML:'-156',
-      time:'6:40 PM ET',  net:'', edge:'sharp' },
-    { away:'Cleveland Guardians', home:'Los Angeles Dodgers',
-      spread:'LAD -1.5 (-195)', ou:'7.5', awayML:'+205', homeML:'-246',
-      time:'10:10 PM ET', net:'', edge:'public' }
-  ],
-  NHL: [
-    { away:'Colorado Avalanche', home:'Minnesota Wild',
-      spread:'COL -1.5 (+170)', ou:'6', awayML:'-190', homeML:'+160',
-      time:'7:00 PM ET',  net:'', edge:null },
-    { away:'Boston Bruins',      home:'Ottawa Senators',
-      spread:'BOS -1.5 (+155)', ou:'5.5', awayML:'-160', homeML:'+135',
-      time:'7:00 PM ET',  net:'',  edge:'sharp' },
-    { away:'Tampa Bay Lightning', home:'Buffalo Sabres',
-      spread:'TBL -1.5 (+135)', ou:'6',  awayML:'-152', homeML:'+128',
-      time:'7:00 PM ET',  net:'', edge:null }
-  ]
-};
-
-function edgeChip(e) {
-  if (e==='sharp')  return `<span class="edge-chip chip-sharp">⚡ Sharp</span>`;
-  if (e==='public') return `<span class="edge-chip chip-public">🔥 Public</span>`;
-  return `<span class="edge-chip chip-none">—</span>`;
-}
-
-(function() {
-  const bar    = document.getElementById('sportTabsBar');
-  const panels = document.getElementById('sportPanels');
-  const sports = Object.keys(lines);
-
-  bar.innerHTML = sports.map((s,i) => `
-    <button class="sport-tab-btn ${i===0?'active':''}" role="tab"
-      onclick="switchTab(this,'lp-${s}')">${s}</button>
-  `).join('');
-
-  panels.innerHTML = sports.map((s,i) => `
-    <div class="sport-panel ${i===0?'active':''}" id="lp-${s}">
-      <table class="lines-table">
-        <thead><tr>
-          <th>Matchup</th>
-          <th>Spread</th>
-          <th class="c">O/U</th>
-          <th class="c">Moneyline</th>
-          <th class="col-net">Time / Network</th>
-          <th class="r col-edge">Edge</th>
-        </tr></thead>
-        <tbody>
-          ${lines[s].map(g=>`
-          <tr>
-            <td class="td-matchup">
-              <span class="away">${esc(g.away)}</span>
-              <span class="home">${esc(g.home)}</span>
-            </td>
-            <td><span class="pill pill-spread">${esc(g.spread)}</span></td>
-            <td class="c"><span class="pill pill-ou">${esc(g.ou)}</span></td>
-            <td class="c" style="white-space:nowrap">
-              <span class="pill pill-ml-fav" style="margin-right:4px">${esc(g.awayML)}</span>
-              <span class="pill pill-ml-dog">${esc(g.homeML)}</span>
-            </td>
-            <td class="td-time-net col-net">
-              <span class="time">${esc(g.time)}</span>
-              <span class="network">${esc(g.net)}</span>
-            </td>
-            <td class="td-edge col-edge">${edgeChip(g.edge)}</td>
-          </tr>`).join('')}
-        </tbody>
+  <!-- Stakes Calendar -->
+  <section class="r-section">
+    <div class="r-head"><div class="r-title">Stakes Calendar</div><div class="r-title-rule"></div><span class="r-badge">Road to Churchill</span></div>
+    <div class="r-stakes-wrap">
+      <table class="r-stakes-table">
+        <thead><tr><th>Date</th><th>Race</th><th>Grade</th><th>Track</th><th>Distance</th><th>Purse</th><th>Pts</th><th>Notes</th></tr></thead>
+        <tbody id="racingStakesBody"></tbody>
       </table>
     </div>
-  `).join('');
-})();
+  </section>
 
-function switchTab(btn, id) {
-  document.querySelectorAll('.sport-tab-btn').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-  document.querySelectorAll('.sport-panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById(id).classList.add('active');
-}
+  <hr class="r-hr">
 
-/* ── TICKER ───────────────────────────── */
-(function() {
-  const items = [
-    {sport:'NBA',   teams:'HOU -6 vs MIL',        odds:'222 O/U'},
-    {sport:'NBA',   teams:'BOS -5.5 @ MIA',        odds:'215 O/U'},
-    {sport:'NBA',   teams:'PHI -12.5 @ WAS',       odds:'220 O/U'},
-    {sport:'NBA',   teams:'SAS -3.5 @ GSW',        odds:'228 O/U'},
-    {sport:'NCAAB', teams:'ILL -1.5 vs UCONN',     odds:'139.5 O/U • Apr 4'},
-    {sport:'NCAAB', teams:'MICH -1.5 vs ARIZ',     odds:'157.5 O/U • Apr 4'},
-    {sport:'MLB',   teams:'ATL -207 vs OAK (Sale)', odds:'8 O/U'},
-    {sport:'MLB',   teams:'CIN -156 vs PIT (Skenes)',odds:'7.5 O/U'},
-    {sport:'MLB',   teams:'LAD -246 vs CLE (Yama)', odds:'7.5 O/U'},
-    {sport:'NHL',   teams:'BOS -160 @ OTT',        odds:'5.5 O/U'},
-    {sport:'NHL',   teams:'COL -190 @ MIN',        odds:'6 O/U'},
-  ];
-  const both = [...items,...items];
-  document.getElementById('tickerTrack').innerHTML = both.map(t => `
-    <div class="ticker__item">
-      <span class="sport">${esc(t.sport)}</span>
-      <span class="teams">${esc(t.teams)}</span>
-      <span class="odds">${esc(t.odds)}</span>
-    </div>`).join('');
-})();
+  <!-- Upcoming Cards -->
+  <section class="r-section">
+    <div class="r-head"><div class="r-title">Upcoming Cards</div><div class="r-title-rule"></div><span class="r-badge">Next Up</span></div>
+    <div class="r-cards-grid" id="racingCardsGrid"></div>
+  </section>
 
-/* ── EDGES ────────────────────────────── */
-const edges = [
-  { icon:'⚡', game:'SAS at GSW — NBA',
-    type:'et-sharp', typeLabel:'Sharp Money',
-    title:'Warriors (+145) at home vs the Spurs — sharp fade on a big road favorite',
-    desc: 'San Antonio is 57-18 and a justified road favorite at -3.5, but Golden State is 22-17 at Chase Center and desperately needs this game for play-in seeding. Road teams favored by 3+ in these late-season desperation spots cover at only 44% historically.',
-    stat:'NBA road fav -3 to -5 in last 3 weeks of season: 44% ATS' },
-  { icon:'🔥', game:'MIL at HOU — NBA',
-    type:'et-sharp', typeLabel:'Sharp Money',
-    title:'Rockets -6 draws sharp action — Bucks eliminated, Houston fighting for play-in',
-    body: 'Houston has covered 7 of their last 9 as home favorites. Milwaukee (29-45) has nothing to play for and is 5-15 ATS on the road over their last 20 games. Massive motivation mismatch makes HOU -6 a strong lean.',
-    stat:'HOU home as fav last 9 games: 7-2 ATS | MIL road last 20: 5-15 ATS' },
-  { icon:'📊', game:'UCONN vs ILL — Final Four',
-    type:'et-system', typeLabel:'Reverse Line Move',
-    title:'UConn +175 reverse line movement — sharp money on the Huskies',
-    desc: 'Illinois opened -2.5 and has moved to -1.5 despite 72% of public bets on the Illini. The book is moving toward UConn, signaling sharp money on the underdog. The Huskies won their last Final Four appearance and own the most experienced roster.',
-    stat:'Line move: ILL -2.5 → -1.5 despite 72% public on Illinois' },
-  { icon:'📈', game:'PIT at CIN — MLB',
-    type:'et-sharp', typeLabel:'Fade the Ace',
-    title:'Fade Skenes -156? Reds drawing sharp steam despite public on Pittsburgh',
-    desc: 'Paul Skenes is the biggest name on the board but Cincinnati opened -140 and has been bet to -156 by sharps, not the public. Pirates are 1-4 in Skenes\' starts this year despite his 1.80 ERA — run support kills them. Andrew Abbott has been solid at home.',
-    stat:'Pirates run support in Skenes starts: 2.4 runs/game (MLB worst)' },
-  { icon:'🏥', game:'CLE at LAD — MLB',
-    type:'et-public', typeLabel:'Fade the Chalk',
-    title:'Dodgers -246 with Yamamoto — massive chalk creates alt market value',
-    desc: 'Yoshinobu Yamamoto is dominant but LAD -246 requires $246 risk to win $100. At these prices, skip the moneyline. Instead: Dodgers first 5 innings (-1.5 runs, around -145) or Yamamoto strikeout props offer far better ROI than the full game line.',
-    stat:'Teams priced -220 or higher MLB 2025: 67% win rate, -3.1% ROI flat' },
-  { icon:'🏒', game:'BOS at OTT — NHL',
-    type:'et-system', typeLabel:'Must-Win Spot',
-    title:'Bruins -160 visiting Ottawa in a true must-win — Boston covers in pressure games',
-    desc: 'Boston (90 pts) leads the East wild card by 3 points over Ottawa (87 pts). This is a direct head-to-head matchup between two wild card contenders. The Bruins are 8-3 ATS in games where the playoff spot is on the line this season.',
-    stat:'BOS ATS in direct playoff-seeding matchups this season: 8-3 (73%)' }
+  <hr class="r-hr">
+
+  <!-- Picks -->
+  <section class="r-section">
+    <div class="r-head"><div class="r-title">Benny's Racing Picks</div><div class="r-title-rule"></div><span class="r-badge">Live</span></div>
+    <div class="r-picks-form-card">
+      <div class="r-picks-form-title">Post a Racing Pick</div>
+      <div class="r-form-grid">
+        <div class="r-fg"><label>Race / Event</label><input id="rRace" type="text" placeholder="e.g. Blue Grass G1 at Keeneland"></div>
+        <div class="r-fg"><label>Horse</label><input id="rHorse" type="text" placeholder="e.g. Renegade"></div>
+        <div class="r-fg"><label>Odds / Bet Type</label><input id="rOdds" type="text" placeholder="e.g. 4-1 Win, Exacta 3-5"></div>
+        <div class="r-fg"><label>Confidence</label>
+          <select id="rConf"><option value="lock">🔒 Lock</option><option value="strong" selected>💪 Strong</option><option value="lean">🤔 Lean</option></select>
+        </div>
+        <div class="r-fg r-form-span"><label>Analysis / Notes</label><textarea id="rNote" placeholder="Track bias, pace scenario, form angle…"></textarea></div>
+      </div>
+      <button class="btn-post-r" onclick="postRacingPick()">Post Pick</button>
+      <div class="r-post-status" id="rPostStatus"></div>
+    </div>
+    <div class="r-picks-grid" id="racingPicksGrid">
+      <div class="r-empty"><div class="ri">🏇</div><p>Loading picks…</p></div>
+    </div>
+  </section>
+
+  <footer class="r-footer">
+    <span class="r-tagline">The finest analysis on the Derby trail.</span>
+    <p><strong>bennythebet Racing</strong> — Horse Racing · Derby Trail · Form Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Data current as of <strong>April 3, 2026</strong> · Kentucky Derby: May 2, 2026 · Churchill Downs</p>
+  </footer>
+</div>
+
+<!-- ============================================================
+     DATA — Apr 3, 2026
+============================================================ -->
+<script>
+/* ── NBA ── */
+const nbaGames = [
+  { away:"Oklahoma City Thunder", home:"Denver Nuggets",          time:"9:00 PM",  net:"TNT",    awaySpread:"+3",   homeSpread:"-3",   awayML:"+130", homeML:"-155", ou:"223",   edge:"sharp",  note:"OKC surging — 3rd seed West" },
+  { away:"Cleveland Cavaliers",   home:"Detroit Pistons",         time:"7:00 PM",  net:"ESPN",   awaySpread:"-10",  homeSpread:"+10",  awayML:"-500", homeML:"+380", ou:"215",   edge:"public", note:"CLE clinching watch" },
+  { away:"Portland Trail Blazers",home:"Los Angeles Lakers",      time:"10:30 PM", net:"TNT",    awaySpread:"+8",   homeSpread:"-8",   awayML:"+290", homeML:"-360", ou:"225",   edge:"none",   note:"LAL holding 6th seed" },
+  { away:"Miami Heat",            home:"Philadelphia 76ers",      time:"7:00 PM",  net:"NBATV",  awaySpread:"+2.5", homeSpread:"-2.5", awayML:"+115", homeML:"-138", ou:"216",   edge:"sharp",  note:"Play-in positioning" },
+  { away:"Sacramento Kings",      home:"Memphis Grizzlies",       time:"8:00 PM",  net:"NBATV",  awaySpread:"-1",   homeSpread:"+1",   awayML:"-118", homeML:"-102", ou:"228",   edge:"none",   note:"Western bubble game" },
+  { away:"Washington Wizards",    home:"Charlotte Hornets",       time:"7:00 PM",  net:"BSSUN",  awaySpread:"-3",   homeSpread:"+3",   awayML:"-150", homeML:"+128", ou:"228",   edge:"none",   note:"" },
+];
+const ncaabGames = [
+  { away:"UConn Huskies",    home:"Illinois Fighting Illini", time:"6:09 PM TOM.", net:"CBS", awaySpread:"-3.5", homeSpread:"+3.5", awayML:"-165", homeML:"+140", ou:"143.5", edge:"sharp",  note:"Final Four Sat Apr 4 · San Antonio" },
+  { away:"Arizona Wildcats", home:"Michigan Wolverines",      time:"8:49 PM TOM.", net:"CBS", awaySpread:"-6.5", homeSpread:"+6.5", awayML:"-260", homeML:"+215", ou:"152",   edge:"public", note:"Final Four Sat Apr 4 · San Antonio" },
+];
+const mlbGames = [
+  { away:"New York Yankees",     home:"Baltimore Orioles",    time:"7:05 PM",  net:"MASN",   awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-130", homeML:"+110", ou:"7.5", edge:"sharp",  note:"Cole vs. Rodriguez" },
+  { away:"Milwaukee Brewers",    home:"St. Louis Cardinals",  time:"2:15 PM",  net:"BSMW",   awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-120", homeML:"+100", ou:"8",   edge:"sharp",  note:"Burnes vs. Gray" },
+  { away:"Tampa Bay Rays",       home:"Boston Red Sox",       time:"7:10 PM",  net:"NESN",   awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+115", homeML:"-138", ou:"7.5", edge:"none",   note:"AL East clash" },
+  { away:"Philadelphia Phillies",home:"Miami Marlins",        time:"6:40 PM",  net:"BSSUN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-155", homeML:"+133", ou:"7",   edge:"public", note:"Wheeler on bump" },
+  { away:"San Diego Padres",     home:"Colorado Rockies",     time:"3:10 PM",  net:"BSSD",   awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-200", homeML:"+170", ou:"8.5", edge:"none",   note:"Coors Field — over alert" },
+];
+const nhlGames = [
+  { away:"Boston Bruins",       home:"New York Rangers",       time:"7:00 PM",  net:"MSG",    awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+125", homeML:"-148", ou:"5.5", edge:"sharp",  note:"Wild card — 4-pt swing" },
+  { away:"Ottawa Senators",     home:"Buffalo Sabres",         time:"7:00 PM",  net:"BSSUN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-135", homeML:"+115", ou:"6",   edge:"public", note:"OTT needs points" },
+  { away:"Florida Panthers",    home:"Tampa Bay Lightning",    time:"7:30 PM",  net:"BSSUN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-155", homeML:"+133", ou:"5.5", edge:"none",   note:"Battle of Florida" },
+  { away:"Carolina Hurricanes", home:"New Jersey Devils",      time:"7:00 PM",  net:"MSGSN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-175", homeML:"+148", ou:"5.5", edge:"sharp",  note:"CAR locking Metro top seed" },
 ];
 
-(function() {
-  document.getElementById('edgesGrid').innerHTML = edges.map(e => `
-    <div class="edge-card">
-      <div class="edge-card__icon">${e.icon}</div>
-      <div class="edge-card__body">
-        <div class="edge-card__tags">
-          <span class="edge-card__game">${esc(e.game)}</span>
-          <span class="edge-type ${e.type}">${esc(e.typeLabel)}</span>
-        </div>
-        <div class="edge-card__title">${esc(e.title)}</div>
-        <div class="edge-card__desc">${esc(e.desc)}</div>
-        <div class="edge-stat">${esc(e.stat)}</div>
-      </div>
-    </div>`).join('');
+/* ── SPORTS NEWS ── */
+const sportsNews = [
+  { tag:"ncaab", tagLabel:"NCAAB", date:"Apr 3", title:"Final Four Eve — UConn -3.5 vs Illinois, Arizona -6.5 vs Michigan Tomorrow Night in San Antonio", body:"Sharp action has already moved UConn from -5 to -3.5 vs Illinois. Arizona remains a 6.5-pt favorite vs Michigan with heavy public backing. Model respects UConn to cover; the Arizona side worries given the public steam. Key injury watch: Michigan's Marcus Benson listed Q." },
+  { tag:"nba",   tagLabel:"NBA",   date:"Apr 3", title:"Thunder–Nuggets TNT Showdown — OKC +3 Best Spot on the Board Tonight", body:"Shai Gilgeous-Alexander has hit 30+ in 6 straight and OKC enters Denver as a 3-point dog despite holding the 3rd seed in the West. Sharp money came in on OKC Thursday morning, moving the line from -4.5 to -3. Model projects OKC to cover 62% of the time." },
+  { tag:"mlb",   tagLabel:"MLB",   date:"Apr 3", title:"Burnes vs. Gray in St. Louis — Best Pitching Duel on the MLB Card Today", body:"Corbin Burnes and Sonny Gray square off at Busch Stadium in what should be a low-scoring affair. Total bet down from 8.5 to 8 since open. Burnes had a 0.89 ERA in spring; Gray fanned 13 in his opener. Under is the play here." },
+  { tag:"nhl",   tagLabel:"NHL",   date:"Apr 3", title:"Bruins @ Garden — Wild Card Race Enters Crunch Mode With 4-Point Swing Game Tonight", body:"Boston enters Madison Square Garden with Ottawa 2 back and Detroit 4 back. This is effectively a must-win or must-not-lose scenario for all four teams. BOS ML opened at +130 and sits +125. Sharp interest on the Bruins underdog." },
+  { tag:"nba",   tagLabel:"NBA",   date:"Apr 3", title:"Heat vs. Sixers — Play-In Battle With Real Stakes as Both Teams Fight for 8th Seed", body:"Miami (37-41) needs tonight's result in Philly. Sixers (39-39) have been messy lately with injuries. Line moved from -3.5 to -2.5 — wiseguys see this closer than the records suggest. Heat have covered 7 of their last 9 as road underdogs." },
+  { tag:"bet",   tagLabel:"Bet",   date:"Apr 3", title:"Coors Alert — Padres @ Rockies Total at 8.5, Wind Blowing Out 12 MPH This Afternoon", body:"Afternoon game at Coors with wind blowing out 12 mph. Model shows 10.2 expected runs factoring in altitude and conditions. Rockies bullpen ranks 28th in ERA. Total sitting at 8.5 and hasn't moved. Strong over lean — grab it early." },
+];
+
+/* ── SPORTS EDGES ── */
+const sportsEdges = [
+  { icon:"⚡", game:"Thunder @ Nuggets", type:"sharp", typeLabel:"Sharp Move", title:"OKC +3 — steam move from +4.5, sharp groups on Thunder", desc:"SGA has been unstoppable. OKC is 18-6 ATS as road dogs this season. Public sitting 64% Denver. Money has moved this number 1.5 points against the public — classic sharp fade setup.", stat:"Line: +4.5 → +3" },
+  { icon:"📉", game:"Brewers @ Cardinals", type:"sharp", typeLabel:"Under Play", title:"Under 8 — Burnes vs Gray total dropped from 8.5", desc:"Best two-starter matchup on the board. Total bet down 0.5 pts since open. Busch Stadium plays neutral. Model projects 6.9 combined runs. Fading the over is the right call.", stat:"ERAs: Burnes 1.58 · Gray 2.20" },
+  { icon:"🏒", game:"Bruins @ Rangers", type:"sharp", typeLabel:"Value Dog", title:"Bruins ML +125 — sharp money on Boston in a desperation spot", desc:"Sharp books taking BOS ML in a 4-point swing game. Rangers have been shaky at home in March (4-5). BOS desperation + underdog role is a historically profitable spot in the NHL.", stat:"BOS Road Dog ATS: 15-7 L2 yrs" },
+  { icon:"🌬️", game:"Padres @ Rockies", type:"system", typeLabel:"Weather", title:"Coors Over 8.5 — 12 mph wind blowing out this afternoon", desc:"Coors altitude inflates scoring 30% baseline. Wind out adds another multiplier. Rockies bullpen dead last in xFIP over the last 30 days. Padres offense heating up. Strong over before it moves.", stat:"Wind: 12mph out · Altitude: 5,280ft" },
+];
+
+/* ── RACING NEWS ── */
+const racingNews = [
+  { cat:"Blue Grass Preview",        title:"Eight Declared for Saturday's Blue Grass G1 — Morning Line Released Friday at Keeneland", body:"Eight horses have been officially declared for the Blue Grass Stakes (G1) at Keeneland on Saturday April 5, the final major 100-point Derby prep at the Lexington track. Morning line odds will be released Friday morning. Expect a contested pace with multiple closers; the trip from behind will be key. This race has produced two of the last five Kentucky Derby winners.", date:"Apr 3", url:"https://www.keeneland.com/" },
+  { cat:"Wood Memorial",             title:"Talk To Me Jimmy Morning Line 5-2 in Full Field of 13 for Saturday's Wood Memorial G2 at Aqueduct", body:"The Wood Memorial (G2) at Aqueduct drew a full field of 13 with Talk To Me Jimmy installed as the 5-2 morning line choice off a dominant 7-length score in the Gotham Stakes. Steel (4-1) and Napoleon Solo (6-1) are the primary dangers. A field this large at Aqueduct often produces a closing winner. Full entries and jockey changes expected by Friday morning.", date:"Apr 3", url:"https://www.nyra.com/" },
+  { cat:"Santa Anita Derby Preview", title:"Baffert Confident in Potente After Sharp Works — Cherokee Nation Also Primed for Saturday", body:"Bob Baffert reported both Potente and Cherokee Nation came out of their final preparations in excellent order. Potente worked 5 furlongs in :59.4 Tuesday; Cherokee Nation went a sharp :47.1 for four furlongs Wednesday. Baffert said he has not yet designated a Derby preference between the two. The Santa Anita Derby (G1) carries 100 qualifying points to the winner.", date:"Apr 3", url:"https://www.santaanita.com/" },
+  { cat:"Commandment",               title:"Connections Confirm Commandment Bypasses Saturday Preps — Heading Straight to the Kentucky Derby", body:"Brad Cox confirmed Thursday afternoon that Commandment will skip all remaining preps and point directly to the Kentucky Derby off his Florida Derby victory. The decision preserves the horse and avoids the wear of another graded race. Commandment sits atop the leaderboard with 150 points and is comfortably inside the likely top-20.", date:"Apr 3", url:"https://www.bloodhorse.com/" },
+  { cat:"Renegade Update",           title:"Renegade Barn Reports Horse 'Doing Beautifully' — Connections Lean Toward Belmont Path Post-Arkansas", body:"Sources close to the Renegade camp told reporters Thursday that connections are leaning toward the Belmont Path rather than running back at Keeneland. The decision is not finalized. With 125 Derby points, Renegade is firmly in the field regardless. Todd Pletcher wants at least three weeks between races for the horse's wellbeing.", date:"Apr 3", url:"https://www.americasbestracing.net/" },
+  { cat:"Derby Trail",               title:"29 Days Out — Saturday Is Super Saturday: Three 100-Point Races That Will Define the 2026 Derby Field", body:"The Blue Grass G1, Santa Anita Derby G1, and Wood Memorial G2 all run Saturday April 5, collectively offering 300 points. Combined with the Spiral G3 on Friday (20 pts), nearly the entire bubble picture will crystallize this weekend. Approximately 35 horses remain in serious Derby contention; only 20 will make the gate May 2.", date:"Apr 3", url:"https://www.kentuckyderby.com/" },
+];
+
+/* ── STAKES ── */
+const stakesData = [
+  { date:"Mar 28", race:"Arkansas Derby",       grade:"G1", track:"Oaklawn Park",    dist:"1⅛m Dirt",  purse:"$1.5M", pts:"100", notes:"RESULT: Renegade by 4 lengths" },
+  { date:"Mar 28", race:"Florida Derby",        grade:"G1", track:"Gulfstream Park", dist:"1⅛m Dirt",  purse:"$1M",   pts:"100", notes:"RESULT: Commandment by a nose" },
+  { date:"Apr 4",  race:"Spiral Stakes",        grade:"G3", track:"Turfway Park",    dist:"1 1/16m",   purse:"$400K", pts:"20",  notes:"Late bubble points option" },
+  { date:"Apr 5",  race:"Blue Grass Stakes",    grade:"G1", track:"Keeneland",       dist:"1 1/16m",   purse:"$1M",   pts:"100", notes:"8 declared — ML out Friday" },
+  { date:"Apr 5",  race:"Wood Memorial",        grade:"G2", track:"Aqueduct",        dist:"1⅛m Dirt",  purse:"$750K", pts:"100", notes:"Talk To Me Jimmy 5-2 ML fav, 13-horse field" },
+  { date:"Apr 5",  race:"Santa Anita Derby",    grade:"G1", track:"Santa Anita",     dist:"1⅛m Dirt",  purse:"$1M",   pts:"100", notes:"Baffert: Potente + Cherokee Nation" },
+  { date:"Apr 18", race:"Ashland Stakes",       grade:"G1", track:"Keeneland",       dist:"1 1/16m",   purse:"$600K", pts:"—",   notes:"Key Kentucky Oaks prep" },
+  { date:"Apr 18", race:"Lexington Stakes",     grade:"G3", track:"Keeneland",       dist:"1 1/16m",   purse:"$300K", pts:"20",  notes:"Final Derby points race" },
+  { date:"Apr 25", race:"Derby Trial",          grade:"G3", track:"Churchill Downs", dist:"1m Dirt",   purse:"$175K", pts:"20",  notes:"On the Derby track" },
+  { date:"May 1",  race:"Kentucky Oaks",        grade:"G1", track:"Churchill Downs", dist:"1⅛m Dirt",  purse:"$2M",   pts:"—",   notes:"Oaks Day — top fillies" },
+  { date:"May 2",  race:"Kentucky Derby",       grade:"G1", track:"Churchill Downs", dist:"1¼m Dirt",  purse:"$5M",   pts:"—",   notes:"152nd Run for the Roses" },
+  { date:"May 16", race:"Preakness Stakes",     grade:"G1", track:"Pimlico",         dist:"1 3/16m",   purse:"$2M",   pts:"—",   notes:"Triple Crown leg 2" },
+  { date:"Jun 6",  race:"Belmont Stakes",       grade:"G1", track:"Saratoga",        dist:"1½m Dirt",  purse:"$2M",   pts:"—",   notes:"Triple Crown leg 3" },
+];
+
+/* ── UPCOMING CARDS ── */
+const upcomingCards = [
+  { track:"Keeneland",        date:"Sat, Apr 5",     chips:["Blue Grass G1","8 Declared","Limestone S."],            purse:"Featured: <strong>$1M</strong>" },
+  { track:"Aqueduct",         date:"Sat, Apr 5",     chips:["Wood Memorial G2","Full Field of 13","Gazelle S. G3"],   purse:"Featured: <strong>$750K</strong>" },
+  { track:"Santa Anita",      date:"Sat, Apr 5",     chips:["Santa Anita Derby G1","Baffert 2-Deep","Santa Ana S."],  purse:"Featured: <strong>$1M</strong>" },
+  { track:"Turfway Park",     date:"Fri, Apr 4",     chips:["Spiral Stakes G3","Bubble Race","20 Derby Pts"],         purse:"Featured: <strong>$400K</strong>" },
+  { track:"Keeneland",        date:"Fri–Sat Apr 18", chips:["Ashland S. G1","Lexington S. G3","Spring Meet"],         purse:"Featured: <strong>$600K</strong>" },
+  { track:"Churchill Downs",  date:"Sat, May 2",     chips:["KENTUCKY DERBY G1","$5M Purse","152nd Run for the Roses"], purse:"Featured: <strong>$5M</strong>" },
+];
+</script>
+
+<!-- ============================================================
+     FIREBASE
+============================================================ -->
+<script type="module">
+import { initializeApp }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const cfg = {
+  apiKey:"AIzaSyBennyTheBetFirebaseKey", authDomain:"bennythebet.firebaseapp.com",
+  projectId:"bennythebet", storageBucket:"bennythebet.appspot.com",
+  messagingSenderId:"123456789", appId:"1:123456789:web:bennythebet"
+};
+const db = getFirestore(initializeApp(cfg));
+const sCol = collection(db, 'sports_picks');
+const rCol = collection(db, 'picks');
+
+function sortDocs(snap) {
+  return [...snap.docs].sort((a,b) => (b.data().ts?.toMillis?.()??0) - (a.data().ts?.toMillis?.()??0));
+}
+
+/* Sports pick card */
+function sPick(d) {
+  const c = d.confidence||'lean', cls = c==='lock'?'sc-lock':c==='strong'?'sc-strong':'sc-lean';
+  const lbl = c==='lock'?'🔒 Lock':c==='strong'?'💪 Strong':'🤔 Lean';
+  const ts = d.ts ? new Date(d.ts.toMillis()).toLocaleString() : '';
+  return `<div class="s-pick-card">
+    <div class="s-pick-top"><div class="s-pick-lbl">${d.game||'Event TBD'}</div><div class="s-pick-conf ${cls}">${lbl}</div></div>
+    <div class="s-pick-main">${d.pick||'TBD'}</div>
+    <div class="s-pick-sub">${d.odds?`<span class="s-pick-odds">${d.odds}</span>`:''} ${ts?`<span class="s-pick-ts">${ts}</span>`:''}</div>
+    ${d.note?`<div class="s-pick-note">${d.note}</div>`:''}
+  </div>`;
+}
+
+/* Racing pick card */
+function rPick(d) {
+  const c = d.confidence||'lean', cls = c==='lock'?'rc-lock':c==='strong'?'rc-strong':'rc-lean';
+  const lbl = c==='lock'?'🔒 Lock':c==='strong'?'💪 Strong':'🤔 Lean';
+  const ts = d.ts ? new Date(d.ts.toMillis()).toLocaleString() : '';
+  return `<div class="r-pick-card">
+    <div class="r-pick-top"><div class="r-pick-lbl">${d.race||'Race TBD'}</div><div class="r-pick-conf ${cls}">${lbl}</div></div>
+    <div class="r-pick-main">${d.horse||'TBD'}</div>
+    <div class="r-pick-sub">${d.odds?`<span class="r-pick-odds">${d.odds}</span>`:''} ${ts?`<span class="r-pick-ts">${ts}</span>`:''}</div>
+    ${d.note?`<div class="r-pick-note">${d.note}</div>`:''}
+  </div>`;
+}
+
+onSnapshot(sCol, snap => {
+  const docs = sortDocs(snap);
+  document.getElementById('sportsPicksGrid').innerHTML = docs.length===0
+    ? `<div class="s-empty"><div class="ei">⚡</div><p>No sports picks yet — be first!</p></div>`
+    : docs.map(d => sPick(d.data())).join('');
+}, () => {
+  document.getElementById('sportsPicksGrid').innerHTML = `<div class="s-empty"><div class="ei">⚠️</div><p>Picks unavailable — try refreshing.</p></div>`;
+});
+
+onSnapshot(rCol, snap => {
+  const docs = sortDocs(snap);
+  document.getElementById('racingPicksGrid').innerHTML = docs.length===0
+    ? `<div class="r-empty"><div class="ri">🏇</div><p>No racing picks yet — be first!</p></div>`
+    : docs.map(d => rPick(d.data())).join('');
+}, () => {
+  document.getElementById('racingPicksGrid').innerHTML = `<div class="r-empty"><div class="ri">⚠️</div><p>Picks unavailable — try refreshing.</p></div>`;
+});
+
+window.postSportsPick = async function() {
+  const g = document.getElementById('sGame').value.trim();
+  const p = document.getElementById('sPick').value.trim();
+  const st = document.getElementById('sPostStatus');
+  if (!g||!p) { st.textContent='Game and pick required.'; st.className='s-post-status err'; return; }
+  st.textContent='Posting…'; st.className='s-post-status';
+  try {
+    await addDoc(sCol, { game:g, pick:p, odds:document.getElementById('sOdds').value.trim(), confidence:document.getElementById('sConf').value, note:document.getElementById('sNote').value.trim(), ts:serverTimestamp() });
+    st.textContent='✓ Posted!'; st.className='s-post-status ok';
+    ['sGame','sPick','sOdds','sNote'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('sConf').value='strong';
+    setTimeout(()=>{st.textContent='';st.className='s-post-status';},3000);
+  } catch(e) { st.textContent='Error — check connection.'; st.className='s-post-status err'; }
+};
+
+window.postRacingPick = async function() {
+  const race  = document.getElementById('rRace').value.trim();
+  const horse = document.getElementById('rHorse').value.trim();
+  const st = document.getElementById('rPostStatus');
+  if (!race||!horse) { st.textContent='Race and horse required.'; st.className='r-post-status err'; return; }
+  st.textContent='Posting…'; st.className='r-post-status';
+  try {
+    await addDoc(rCol, { race, horse, odds:document.getElementById('rOdds').value.trim(), confidence:document.getElementById('rConf').value, note:document.getElementById('rNote').value.trim(), ts:serverTimestamp() });
+    st.textContent='✓ Posted!'; st.className='r-post-status ok';
+    ['rRace','rHorse','rOdds','rNote'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('rConf').value='strong';
+    setTimeout(()=>{st.textContent='';st.className='r-post-status';},3000);
+  } catch(e) { st.textContent='Error — check connection.'; st.className='r-post-status err'; }
+};
+</script>
+
+<!-- ============================================================
+     RENDER + UI
+============================================================ -->
+<script>
+function switchPage(page) {
+  const nav = document.getElementById('mainNav');
+  document.getElementById('sports-page').style.display = page==='sports'?'block':'none';
+  document.getElementById('racing-page').style.display = page==='racing'?'block':'none';
+  document.getElementById('tab-sports').className = 'site-tab' + (page==='sports'?' active-sports':'');
+  document.getElementById('tab-racing').className = 'site-tab' + (page==='racing'?' active-racing':'');
+  nav.classList.toggle('racing-active', page==='racing');
+}
+function showSport(s,btn) {
+  document.querySelectorAll('.sport-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.st-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+s).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleSportsForm() { document.getElementById('sportsFormBody').classList.toggle('open'); }
+
+/* Clock */
+(function tick() {
+  const el = document.getElementById('liveClock');
+  if(el) el.textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',timeZoneName:'short'});
+  setTimeout(tick,10000);
 })();
+
+/* Derby countdown */
+(function(){
+  const days = Math.ceil((new Date('2026-05-02T18:31:00-04:00') - Date.now()) / 86400000);
+  const el = document.getElementById('derbyDays');
+  if(el) el.textContent = Math.max(days,0);
+})();
+
+/* Game card */
+function buildGameCard(g) {
+  const chip = g.edge==='sharp'
+    ? `<span class="ec-sharp">Sharp ↑</span>`
+    : g.edge==='public'
+    ? `<span class="ec-public">Public</span>`
+    : `<span class="ec-none">—</span>`;
+  const isFav = s => s && s.trim().startsWith('-');
+  return `<div class="game-card">
+    <div class="game-card__time"><span class="game-card__when">${g.time}</span><span class="game-card__net">${g.net}</span></div>
+    <div class="game-card__teams">
+      <div class="team-row">
+        <div class="team-name away">${g.away}</div>
+        <div class="team-odds"><span class="o-pill ${isFav(g.awaySpread)?'o-fav':'o-spread'}">${g.awaySpread}</span><span class="o-pill o-ml">${g.awayML}</span></div>
+      </div>
+      <div class="team-row">
+        <div class="team-name">${g.home}</div>
+        <div class="team-odds"><span class="o-pill ${isFav(g.homeSpread)?'o-fav':'o-spread'}">${g.homeSpread}</span><span class="o-pill o-ml">${g.homeML}</span></div>
+      </div>
+    </div>
+    <div class="game-card__footer">
+      <span class="game-ou">O/U ${g.ou}${g.note?` <span class="game-note">· ${g.note}</span>`:''}</span>
+      ${chip}
+    </div>
+  </div>`;
+}
+
+document.getElementById('grid-nba').innerHTML   = nbaGames.map(buildGameCard).join('');
+document.getElementById('grid-ncaab').innerHTML = ncaabGames.map(buildGameCard).join('');
+document.getElementById('grid-mlb').innerHTML   = mlbGames.map(buildGameCard).join('');
+document.getElementById('grid-nhl').innerHTML   = nhlGames.map(buildGameCard).join('');
+
+document.getElementById('sportsNewsGrid').innerHTML = sportsNews.map(n=>`
+  <div class="s-news-card">
+    <div class="s-news-top"><span class="s-tag tag-${n.tag}">${n.tagLabel}</span><span class="s-news-date">${n.date}</span></div>
+    <div class="s-news-title">${n.title}</div>
+    <div class="s-news-body">${n.body}</div>
+  </div>`).join('');
+
+document.getElementById('sportsEdgesGrid').innerHTML = sportsEdges.map(e=>`
+  <div class="s-edge-card">
+    <div class="s-edge-icon">${e.icon}</div>
+    <div class="s-edge-body">
+      <div class="s-edge-row"><span class="s-edge-game">${e.game}</span><span class="s-edge-type et-${e.type}">${e.typeLabel}</span></div>
+      <div class="s-edge-title">${e.title}</div>
+      <div class="s-edge-desc">${e.desc}</div>
+      <div class="s-edge-stat">${e.stat}</div>
+    </div>
+  </div>`).join('');
+
+document.getElementById('racingNewsGrid').innerHTML = racingNews.map(n=>`
+  <div class="r-news-card">
+    <div class="r-news-cat">${n.cat}</div>
+    <div class="r-news-title">${n.title}</div>
+    <div class="r-news-body">${n.body}</div>
+    <div class="r-news-foot"><span class="r-news-date">${n.date}</span>${n.url?`<a href="${n.url}" target="_blank" rel="noopener" class="r-news-link">Read →</a>`:''}</div>
+  </div>`).join('');
+
+const gc={G1:'rg1',G2:'rg2',G3:'rg3'};
+document.getElementById('racingStakesBody').innerHTML = stakesData.map(s=>`
+  <tr>
+    <td>${s.date}</td>
+    <td><span class="r-race-name">${s.race}</span></td>
+    <td><span class="r-grade ${gc[s.grade]||'rg3'}">${s.grade}</span></td>
+    <td class="r-track-name">${s.track}</td>
+    <td>${s.dist}</td>
+    <td>${s.purse}</td>
+    <td>${s.pts!=='—'?`<span class="r-pts">${s.pts}</span>`:`<span style="color:var(--r-muted)">—</span>`}</td>
+    <td>${s.notes.startsWith('RESULT')?`<span class="r-result">${s.notes}</span>`:`<span style="font-size:.72rem;color:var(--r-muted)">${s.notes}</span>`}</td>
+  </tr>`).join('');
+
+document.getElementById('racingCardsGrid').innerHTML = upcomingCards.map(c=>`
+  <div class="r-race-card">
+    <div class="r-rc-head"><div class="r-rc-track">${c.track}</div><div class="r-rc-date">${c.date}</div></div>
+    <div class="r-chips">${c.chips.map((ch,i)=>`<span class="r-chip${i===0?' feat':''}">${ch}</span>`).join('')}</div>
+    <div class="r-purse">${c.purse}</div>
+  </div>`).join('');
 </script>
 </body>
 </html>
