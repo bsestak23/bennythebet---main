@@ -294,6 +294,72 @@ a { color: inherit; text-decoration: none; }
 .s-footer strong { color: var(--s-green); }
 
 /* ============================================================
+   SPORTS HEADER STRIP
+============================================================ */
+.s-header-strip {
+  background: linear-gradient(135deg, #07080d 0%, #0d0f18 55%, #07080d 100%);
+  border-bottom: 2px solid var(--s-green);
+  padding: 20px 24px;
+}
+.s-header-inner {
+  max-width: 1260px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.s-brand-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.7rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--s-white); line-height: 1;
+}
+.s-brand-title .s-ht-accent { color: var(--s-green); }
+.s-brand-sub-hdr {
+  font-size: .7rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--s-muted); margin-top: 5px;
+}
+.s-record-box {
+  text-align: center;
+  border: 1px solid var(--s-bhi);
+  border-radius: 4px;
+  padding: 10px 22px;
+  background: var(--s-green-dim);
+  flex-shrink: 0;
+}
+.s-record-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--s-muted);
+}
+.s-record-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2rem; font-weight: 900; color: var(--s-green);
+  line-height: 1; margin: 3px 0; letter-spacing: .04em;
+}
+.s-record-unit {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--s-muted);
+}
+
+/* ============================================================
+   PICK RESULT BADGES + ACTION BUTTONS (both sides)
+============================================================ */
+.pr-badge { font-size:.58rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; padding:2px 6px; border-radius:3px; white-space:nowrap; }
+.pr-win   { background:rgba(34,197,94,.15);  color:#4ade80; border:1px solid rgba(34,197,94,.3); }
+.pr-loss  { background:rgba(239,68,68,.12);  color:#f87171; border:1px solid rgba(239,68,68,.25); }
+.pr-push  { background:rgba(255,255,255,.06);color:#94a3b8; border:1px solid rgba(255,255,255,.12); }
+.pr-live  { background:rgba(0,212,106,.08);  color:var(--s-green); border:1px solid rgba(0,212,106,.2); }
+.pr-live-r{ background:rgba(201,162,39,.08); color:#c9a227; border:1px solid rgba(201,162,39,.2); }
+
+.pick-actions { display:flex; gap:5px; padding-top:10px; border-top:1px solid var(--s-border); margin-top:2px; }
+.pick-actions button { font-family:'Barlow Condensed',sans-serif; font-size:.7rem; font-weight:900; letter-spacing:.06em; padding:4px 10px; border:none; border-radius:3px; cursor:pointer; transition:opacity .15s,background .15s; }
+.pa-win  { background:rgba(34,197,94,.15);  color:#4ade80; }
+.pa-loss { background:rgba(239,68,68,.12);  color:#f87171; }
+.pa-push { background:rgba(255,255,255,.06);color:#94a3b8; }
+.pa-del  { background:rgba(239,68,68,.08);  color:#f87171; margin-left:auto; font-size:.75rem; }
+.pick-actions button:hover { opacity:.7; }
+.pick-actions button.pa-active { outline:2px solid currentColor; outline-offset:1px; }
+.pick-actions--r { border-top-color:rgba(201,162,39,.15); }
+
+/* ============================================================
    RACING — Jockey Club (dark navy + warm gold)
 ============================================================ */
 #racing-page {
@@ -507,6 +573,7 @@ a { color: inherit; text-decoration: none; }
   .r-stakes-table { font-size: .72rem; }
   .r-stakes-table td, .r-stakes-table th { padding: 8px 8px; }
   .r-header-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .s-header-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
   .s-section, .r-section { padding: 24px 16px; }
 }
 </style>
@@ -534,6 +601,21 @@ a { color: inherit; text-decoration: none; }
      ███ SPORTS BETTING SITE ███
 ============================================================ -->
 <div id="sports-page">
+
+  <!-- Sports header strip -->
+  <div class="s-header-strip">
+    <div class="s-header-inner">
+      <div>
+        <div class="s-brand-title">benny<span class="s-ht-accent">thebet</span> Sports</div>
+        <div class="s-brand-sub-hdr">Picks · Lines · Sharp Money · Analysis</div>
+      </div>
+      <div class="s-record-box">
+        <div class="s-record-label">2025–26 Season</div>
+        <div class="s-record-num" id="sRecord">–</div>
+        <div class="s-record-unit">W – L Record</div>
+      </div>
+    </div>
+  </div>
 
   <div class="ticker-sports">
     <div class="ticker-lbl-s">Live Lines</div>
@@ -601,7 +683,7 @@ a { color: inherit; text-decoration: none; }
           <div class="s-picks-form-title">Post a Pick</div>
           <button class="toggle-form-btn" onclick="toggleSportsForm()">+ Add</button>
         </div>
-        <div class="s-form-body" id="sportsFormBody">
+        <div class="s-form-body open" id="sportsFormBody">
           <div class="fg"><label>Game / Event</label><input id="sGame" type="text" placeholder="e.g. Thunder vs Nuggets"></div>
           <div class="fg-2">
             <div class="fg"><label>Pick / Bet</label><input id="sPick" type="text" placeholder="e.g. Nuggets -3"></div>
@@ -832,94 +914,171 @@ const upcomingCards = [
 <script type="module">
 import { initializeApp }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp }
+import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, deleteDoc, updateDoc, doc }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
+// ⚠️ Replace placeholder values with your REAL Firebase config from Firebase Console
 const cfg = {
-  apiKey:"AIzaSyBennyTheBetFirebaseKey", authDomain:"bennythebet.firebaseapp.com",
-  projectId:"bennythebet", storageBucket:"bennythebet.appspot.com",
-  messagingSenderId:"123456789", appId:"1:123456789:web:bennythebet"
+  apiKey:            "AIzaSyB6nESEWtK95PUeSaoHWXv0TYrCpVm5vQI",
+  authDomain:        "bennythebet.firebaseapp.com",
+  projectId:         "bennythebet",
+  storageBucket:     "bennythebet.firebasestorage.app",
+  messagingSenderId: "849946766302",
+  appId:             "1:849946766302:web:8a3dc377046d826d368b4f"
 };
-const db = getFirestore(initializeApp(cfg));
-const sCol = collection(db, 'sports_picks');
-const rCol = collection(db, 'picks');
+const db  = getFirestore(initializeApp(cfg));
+// Single collection — sports picks tagged {sport:'sports'}, racing {sport:'racing'}
+// Existing racing picks (no sport field) are treated as racing automatically
+const col = collection(db, 'picks');
 
 function sortDocs(snap) {
   return [...snap.docs].sort((a,b) => (b.data().ts?.toMillis?.()??0) - (a.data().ts?.toMillis?.()??0));
 }
 
+/* Result badge */
+function prBadge(result, isRacing) {
+  if (result === 'win')  return `<span class="pr-badge pr-win">WIN ✓</span>`;
+  if (result === 'loss') return `<span class="pr-badge pr-loss">LOSS ✗</span>`;
+  if (result === 'push') return `<span class="pr-badge pr-push">PUSH</span>`;
+  return `<span class="pr-badge ${isRacing?'pr-live-r':'pr-live'}">LIVE</span>`;
+}
+
 /* Sports pick card */
-function sPick(d) {
+function sPick(d, id) {
   const c = d.confidence||'lean', cls = c==='lock'?'sc-lock':c==='strong'?'sc-strong':'sc-lean';
   const lbl = c==='lock'?'🔒 Lock':c==='strong'?'💪 Strong':'🤔 Lean';
   const ts = d.ts ? new Date(d.ts.toMillis()).toLocaleString() : '';
+  const res = d.result||'';
   return `<div class="s-pick-card">
-    <div class="s-pick-top"><div class="s-pick-lbl">${d.game||'Event TBD'}</div><div class="s-pick-conf ${cls}">${lbl}</div></div>
+    <div class="s-pick-top">
+      <div class="s-pick-lbl">${d.game||'Event TBD'}</div>
+      <div style="display:flex;gap:5px;align-items:center">${prBadge(res,false)}<div class="s-pick-conf ${cls}">${lbl}</div></div>
+    </div>
     <div class="s-pick-main">${d.pick||'TBD'}</div>
     <div class="s-pick-sub">${d.odds?`<span class="s-pick-odds">${d.odds}</span>`:''} ${ts?`<span class="s-pick-ts">${ts}</span>`:''}</div>
     ${d.note?`<div class="s-pick-note">${d.note}</div>`:''}
+    <div class="pick-actions">
+      <button class="pa-win${res==='win'?' pa-active':''}" onclick="markResult('${id}','win')">W</button>
+      <button class="pa-loss${res==='loss'?' pa-active':''}" onclick="markResult('${id}','loss')">L</button>
+      <button class="pa-push${res==='push'?' pa-active':''}" onclick="markResult('${id}','push')">P</button>
+      <button class="pa-del" onclick="deletePick('${id}')">🗑 Delete</button>
+    </div>
   </div>`;
 }
 
 /* Racing pick card */
-function rPick(d) {
+function rPick(d, id) {
   const c = d.confidence||'lean', cls = c==='lock'?'rc-lock':c==='strong'?'rc-strong':'rc-lean';
   const lbl = c==='lock'?'🔒 Lock':c==='strong'?'💪 Strong':'🤔 Lean';
   const ts = d.ts ? new Date(d.ts.toMillis()).toLocaleString() : '';
+  const res = d.result||'';
   return `<div class="r-pick-card">
-    <div class="r-pick-top"><div class="r-pick-lbl">${d.race||'Race TBD'}</div><div class="r-pick-conf ${cls}">${lbl}</div></div>
+    <div class="r-pick-top">
+      <div class="r-pick-lbl">${d.race||'Race TBD'}</div>
+      <div style="display:flex;gap:5px;align-items:center">${prBadge(res,true)}<div class="r-pick-conf ${cls}">${lbl}</div></div>
+    </div>
     <div class="r-pick-main">${d.horse||'TBD'}</div>
     <div class="r-pick-sub">${d.odds?`<span class="r-pick-odds">${d.odds}</span>`:''} ${ts?`<span class="r-pick-ts">${ts}</span>`:''}</div>
     ${d.note?`<div class="r-pick-note">${d.note}</div>`:''}
+    <div class="pick-actions pick-actions--r">
+      <button class="pa-win${res==='win'?' pa-active':''}" onclick="markResult('${id}','win')">W</button>
+      <button class="pa-loss${res==='loss'?' pa-active':''}" onclick="markResult('${id}','loss')">L</button>
+      <button class="pa-push${res==='push'?' pa-active':''}" onclick="markResult('${id}','push')">P</button>
+      <button class="pa-del" onclick="deletePick('${id}')">🗑 Delete</button>
+    </div>
   </div>`;
 }
 
-onSnapshot(sCol, snap => {
-  const docs = sortDocs(snap);
-  document.getElementById('sportsPicksGrid').innerHTML = docs.length===0
-    ? `<div class="s-empty"><div class="ei">⚡</div><p>No sports picks yet — be first!</p></div>`
-    : docs.map(d => sPick(d.data())).join('');
-}, () => {
-  document.getElementById('sportsPicksGrid').innerHTML = `<div class="s-empty"><div class="ei">⚠️</div><p>Picks unavailable — try refreshing.</p></div>`;
-});
+/* Single listener — filters by sport field client-side */
+onSnapshot(col, snap => {
+  const all = sortDocs(snap);
+  const sDocs = all.filter(d => d.data().sport === 'sports');
+  const rDocs = all.filter(d => d.data().sport !== 'sports'); // racing + legacy (no sport field)
 
-onSnapshot(rCol, snap => {
-  const docs = sortDocs(snap);
-  document.getElementById('racingPicksGrid').innerHTML = docs.length===0
+  /* Sports board */
+  document.getElementById('sportsPicksGrid').innerHTML = sDocs.length === 0
+    ? `<div class="s-empty"><div class="ei">⚡</div><p>No sports picks yet — post your first one!</p></div>`
+    : sDocs.map(d => sPick(d.data(), d.id)).join('');
+
+  /* Sports season record */
+  const sWins   = sDocs.filter(d => d.data().result === 'win').length;
+  const sLosses = sDocs.filter(d => d.data().result === 'loss').length;
+  const recEl = document.getElementById('sRecord');
+  if (recEl) recEl.textContent = `${sWins}–${sLosses}`;
+
+  /* Racing board */
+  document.getElementById('racingPicksGrid').innerHTML = rDocs.length === 0
     ? `<div class="r-empty"><div class="ri">🏇</div><p>No racing picks yet — be first!</p></div>`
-    : docs.map(d => rPick(d.data())).join('');
+    : rDocs.map(d => rPick(d.data(), d.id)).join('');
+
 }, () => {
-  document.getElementById('racingPicksGrid').innerHTML = `<div class="r-empty"><div class="ri">⚠️</div><p>Picks unavailable — try refreshing.</p></div>`;
+  document.getElementById('sportsPicksGrid').innerHTML =
+    `<div class="s-empty"><div class="ei">⚠️</div><p>Firebase not connected — check your API key in the config.</p></div>`;
+  document.getElementById('racingPicksGrid').innerHTML =
+    `<div class="r-empty"><div class="ri">⚠️</div><p>Firebase not connected — check your API key in the config.</p></div>`;
 });
 
+/* Mark Win / Loss / Push */
+window.markResult = async (id, result) => {
+  try { await updateDoc(doc(db, 'picks', id), { result }); }
+  catch(e) { console.error('markResult failed', e); alert('Could not update — check connection.'); }
+};
+
+/* Delete pick */
+window.deletePick = async (id) => {
+  if (!confirm('Delete this pick? This cannot be undone.')) return;
+  try { await deleteDoc(doc(db, 'picks', id)); }
+  catch(e) { console.error('deletePick failed', e); alert('Could not delete — check connection.'); }
+};
+
+/* Post sports pick */
 window.postSportsPick = async function() {
   const g = document.getElementById('sGame').value.trim();
   const p = document.getElementById('sPick').value.trim();
   const st = document.getElementById('sPostStatus');
-  if (!g||!p) { st.textContent='Game and pick required.'; st.className='s-post-status err'; return; }
+  if (!g||!p) { st.textContent='Game and pick are required.'; st.className='s-post-status err'; return; }
   st.textContent='Posting…'; st.className='s-post-status';
   try {
-    await addDoc(sCol, { game:g, pick:p, odds:document.getElementById('sOdds').value.trim(), confidence:document.getElementById('sConf').value, note:document.getElementById('sNote').value.trim(), ts:serverTimestamp() });
+    await addDoc(col, {
+      sport:'sports', game:g, pick:p,
+      odds:document.getElementById('sOdds').value.trim(),
+      confidence:document.getElementById('sConf').value,
+      note:document.getElementById('sNote').value.trim(),
+      ts:serverTimestamp()
+    });
     st.textContent='✓ Posted!'; st.className='s-post-status ok';
     ['sGame','sPick','sOdds','sNote'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('sConf').value='strong';
     setTimeout(()=>{st.textContent='';st.className='s-post-status';},3000);
-  } catch(e) { st.textContent='Error — check connection.'; st.className='s-post-status err'; }
+  } catch(e) {
+    console.error('postSportsPick failed', e);
+    st.textContent='Error posting — check Firebase config & rules.'; st.className='s-post-status err';
+  }
 };
 
+/* Post racing pick */
 window.postRacingPick = async function() {
   const race  = document.getElementById('rRace').value.trim();
   const horse = document.getElementById('rHorse').value.trim();
   const st = document.getElementById('rPostStatus');
-  if (!race||!horse) { st.textContent='Race and horse required.'; st.className='r-post-status err'; return; }
+  if (!race||!horse) { st.textContent='Race and horse are required.'; st.className='r-post-status err'; return; }
   st.textContent='Posting…'; st.className='r-post-status';
   try {
-    await addDoc(rCol, { race, horse, odds:document.getElementById('rOdds').value.trim(), confidence:document.getElementById('rConf').value, note:document.getElementById('rNote').value.trim(), ts:serverTimestamp() });
+    await addDoc(col, {
+      sport:'racing', race, horse,
+      odds:document.getElementById('rOdds').value.trim(),
+      confidence:document.getElementById('rConf').value,
+      note:document.getElementById('rNote').value.trim(),
+      ts:serverTimestamp()
+    });
     st.textContent='✓ Posted!'; st.className='r-post-status ok';
     ['rRace','rHorse','rOdds','rNote'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('rConf').value='strong';
     setTimeout(()=>{st.textContent='';st.className='r-post-status';},3000);
-  } catch(e) { st.textContent='Error — check connection.'; st.className='r-post-status err'; }
+  } catch(e) {
+    console.error('postRacingPick failed', e);
+    st.textContent='Error posting — check Firebase config & rules.'; st.className='r-post-status err';
+  }
 };
 </script>
 
