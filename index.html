@@ -23,17 +23,17 @@ a { color: inherit; text-decoration: none; }
   --s-bg2:       #0d0f18;
   --s-bg3:       #12151f;
   --s-bg4:       #171b27;
-  --s-green:     #00d46a;
-  --s-green-dim: rgba(0,212,106,.10);
-  --s-green-glo: rgba(0,212,106,.22);
+  --s-green:     #c9a227;
+  --s-green-dim: rgba(201,162,39,.10);
+  --s-green-glo: rgba(201,162,39,.18);
   --s-white:     #ffffff;
   --s-text:      #e2e6f0;
   --s-muted:     #505972;
   --s-dim:       #2e3347;
-  --s-pos:       #22c55e;
+  --s-pos:       #e8cc7a;
   --s-neg:       #ef4444;
   --s-border:    rgba(255,255,255,.06);
-  --s-bhi:       rgba(0,212,106,.22);
+  --s-bhi:       rgba(201,162,39,.20);
   --r:           5px;
 }
 
@@ -197,7 +197,7 @@ a { color: inherit; text-decoration: none; }
 .game-card__footer { padding: 8px 12px; border-top: 1px solid var(--s-border); display: flex; align-items: center; justify-content: space-between; }
 .game-ou { font-size: .7rem; color: var(--s-muted); }
 .game-note { font-size: .62rem; color: var(--s-dim); }
-.ec-sharp  { font-size: .6rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: rgba(0,212,106,.1); color: var(--s-green); border: 1px solid rgba(0,212,106,.22); }
+.ec-sharp  { font-size: .6rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: rgba(201,162,39,.1); color: var(--s-green); border: 1px solid rgba(201,162,39,.22); }
 .ec-public { font-size: .6rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: rgba(239,68,68,.08); color: #f87171; border: 1px solid rgba(239,68,68,.2); }
 .ec-none   { font-size: .6rem; color: var(--s-dim); }
 
@@ -225,7 +225,7 @@ a { color: inherit; text-decoration: none; }
 .s-edge-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
 .s-edge-game { font-size: .66rem; color: var(--s-muted); }
 .s-edge-type { font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; }
-.et-sharp  { background: rgba(0,212,106,.1);  color: var(--s-green); }
+.et-sharp  { background: rgba(201,162,39,.1);  color: var(--s-green); }
 .et-public { background: rgba(239,68,68,.08); color: #f87171; }
 .et-system { background: rgba(99,102,241,.1); color: #a5b4fc; }
 .et-injury { background: rgba(245,158,11,.08); color: #fcd34d; }
@@ -233,60 +233,157 @@ a { color: inherit; text-decoration: none; }
 .s-edge-desc  { font-size: .76rem; color: var(--s-muted); line-height: 1.5; }
 .s-edge-stat  { font-size: .7rem; font-weight: 700; color: var(--s-green); background: var(--s-green-dim); border: 1px solid var(--s-bhi); border-radius: 3px; padding: 3px 9px; width: fit-content; }
 
-/* Sports picks */
-.s-picks-layout { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
-.s-picks-form { background: var(--s-bg2); border: 1px solid var(--s-border); border-radius: var(--r); overflow: hidden; position: sticky; top: 70px; }
-.s-picks-form-head { padding: 13px 16px; border-bottom: 1px solid var(--s-border); display: flex; align-items: center; justify-content: space-between; }
-.s-picks-form-title { font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--s-white); }
-.toggle-form-btn { font-family: 'Barlow Condensed', sans-serif; font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 4px 11px; border-radius: var(--r); background: var(--s-green); color: var(--s-bg); border: none; cursor: pointer; transition: opacity .15s; }
-.toggle-form-btn:hover { opacity: .85; }
-.s-form-body { padding: 14px 16px; display: none; flex-direction: column; gap: 9px; }
-.s-form-body.open { display: flex; }
-.fg  { display: flex; flex-direction: column; gap: 4px; }
-.fg-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.fg label { font-size: .6rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--s-muted); }
-.fg input, .fg select, .fg textarea {
-  background: var(--s-bg3); border: 1px solid var(--s-dim); border-radius: var(--r);
-  padding: 8px 10px; color: var(--s-white); font-family: 'Inter'; font-size: .8rem;
-  outline: none; width: 100%; transition: border-color .15s;
-}
-.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--s-green); }
-.fg input::placeholder { color: var(--s-muted); }
-.fg select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23505972'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
-.fg select option { background: var(--s-bg2); }
-.fg textarea { resize: vertical; min-height: 64px; line-height: 1.45; }
-.s-form-actions { display: flex; }
-.btn-post-s {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: .8rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
-  padding: 9px 18px; border-radius: var(--r);
-  background: var(--s-green); color: var(--s-bg); border: none; cursor: pointer;
-  transition: opacity .15s, transform .1s; flex: 1;
-}
-.btn-post-s:hover { opacity: .86; }
-.btn-post-s:active { transform: scale(.98); }
-.s-post-status { font-size: .7rem; font-weight: 500; color: var(--s-muted); padding: 0 16px 12px; min-height: 16px; }
-.s-post-status.ok  { color: var(--s-pos); }
-.s-post-status.err { color: var(--s-neg); }
+/* ============================================================
+   SHARED PICKS SYSTEM — used by both sports and racing sides
+============================================================ */
+/* Two-panel layout: form left, active plays right */
+.picks-panel { display: grid; grid-template-columns: 290px 1fr; gap: 24px; align-items: start; }
 
-/* Picks grid (sports) */
-.s-picks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
-.s-pick-card { background: var(--s-bg2); border: 1px solid var(--s-border); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 9px; transition: border-color .15s; }
-.s-pick-card:hover { border-color: var(--s-dim); }
-.s-pick-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
-.s-pick-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--s-green); }
-.s-pick-conf { font-family: 'Barlow Condensed', sans-serif; font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; flex-shrink: 0; }
-.sc-lock   { background: rgba(0,212,106,.15);  color: var(--s-green); border: 1px solid var(--s-bhi); }
-.sc-strong { background: rgba(34,197,94,.12);  color: #4ade80; border: 1px solid rgba(34,197,94,.3); }
-.sc-lean   { background: rgba(255,255,255,.06); color: var(--s-muted); border: 1px solid var(--s-border); }
-.s-pick-main { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--s-white); line-height: 1.1; }
-.s-pick-sub  { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.s-pick-odds { font-family: 'Barlow Condensed', sans-serif; font-size: .82rem; font-weight: 800; color: var(--s-green); }
-.s-pick-ts   { font-size: .66rem; color: var(--s-muted); }
-.s-pick-note { font-size: .75rem; color: var(--s-muted); line-height: 1.5; border-top: 1px solid var(--s-border); padding-top: 9px; }
-.s-empty { grid-column: 1/-1; text-align: center; padding: 44px 16px; color: var(--s-muted); }
-.s-empty .ei { font-size: 28px; margin-bottom: 8px; }
-.s-empty p { font-size: .82rem; }
+/* Form panel */
+.picks-form-panel {
+  background: var(--s-bg2); border: 1px solid var(--s-bhi);
+  border-radius: 6px; padding: 22px; position: sticky; top: 70px;
+}
+.pf-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .85rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--s-green); margin-bottom: 18px;
+}
+.pf-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+.pf-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pf-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--s-muted);
+}
+.pf-input, .pf-select, .pf-textarea {
+  background: var(--s-bg3); border: 1px solid var(--s-dim); border-radius: 4px;
+  padding: 9px 11px; color: var(--s-white); font-family: 'Inter'; font-size: .82rem;
+  outline: none; width: 100%; transition: border-color .2s;
+}
+.pf-input:focus, .pf-select:focus, .pf-textarea:focus { border-color: var(--s-bhi); }
+.pf-input::placeholder { color: var(--s-muted); }
+.pf-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23505972'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+.pf-select option { background: var(--s-bg2); }
+.pf-textarea { resize: vertical; min-height: 68px; line-height: 1.45; }
+
+/* Star rating input */
+.star-input { display: flex; gap: 4px; cursor: pointer; margin-top: 2px; }
+.star-input .si { font-size: 1.4rem; color: var(--s-dim); transition: color .1s; user-select: none; cursor: pointer; }
+.star-input .si.on { color: var(--s-green); }
+
+/* Post/clear buttons */
+.pf-btn-row { display: flex; gap: 8px; margin-top: 14px; }
+.pf-btn-post {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .82rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: 10px 22px; border-radius: 4px;
+  background: var(--s-green); color: var(--s-bg); border: none; cursor: pointer; flex: 1; transition: opacity .15s;
+}
+.pf-btn-post:hover { opacity: .86; }
+.pf-btn-clear {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .82rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  padding: 10px 16px; border-radius: 4px;
+  background: transparent; color: var(--s-muted); border: 1px solid var(--s-dim); cursor: pointer; transition: color .15s;
+}
+.pf-btn-clear:hover { color: var(--s-text); }
+.pf-status { font-size: .7rem; color: var(--s-muted); margin-top: 8px; min-height: 16px; }
+.pf-status.ok  { color: var(--s-pos); }
+.pf-status.err { color: var(--s-neg); }
+
+/* Active plays header */
+.picks-active-hdr { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+.picks-active-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--s-white);
+}
+.picks-live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--s-green); flex-shrink: 0; animation: pulse-dot 2s ease infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.35} }
+.picks-live-label { font-size: .68rem; font-weight: 800; color: var(--s-green); letter-spacing: .08em; }
+
+/* Unified pick card */
+.pc {
+  background: var(--s-bg2); border: 1px solid var(--s-border);
+  border-left: 3px solid var(--s-green);
+  border-radius: 5px; padding: 15px 18px;
+  display: flex; flex-direction: column; gap: 7px;
+  margin-bottom: 10px; transition: border-color .2s;
+}
+.pc:hover { border-color: var(--s-bhi); }
+.pc-top { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.pc-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem; font-weight: 900; color: var(--s-green); flex-shrink: 0;
+}
+.pc-track-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--s-muted);
+}
+.pc-result-lbl {
+  font-size: .6rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 3px; flex-shrink: 0;
+}
+.pr-win  { background: rgba(34,197,94,.15);  color: #4ade80; border: 1px solid rgba(34,197,94,.3); }
+.pr-loss { background: rgba(239,68,68,.13);  color: #f87171; border: 1px solid rgba(239,68,68,.3); }
+.pr-push { background: rgba(255,255,255,.06);color: #94a3b8; border: 1px solid rgba(255,255,255,.12); }
+.pr-live { background: rgba(201,162,39,.08); color: var(--s-green); border: 1px solid rgba(201,162,39,.2); }
+.pc-odds-right {
+  margin-left: auto; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem; font-weight: 900; color: var(--s-green); flex-shrink: 0;
+}
+.pc-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.45rem; font-weight: 900; color: var(--s-white); line-height: 1;
+}
+.pc-desc { font-size: .78rem; color: var(--s-muted); line-height: 1.5; }
+.pc-bet-lbl { color: var(--s-text); font-weight: 600; }
+.pc-stars { font-size: 1rem; letter-spacing: 1px; }
+.pc-stars .on { color: var(--s-green); }
+.pc-stars .off { color: var(--s-dim); }
+.pc-ts { font-size: .65rem; color: var(--s-muted); }
+.pc-actions { display: flex; gap: 5px; align-items: center; padding-top: 7px; border-top: 1px solid var(--s-border); }
+.pc-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .72rem; font-weight: 900; letter-spacing: .04em;
+  padding: 4px 12px; border-radius: 4px; border: 1px solid transparent; cursor: pointer; transition: all .15s;
+}
+.pc-btn-w   { background: rgba(34,197,94,.1);  color: #4ade80; border-color: rgba(34,197,94,.22); }
+.pc-btn-w.active { background: rgba(34,197,94,.25); border-color: rgba(34,197,94,.45); }
+.pc-btn-l   { background: rgba(239,68,68,.08); color: #f87171; border-color: rgba(239,68,68,.2); }
+.pc-btn-l.active { background: rgba(239,68,68,.22); border-color: rgba(239,68,68,.42); }
+.pc-btn-p   { background: rgba(255,255,255,.05);color: #94a3b8; border-color: rgba(255,255,255,.1); }
+.pc-btn-p.active { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); }
+.pc-btn-edit { background: rgba(255,255,255,.04); color: var(--s-muted); border-color: var(--s-dim); }
+.pc-btn-edit:hover { color: var(--s-text); }
+.pc-btn-del { background: transparent; color: #4b5563; border-color: transparent; padding: 4px 8px; margin-left: auto; font-size: .85rem; }
+.pc-btn-del:hover { color: #f87171; }
+.picks-empty { text-align: center; padding: 48px 24px; color: var(--s-muted); }
+.picks-empty .icon { font-size: 32px; margin-bottom: 8px; }
+.picks-empty p { font-size: .85rem; }
+
+/* Racing overrides inside .racing-scope */
+.racing-scope .picks-form-panel { border-color: rgba(201,162,39,.28); }
+.racing-scope .pf-title { color: var(--r-gold); }
+.racing-scope .pf-input, .racing-scope .pf-select, .racing-scope .pf-textarea { background: var(--r-bg3); border-color: var(--r-dim); color: var(--r-cream); }
+.racing-scope .pf-input:focus, .racing-scope .pf-select:focus, .racing-scope .pf-textarea:focus { border-color: rgba(201,162,39,.5); }
+.racing-scope .pf-input::placeholder { color: var(--r-muted); }
+.racing-scope .pf-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a6880'/%3E%3C/svg%3E"); }
+.racing-scope .pf-select option { background: var(--r-bg2); }
+.racing-scope .pf-btn-post { background: var(--r-gold); color: #060b14; }
+.racing-scope .pf-btn-clear { border-color: var(--r-dim); }
+.racing-scope .pf-status.ok { color: var(--r-pos); }
+.racing-scope .star-input .si { color: var(--r-dim); }
+.racing-scope .star-input .si.on { color: var(--r-gold); }
+.racing-scope .picks-live-dot { background: var(--r-gold); }
+.racing-scope .picks-live-label { color: var(--r-gold); }
+.racing-scope .pc { border-left-color: var(--r-gold); }
+.racing-scope .pc:hover { border-color: rgba(201,162,39,.3); }
+.racing-scope .pc-tag { color: var(--r-gold); }
+.racing-scope .pc-odds-right { color: var(--r-gold); }
+.racing-scope .pc-name { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; }
+.racing-scope .pc-stars .on { color: var(--r-gold); }
+.racing-scope .pc-actions { border-top-color: rgba(201,162,39,.12); }
+.racing-scope .pr-live { background: rgba(201,162,39,.08); color: var(--r-gold); border-color: rgba(201,162,39,.2); }
 
 /* Sports footer */
 .s-footer { background: var(--s-bg2); border-top: 1px solid var(--s-border); padding: 24px; text-align: center; margin-top: 20px; }
@@ -346,7 +443,7 @@ a { color: inherit; text-decoration: none; }
 .pr-win   { background:rgba(34,197,94,.15);  color:#4ade80; border:1px solid rgba(34,197,94,.3); }
 .pr-loss  { background:rgba(239,68,68,.12);  color:#f87171; border:1px solid rgba(239,68,68,.25); }
 .pr-push  { background:rgba(255,255,255,.06);color:#94a3b8; border:1px solid rgba(255,255,255,.12); }
-.pr-live  { background:rgba(0,212,106,.08);  color:var(--s-green); border:1px solid rgba(0,212,106,.2); }
+.pr-live  { background:rgba(201,162,39,.08);  color:var(--s-green); border:1px solid rgba(201,162,39,.2); }
 .pr-live-r{ background:rgba(201,162,39,.08); color:#c9a227; border:1px solid rgba(201,162,39,.2); }
 
 .pick-actions { display:flex; gap:5px; padding-top:10px; border-top:1px solid var(--s-border); margin-top:2px; }
@@ -354,10 +451,30 @@ a { color: inherit; text-decoration: none; }
 .pa-win  { background:rgba(34,197,94,.15);  color:#4ade80; }
 .pa-loss { background:rgba(239,68,68,.12);  color:#f87171; }
 .pa-push { background:rgba(255,255,255,.06);color:#94a3b8; }
+.pa-edit { background:rgba(255,255,255,.06);color:#94a3b8; }
 .pa-del  { background:rgba(239,68,68,.08);  color:#f87171; margin-left:auto; font-size:.75rem; }
 .pick-actions button:hover { opacity:.7; }
 .pick-actions button.pa-active { outline:2px solid currentColor; outline-offset:1px; }
 .pick-actions--r { border-top-color:rgba(201,162,39,.15); }
+
+/* Star confidence display */
+.s-pick-stars { font-size:.9rem; letter-spacing:.05em; color:var(--s-green); }
+.r-pick-stars { font-size:.9rem; letter-spacing:.05em; color:#c9a227; }
+
+/* Edit modal */
+.edit-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:900; display:none; align-items:center; justify-content:center; padding:16px; }
+.edit-modal-overlay.open { display:flex; }
+.edit-modal-box { background:#0d0f18; border:1px solid rgba(255,255,255,.12); border-radius:6px; padding:24px; width:100%; max-width:460px; max-height:90vh; overflow-y:auto; }
+.edit-modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+.edit-modal-title { font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:#fff; }
+.edit-modal-close { background:none; border:none; color:#505972; font-size:1.2rem; cursor:pointer; line-height:1; padding:4px; }
+.edit-modal-close:hover { color:#e2e6f0; }
+.edit-modal-actions { display:flex; gap:8px; margin-top:16px; }
+.edit-save-btn { flex:1; font-family:'Barlow Condensed',sans-serif; font-size:.82rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; padding:10px; border-radius:4px; border:none; background:var(--s-green); color:#07080d; cursor:pointer; transition:opacity .15s; }
+.edit-save-btn:hover { opacity:.85; }
+.edit-cancel-btn { font-family:'Barlow Condensed',sans-serif; font-size:.82rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; padding:10px 16px; border-radius:4px; border:1px solid rgba(255,255,255,.1); background:transparent; color:#505972; cursor:pointer; transition:color .15s; }
+.edit-cancel-btn:hover { color:#e2e6f0; }
+.edit-status { font-size:.7rem; color:#505972; margin-top:8px; min-height:14px; }
 
 /* ============================================================
    RACING — Jockey Club (dark navy + warm gold)
@@ -367,50 +484,70 @@ a { color: inherit; text-decoration: none; }
   min-height: calc(100vh - 54px);
 }
 
-/* Racing header strip */
-.r-header-strip {
-  background: linear-gradient(135deg, #0a1428 0%, #0f1d35 50%, #0a1428 100%);
+/* Racing hero header — full-width, centered */
+.r-hero {
+  background: linear-gradient(160deg, #060b14 0%, #0b1829 50%, #060b14 100%);
   border-bottom: 2px solid var(--r-gold);
-  padding: 20px 24px;
-}
-.r-header-inner {
-  max-width: 1260px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between; gap: 20px;
-}
-.r-brand-block {}
-.r-brand-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem; font-weight: 700;
-  color: var(--r-gold);
-  letter-spacing: .04em;
-  line-height: 1;
-}
-.r-brand-sub {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: .7rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--r-muted); margin-top: 4px;
-}
-.r-derby-box {
+  padding: 52px 24px 44px;
   text-align: center;
-  border: 1px solid rgba(201,162,39,.3);
-  border-radius: 4px;
-  padding: 10px 20px;
-  background: rgba(201,162,39,.06);
+  position: relative;
+  overflow: hidden;
 }
-.r-derby-label {
+.r-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 90% at 50% 110%, rgba(201,162,39,.09) 0%, transparent 65%);
+  pointer-events: none;
+}
+.r-hero-eyebrow {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: .62rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--r-muted);
+  font-size: .65rem; font-weight: 900; letter-spacing: .26em; text-transform: uppercase;
+  color: var(--r-gold); margin-bottom: 14px;
 }
-.r-derby-num {
+.r-hero-title {
   font-family: 'Playfair Display', serif;
-  font-size: 2.2rem; font-weight: 700; color: var(--r-gold);
-  line-height: 1; margin: 2px 0;
+  font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700;
+  color: var(--r-cream); line-height: 1.1; margin-bottom: 14px;
 }
-.r-derby-unit {
+.r-hero-title em { color: var(--r-gold); font-style: italic; }
+.r-hero-tagline {
+  font-size: .88rem; color: var(--r-muted); line-height: 1.65; margin-bottom: 32px; max-width: 540px; margin-left: auto; margin-right: auto;
+}
+/* Live countdown */
+.r-hero-countdown {
+  display: inline-flex; align-items: stretch;
+  border: 1px solid rgba(201,162,39,.3); border-radius: 5px;
+  background: rgba(201,162,39,.04); overflow: hidden;
+}
+.r-cd-label {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: .62rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--r-muted);
+  font-size: .65rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--r-muted); padding: 20px 22px;
+  border-right: 1px solid rgba(201,162,39,.2);
+  display: flex; align-items: center; white-space: nowrap;
+}
+.r-cd-units { display: flex; align-items: center; padding: 10px 24px; gap: 0; }
+.r-cd-unit { text-align: center; padding: 6px 14px; }
+.r-cd-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem; font-weight: 700; color: var(--r-gold);
+  line-height: 1; display: block; min-width: 2ch;
+}
+.r-cd-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .55rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--r-muted); margin-top: 5px; display: block;
+}
+.r-cd-sep {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem; font-weight: 700; color: rgba(201,162,39,.35);
+  padding: 0 2px; margin-bottom: 12px; align-self: center;
+}
+@media (max-width: 640px) {
+  .r-hero { padding: 36px 16px 32px; }
+  .r-cd-label { display: none; }
+  .r-cd-num { font-size: 1.8rem; }
+  .r-cd-units { padding: 8px 12px; }
 }
 
 /* Racing ticker */
@@ -512,42 +649,8 @@ a { color: inherit; text-decoration: none; }
 .r-purse { font-size: .74rem; color: var(--r-muted); }
 .r-purse strong { color: var(--r-gold); font-weight: 700; }
 
-/* Racing picks form */
-.r-picks-form-card { background: var(--r-bg2); border: 1px solid rgba(201,162,39,.28); border-radius: 4px; padding: 22px; margin-bottom: 20px; }
-.r-picks-form-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--r-gold); margin-bottom: 16px; }
-.r-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-.r-form-span { grid-column: 1/-1; }
-.r-fg { display: flex; flex-direction: column; gap: 4px; }
-.r-fg label { font-family: 'Barlow Condensed', sans-serif; font-size: .6rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: var(--r-muted); }
-.r-fg input, .r-fg select, .r-fg textarea { background: var(--r-bg3); border: 1px solid var(--r-dim); border-radius: 3px; padding: 8px 10px; color: var(--r-cream); font-family: 'Inter'; font-size: .8rem; outline: none; width: 100%; transition: border-color .15s; }
-.r-fg input:focus, .r-fg select:focus, .r-fg textarea:focus { border-color: rgba(201,162,39,.5); }
-.r-fg input::placeholder { color: var(--r-muted); }
-.r-fg select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a6880'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
-.r-fg select option { background: var(--r-bg2); }
-.r-fg textarea { resize: vertical; min-height: 60px; line-height: 1.45; }
-.btn-post-r { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; padding: 10px 24px; border-radius: 3px; background: var(--r-gold); color: #06090f; border: none; cursor: pointer; transition: opacity .15s, transform .1s; }
-.btn-post-r:hover { opacity: .86; }
-.btn-post-r:active { transform: scale(.98); }
-.r-post-status { font-size: .7rem; color: var(--r-muted); margin-top: 8px; min-height: 16px; }
-.r-post-status.ok  { color: var(--r-pos); }
-.r-post-status.err { color: var(--r-neg); }
-
-/* Racing picks grid */
-.r-picks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-.r-pick-card { background: var(--r-bg2); border: 1px solid var(--r-dim); border-radius: 4px; padding: 18px; display: flex; flex-direction: column; gap: 10px; transition: border-color .15s; }
-.r-pick-card:hover { border-color: rgba(201,162,39,.3); }
-.r-pick-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
-.r-pick-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: var(--r-gold); }
-.r-pick-conf { font-family: 'Barlow Condensed', sans-serif; font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; flex-shrink: 0; }
-.rc-lock   { background: var(--r-gold-dim); color: var(--r-gold); border: 1px solid rgba(201,162,39,.3); }
-.rc-strong { background: rgba(74,222,128,.1); color: #4ade80; border: 1px solid rgba(74,222,128,.3); }
-.rc-lean   { background: rgba(255,255,255,.04); color: var(--r-muted); border: 1px solid var(--r-dim); }
-.r-pick-main { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--r-cream); line-height: 1.1; }
-.r-pick-sub  { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.r-pick-odds { font-family: 'Barlow Condensed', sans-serif; font-size: .82rem; font-weight: 800; color: var(--r-gold); }
-.r-pick-ts   { font-size: .66rem; color: var(--r-muted); }
-.r-pick-note { font-size: .75rem; color: var(--r-muted); line-height: 1.5; border-top: 1px solid rgba(201,162,39,.12); padding-top: 9px; }
-.r-empty { grid-column: 1/-1; text-align: center; padding: 48px 16px; color: var(--r-muted); }
+/* .r-empty used in error fallback */
+.r-empty { text-align: center; padding: 48px 16px; color: var(--r-muted); }
 .r-empty .ri { font-size: 30px; margin-bottom: 8px; }
 .r-empty p { font-size: .82rem; font-family: 'Playfair Display', serif; }
 
@@ -563,18 +666,18 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 900px) {
   .s-news-grid { grid-template-columns: 1fr 1fr; }
   .s-edges-grid { grid-template-columns: 1fr; }
-  .s-picks-layout { grid-template-columns: 1fr; }
-  .s-picks-form { position: static; }
+  .picks-panel { grid-template-columns: 1fr; }
+  .picks-form-panel { position: static; }
 }
 @media (max-width: 640px) {
   .clock { display: none; }
   .s-news-grid { grid-template-columns: 1fr; }
-  .r-form-grid { grid-template-columns: 1fr; }
   .r-stakes-table { font-size: .72rem; }
   .r-stakes-table td, .r-stakes-table th { padding: 8px 8px; }
   .r-header-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
   .s-header-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
   .s-section, .r-section { padding: 24px 16px; }
+  .pf-row-2 { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -609,11 +712,6 @@ a { color: inherit; text-decoration: none; }
         <div class="s-brand-title">benny<span class="s-ht-accent">thebet</span> Sports</div>
         <div class="s-brand-sub-hdr">Picks · Lines · Sharp Money · Analysis</div>
       </div>
-      <div class="s-record-box">
-        <div class="s-record-label">2025–26 Season</div>
-        <div class="s-record-num" id="sRecord">–</div>
-        <div class="s-record-unit">W – L Record</div>
-      </div>
     </div>
   </div>
 
@@ -644,7 +742,7 @@ a { color: inherit; text-decoration: none; }
   <section class="s-section">
     <div class="s-head">
       <div class="s-title">Today's <span>Lines</span></div>
-      <span class="s-badge">Apr 3, 2026</span>
+      <span class="s-badge">Apr 4, 2026</span>
       <span class="s-meta">All times ET</span>
     </div>
     <div class="sport-tabs-row">
@@ -662,7 +760,7 @@ a { color: inherit; text-decoration: none; }
   <hr class="s-hr">
 
   <section class="s-section">
-    <div class="s-head"><div class="s-title">Today's <span>News</span></div><span class="s-badge">Apr 3, 2026</span></div>
+    <div class="s-head"><div class="s-title">Today's <span>News</span></div><span class="s-badge">Apr 4, 2026</span></div>
     <div class="s-news-grid" id="sportsNewsGrid"></div>
   </section>
 
@@ -677,34 +775,75 @@ a { color: inherit; text-decoration: none; }
 
   <section class="s-section">
     <div class="s-head"><div class="s-title">Benny's <span>Picks</span></div><span class="s-badge">Live</span></div>
-    <div class="s-picks-layout">
-      <div class="s-picks-form">
-        <div class="s-picks-form-head">
-          <div class="s-picks-form-title">Post a Pick</div>
-          <button class="toggle-form-btn" onclick="toggleSportsForm()">+ Add</button>
+    <div class="picks-panel">
+      <!-- Form panel -->
+      <div class="picks-form-panel">
+        <div class="pf-title">Post a Pick</div>
+        <div class="pf-group">
+          <label class="pf-label">Sport / League</label>
+          <input class="pf-input" id="sSportTag" type="text" placeholder="e.g. NBA, MLB, NHL">
         </div>
-        <div class="s-form-body open" id="sportsFormBody">
-          <div class="fg"><label>Game / Event</label><input id="sGame" type="text" placeholder="e.g. Thunder vs Nuggets"></div>
-          <div class="fg-2">
-            <div class="fg"><label>Pick / Bet</label><input id="sPick" type="text" placeholder="e.g. Nuggets -3"></div>
-            <div class="fg"><label>Odds</label><input id="sOdds" type="text" placeholder="e.g. -110"></div>
-          </div>
-          <div class="fg"><label>Confidence</label>
-            <select id="sConf"><option value="lock">🔒 Lock</option><option value="strong" selected>💪 Strong</option><option value="lean">🤔 Lean</option></select>
-          </div>
-          <div class="fg"><label>Analysis</label><textarea id="sNote" placeholder="Why do you like this…"></textarea></div>
-          <div class="s-form-actions"><button class="btn-post-s" onclick="postSportsPick()">Post Pick</button></div>
+        <div class="pf-group">
+          <label class="pf-label">Game / Event</label>
+          <input class="pf-input" id="sGame" type="text" placeholder="e.g. Thunder vs Nuggets">
         </div>
-        <div class="s-post-status" id="sPostStatus"></div>
+        <div class="pf-group">
+          <label class="pf-label">Pick / Bet</label>
+          <input class="pf-input" id="sPick" type="text" placeholder="e.g. Nuggets -3">
+        </div>
+        <div class="pf-row-2">
+          <div class="pf-group">
+            <label class="pf-label">Bet Type</label>
+            <select class="pf-select" id="sBetType">
+              <option value="Spread">Spread</option>
+              <option value="Moneyline">Moneyline</option>
+              <option value="Over">Over</option>
+              <option value="Under">Under</option>
+              <option value="Parlay">Parlay</option>
+              <option value="Prop">Prop</option>
+            </select>
+          </div>
+          <div class="pf-group">
+            <label class="pf-label">Odds</label>
+            <input class="pf-input" id="sOdds" type="text" placeholder="e.g. -110">
+          </div>
+        </div>
+        <div class="pf-group">
+          <label class="pf-label">Confidence</label>
+          <div class="star-input" id="sStarInput" data-val="3">
+            <span class="si" data-val="1">★</span>
+            <span class="si" data-val="2">★</span>
+            <span class="si" data-val="3">★</span>
+            <span class="si" data-val="4">★</span>
+            <span class="si" data-val="5">★</span>
+          </div>
+        </div>
+        <div class="pf-group">
+          <label class="pf-label">Notes / Analysis</label>
+          <textarea class="pf-textarea" id="sNote" placeholder="Why do you like this…"></textarea>
+        </div>
+        <div class="pf-btn-row">
+          <button class="pf-btn-post" onclick="postSportsPick()">Post Pick</button>
+          <button class="pf-btn-clear" onclick="clearSportsForm()">Clear</button>
+        </div>
+        <div class="pf-status" id="sPostStatus"></div>
       </div>
-      <div class="s-picks-grid" id="sportsPicksGrid">
-        <div class="s-empty"><div class="ei">⚡</div><p>Loading picks…</p></div>
+      <!-- Active plays -->
+      <div>
+        <div class="picks-active-hdr">
+          <div class="picks-live-dot"></div>
+          <div class="picks-live-label">LIVE</div>
+          <div class="picks-active-title">Active Plays</div>
+        </div>
+        <div id="sportsPicksGrid">
+          <div class="picks-empty"><div class="icon">⚡</div><p>Loading picks…</p></div>
+        </div>
       </div>
     </div>
   </section>
 
   <footer class="s-footer">
-    <p><strong>bennythebet</strong> — Sports Betting · Picks · Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Data current as of <strong>April 3, 2026</strong></p>
+    <p><strong>bennythebet</strong> — Sports Betting · Picks · Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Data current as of <strong>April 4, 2026</strong></p>
   </footer>
 </div>
 
@@ -713,17 +852,33 @@ a { color: inherit; text-decoration: none; }
 ============================================================ -->
 <div id="racing-page" class="racing-scope">
 
-  <!-- Header -->
-  <div class="r-header-strip">
-    <div class="r-header-inner">
-      <div class="r-brand-block">
-        <div class="r-brand-title">bennythebet Racing</div>
-        <div class="r-brand-sub">Derby Trail · Form · Analysis · Picks</div>
-      </div>
-      <div class="r-derby-box">
-        <div class="r-derby-label">Kentucky Derby</div>
-        <div class="r-derby-num" id="derbyDays">29</div>
-        <div class="r-derby-unit">Days Away · May 2, 2026</div>
+  <!-- Hero Header -->
+  <div class="r-hero">
+    <div class="r-hero-eyebrow">Road to the Kentucky Derby · 2026</div>
+    <div class="r-hero-title">The Sport of <em>Kings</em></div>
+    <div class="r-hero-tagline">Daily handicapping, Derby trail coverage, and real-time picks from @bennythebet.</div>
+    <div class="r-hero-countdown">
+      <div class="r-cd-label">Kentucky Derby</div>
+      <div class="r-cd-units">
+        <div class="r-cd-unit">
+          <span class="r-cd-num" id="cdDays">28</span>
+          <span class="r-cd-lbl">Days</span>
+        </div>
+        <span class="r-cd-sep">:</span>
+        <div class="r-cd-unit">
+          <span class="r-cd-num" id="cdHrs">00</span>
+          <span class="r-cd-lbl">HRS</span>
+        </div>
+        <span class="r-cd-sep">:</span>
+        <div class="r-cd-unit">
+          <span class="r-cd-num" id="cdMin">00</span>
+          <span class="r-cd-lbl">MIN</span>
+        </div>
+        <span class="r-cd-sep">:</span>
+        <div class="r-cd-unit">
+          <span class="r-cd-num" id="cdSec">00</span>
+          <span class="r-cd-lbl">SEC</span>
+        </div>
       </div>
     </div>
   </div>
@@ -733,18 +888,18 @@ a { color: inherit; text-decoration: none; }
     <div class="r-ticker-lbl">🏇 Derby Trail</div>
     <div class="ticker-wrap">
       <div class="r-ticker-track">
-        <span class="r-t-item"><span class="r-t-hl">APR 5</span> — Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1</span>
-        <span class="r-t-item">Blue Grass: 8 declared — morning line out Friday</span>
-        <span class="r-t-item">Wood Memorial: <span class="r-t-hl">Talk To Me Jimmy</span> 5-2 morning line fav</span>
-        <span class="r-t-item">Santa Anita Derby: Baffert sends Potente + Cherokee Nation</span>
-        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · The Puma 60</span>
-        <span class="r-t-item">Commandment skipping Saturday — pointing straight to <span class="r-t-hl">Churchill Downs</span></span>
-        <span class="r-t-item"><span class="r-t-hl">APR 5</span> — Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1</span>
-        <span class="r-t-item">Blue Grass: 8 declared — morning line out Friday</span>
-        <span class="r-t-item">Wood Memorial: <span class="r-t-hl">Talk To Me Jimmy</span> 5-2 morning line fav</span>
-        <span class="r-t-item">Santa Anita Derby: Baffert sends Potente + Cherokee Nation</span>
-        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · The Puma 60</span>
-        <span class="r-t-item">Commandment skipping Saturday — pointing straight to <span class="r-t-hl">Churchill Downs</span></span>
+        <span class="r-t-item">🏇 <span class="r-t-hl">RACE DAY</span> — Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1 — 300 Derby Points on the Line TODAY</span>
+        <span class="r-t-item">Blue Grass G1 @ Keeneland: 8-horse field · Further Ado (Brad Cox) on the rail · Post ~5:30 PM ET</span>
+        <span class="r-t-item">Wood Memorial G2 @ Aqueduct: <span class="r-t-hl">Napoleon Solo</span> on rail · Iron Honor on outside · 13-horse full field · Post ~4:55 PM ET</span>
+        <span class="r-t-item">Santa Anita Derby G1: Baffert sends <span class="r-t-hl">Potente + Cherokee Nation</span> · Post ~5:00 PM PT</span>
+        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · The Puma 60 — Commandment skipping today, heads straight to Churchill</span>
+        <span class="r-t-item">Kentucky Derby: <span class="r-t-hl">28 Days Away</span> · May 2, 2026 · Churchill Downs · $5M Purse</span>
+        <span class="r-t-item">🏇 <span class="r-t-hl">RACE DAY</span> — Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1 — 300 Derby Points on the Line TODAY</span>
+        <span class="r-t-item">Blue Grass G1 @ Keeneland: 8-horse field · Further Ado (Brad Cox) on the rail · Post ~5:30 PM ET</span>
+        <span class="r-t-item">Wood Memorial G2 @ Aqueduct: <span class="r-t-hl">Napoleon Solo</span> on rail · Iron Honor on outside · 13-horse full field · Post ~4:55 PM ET</span>
+        <span class="r-t-item">Santa Anita Derby G1: Baffert sends <span class="r-t-hl">Potente + Cherokee Nation</span> · Post ~5:00 PM PT</span>
+        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · The Puma 60 — Commandment skipping today, heads straight to Churchill</span>
+        <span class="r-t-item">Kentucky Derby: <span class="r-t-hl">28 Days Away</span> · May 2, 2026 · Churchill Downs · $5M Purse</span>
       </div>
     </div>
   </div>
@@ -766,7 +921,7 @@ a { color: inherit; text-decoration: none; }
 
   <!-- News -->
   <section class="r-section">
-    <div class="r-head"><div class="r-title">Latest News</div><div class="r-title-rule"></div><span class="r-badge">Apr 3, 2026</span></div>
+    <div class="r-head"><div class="r-title">Latest News</div><div class="r-title-rule"></div><span class="r-badge">Apr 4, 2026</span></div>
     <div class="r-news-grid" id="racingNewsGrid"></div>
   </section>
 
@@ -796,98 +951,222 @@ a { color: inherit; text-decoration: none; }
   <!-- Picks -->
   <section class="r-section">
     <div class="r-head"><div class="r-title">Benny's Racing Picks</div><div class="r-title-rule"></div><span class="r-badge">Live</span></div>
-    <div class="r-picks-form-card">
-      <div class="r-picks-form-title">Post a Racing Pick</div>
-      <div class="r-form-grid">
-        <div class="r-fg"><label>Race / Event</label><input id="rRace" type="text" placeholder="e.g. Blue Grass G1 at Keeneland"></div>
-        <div class="r-fg"><label>Horse</label><input id="rHorse" type="text" placeholder="e.g. Renegade"></div>
-        <div class="r-fg"><label>Odds / Bet Type</label><input id="rOdds" type="text" placeholder="e.g. 4-1 Win, Exacta 3-5"></div>
-        <div class="r-fg"><label>Confidence</label>
-          <select id="rConf"><option value="lock">🔒 Lock</option><option value="strong" selected>💪 Strong</option><option value="lean">🤔 Lean</option></select>
+    <div class="picks-panel">
+      <!-- Form panel -->
+      <div class="picks-form-panel">
+        <div class="pf-title">Post a Racing Pick</div>
+        <div class="pf-group">
+          <label class="pf-label">Track</label>
+          <input class="pf-input" id="rTrack" type="text" placeholder="e.g. Keeneland">
         </div>
-        <div class="r-fg r-form-span"><label>Analysis / Notes</label><textarea id="rNote" placeholder="Track bias, pace scenario, form angle…"></textarea></div>
+        <div class="pf-row-2">
+          <div class="pf-group">
+            <label class="pf-label">Race #</label>
+            <input class="pf-input" id="rRaceNum" type="text" placeholder="e.g. R5">
+          </div>
+          <div class="pf-group">
+            <label class="pf-label">Bet Type</label>
+            <select class="pf-select" id="rBetType">
+              <option value="Win">Win</option>
+              <option value="Place">Place</option>
+              <option value="Show">Show</option>
+              <option value="Exacta">Exacta</option>
+              <option value="Trifecta">Trifecta</option>
+              <option value="Superfecta">Superfecta</option>
+              <option value="Double">Daily Double</option>
+              <option value="Pick 3">Pick 3</option>
+              <option value="Pick 4">Pick 4</option>
+              <option value="Pick 5">Pick 5</option>
+              <option value="Pick 6">Pick 6</option>
+            </select>
+          </div>
+        </div>
+        <div class="pf-group">
+          <label class="pf-label">Horse</label>
+          <input class="pf-input" id="rHorse" type="text" placeholder="e.g. Renegade">
+        </div>
+        <div class="pf-group">
+          <label class="pf-label">Odds</label>
+          <input class="pf-input" id="rOdds" type="text" placeholder="e.g. 4-1">
+        </div>
+        <div class="pf-group">
+          <label class="pf-label">Confidence</label>
+          <div class="star-input" id="rStarInput" data-val="3">
+            <span class="si" data-val="1">★</span>
+            <span class="si" data-val="2">★</span>
+            <span class="si" data-val="3">★</span>
+            <span class="si" data-val="4">★</span>
+            <span class="si" data-val="5">★</span>
+          </div>
+        </div>
+        <div class="pf-group">
+          <label class="pf-label">Notes / Analysis</label>
+          <textarea class="pf-textarea" id="rNote" placeholder="Track bias, pace scenario, form angle…"></textarea>
+        </div>
+        <div class="pf-btn-row">
+          <button class="pf-btn-post" onclick="postRacingPick()">Post Pick</button>
+          <button class="pf-btn-clear" onclick="clearRacingForm()">Clear</button>
+        </div>
+        <div class="pf-status" id="rPostStatus"></div>
       </div>
-      <button class="btn-post-r" onclick="postRacingPick()">Post Pick</button>
-      <div class="r-post-status" id="rPostStatus"></div>
-    </div>
-    <div class="r-picks-grid" id="racingPicksGrid">
-      <div class="r-empty"><div class="ri">🏇</div><p>Loading picks…</p></div>
+      <!-- Active plays -->
+      <div>
+        <div class="picks-active-hdr">
+          <div class="picks-live-dot"></div>
+          <div class="picks-live-label">LIVE</div>
+          <div class="picks-active-title">Active Plays</div>
+        </div>
+        <div id="racingPicksGrid">
+          <div class="picks-empty"><div class="icon">🏇</div><p>Loading picks…</p></div>
+        </div>
+      </div>
     </div>
   </section>
 
   <footer class="r-footer">
     <span class="r-tagline">The finest analysis on the Derby trail.</span>
-    <p><strong>bennythebet Racing</strong> — Horse Racing · Derby Trail · Form Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Data current as of <strong>April 3, 2026</strong> · Kentucky Derby: May 2, 2026 · Churchill Downs</p>
+    <p><strong>bennythebet Racing</strong> — Horse Racing · Derby Trail · Form Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Race Day: <strong>April 4, 2026</strong> · Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1 · Kentucky Derby: May 2, 2026</p>
   </footer>
 </div>
 
 <!-- ============================================================
-     DATA — Apr 3, 2026
+     EDIT MODAL
+============================================================ -->
+<div class="edit-modal-overlay" id="editModal">
+  <div class="edit-modal-box">
+    <div class="edit-modal-header">
+      <div class="edit-modal-title" id="editModalTitle">Edit Pick</div>
+      <button class="edit-modal-close" onclick="closeEdit()">✕</button>
+    </div>
+    <!-- Sports edit fields -->
+    <div id="editSportsFields">
+      <div class="pf-group"><label class="pf-label">Sport / League</label><input class="pf-input" id="esSportTag" type="text" placeholder="e.g. NBA"></div>
+      <div class="pf-group"><label class="pf-label">Game / Event</label><input class="pf-input" id="esGame" type="text"></div>
+      <div class="pf-group"><label class="pf-label">Pick / Bet</label><input class="pf-input" id="esPick" type="text"></div>
+      <div class="pf-row-2">
+        <div class="pf-group"><label class="pf-label">Bet Type</label>
+          <select class="pf-select" id="esBetType">
+            <option value="Spread">Spread</option><option value="Moneyline">Moneyline</option>
+            <option value="Over">Over</option><option value="Under">Under</option>
+            <option value="Parlay">Parlay</option><option value="Prop">Prop</option>
+          </select>
+        </div>
+        <div class="pf-group"><label class="pf-label">Odds</label><input class="pf-input" id="esOdds" type="text"></div>
+      </div>
+      <div class="pf-group">
+        <label class="pf-label">Confidence</label>
+        <div class="star-input" id="esStarInput" data-val="3">
+          <span class="si" data-val="1">★</span><span class="si" data-val="2">★</span>
+          <span class="si" data-val="3">★</span><span class="si" data-val="4">★</span>
+          <span class="si" data-val="5">★</span>
+        </div>
+      </div>
+      <div class="pf-group"><label class="pf-label">Notes</label><textarea class="pf-textarea" id="esNote"></textarea></div>
+    </div>
+    <!-- Racing edit fields -->
+    <div id="editRacingFields" style="display:none">
+      <div class="pf-group"><label class="pf-label">Track</label><input class="pf-input" id="erTrack" type="text"></div>
+      <div class="pf-row-2">
+        <div class="pf-group"><label class="pf-label">Race #</label><input class="pf-input" id="erRaceNum" type="text" placeholder="e.g. R5"></div>
+        <div class="pf-group"><label class="pf-label">Bet Type</label>
+          <select class="pf-select" id="erBetType">
+            <option value="Win">Win</option><option value="Place">Place</option>
+            <option value="Show">Show</option><option value="Exacta">Exacta</option>
+            <option value="Trifecta">Trifecta</option><option value="Superfecta">Superfecta</option>
+            <option value="Double">Daily Double</option><option value="Pick 3">Pick 3</option>
+            <option value="Pick 4">Pick 4</option><option value="Pick 5">Pick 5</option>
+            <option value="Pick 6">Pick 6</option>
+          </select>
+        </div>
+      </div>
+      <div class="pf-group"><label class="pf-label">Horse</label><input class="pf-input" id="erHorse" type="text"></div>
+      <div class="pf-group"><label class="pf-label">Odds</label><input class="pf-input" id="erOdds" type="text"></div>
+      <div class="pf-group">
+        <label class="pf-label">Confidence</label>
+        <div class="star-input" id="erStarInput" data-val="3">
+          <span class="si" data-val="1">★</span><span class="si" data-val="2">★</span>
+          <span class="si" data-val="3">★</span><span class="si" data-val="4">★</span>
+          <span class="si" data-val="5">★</span>
+        </div>
+      </div>
+      <div class="pf-group"><label class="pf-label">Notes</label><textarea class="pf-textarea" id="erNote"></textarea></div>
+    </div>
+    <div class="edit-modal-actions">
+      <button class="edit-save-btn" onclick="saveEdit()">Save Changes</button>
+      <button class="edit-cancel-btn" onclick="closeEdit()">Cancel</button>
+    </div>
+    <div class="edit-status" id="editStatus"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     DATA — Apr 4, 2026
 ============================================================ -->
 <script>
-/* ── NBA ── */
+/* ── NBA — Apr 4, 2026 ── */
 const nbaGames = [
-  { away:"Oklahoma City Thunder", home:"Denver Nuggets",          time:"9:00 PM",  net:"TNT",    awaySpread:"+3",   homeSpread:"-3",   awayML:"+130", homeML:"-155", ou:"223",   edge:"sharp",  note:"OKC surging — 3rd seed West" },
-  { away:"Cleveland Cavaliers",   home:"Detroit Pistons",         time:"7:00 PM",  net:"ESPN",   awaySpread:"-10",  homeSpread:"+10",  awayML:"-500", homeML:"+380", ou:"215",   edge:"public", note:"CLE clinching watch" },
-  { away:"Portland Trail Blazers",home:"Los Angeles Lakers",      time:"10:30 PM", net:"TNT",    awaySpread:"+8",   homeSpread:"-8",   awayML:"+290", homeML:"-360", ou:"225",   edge:"none",   note:"LAL holding 6th seed" },
-  { away:"Miami Heat",            home:"Philadelphia 76ers",      time:"7:00 PM",  net:"NBATV",  awaySpread:"+2.5", homeSpread:"-2.5", awayML:"+115", homeML:"-138", ou:"216",   edge:"sharp",  note:"Play-in positioning" },
-  { away:"Sacramento Kings",      home:"Memphis Grizzlies",       time:"8:00 PM",  net:"NBATV",  awaySpread:"-1",   homeSpread:"+1",   awayML:"-118", homeML:"-102", ou:"228",   edge:"none",   note:"Western bubble game" },
-  { away:"Washington Wizards",    home:"Charlotte Hornets",       time:"7:00 PM",  net:"BSSUN",  awaySpread:"-3",   homeSpread:"+3",   awayML:"-150", homeML:"+128", ou:"228",   edge:"none",   note:"" },
+  { away:"San Antonio Spurs",    home:"Denver Nuggets",         time:"3:00 PM",  net:"League Pass", awaySpread:"-2",    homeSpread:"+2",    awayML:"-118", homeML:"-102", ou:"242.5", edge:"sharp",  note:"Spurs road fav — 59-18, 2 back of OKC" },
+  { away:"Washington Wizards",   home:"Miami Heat",             time:"3:00 PM",  net:"BSSUN",       awaySpread:"+17.5", homeSpread:"-17.5", awayML:"+750", homeML:"-1400",ou:"248.5", edge:"public", note:"Heat clinching push" },
+  { away:"Detroit Pistons",      home:"Philadelphia 76ers",     time:"7:00 PM",  net:"NBATV",       awaySpread:"+5.5",  homeSpread:"-5.5",  awayML:"+195", homeML:"-235", ou:"218.5", edge:"none",   note:"Sixers play-in positioning" },
 ];
 const ncaabGames = [
-  { away:"UConn Huskies",    home:"Illinois Fighting Illini", time:"6:09 PM TOM.", net:"CBS", awaySpread:"-3.5", homeSpread:"+3.5", awayML:"-165", homeML:"+140", ou:"143.5", edge:"sharp",  note:"Final Four Sat Apr 4 · San Antonio" },
-  { away:"Arizona Wildcats", home:"Michigan Wolverines",      time:"8:49 PM TOM.", net:"CBS", awaySpread:"-6.5", homeSpread:"+6.5", awayML:"-260", homeML:"+215", ou:"152",   edge:"public", note:"Final Four Sat Apr 4 · San Antonio" },
+  { away:"Illinois Fighting Illini", home:"UConn Huskies",      time:"6:09 PM",  net:"CBS",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-135", homeML:"+115", ou:"139.5", edge:"sharp",  note:"Final Four — Lucas Oil Stadium, Indianapolis" },
+  { away:"Michigan Wolverines",      home:"Arizona Wildcats",   time:"8:49 PM",  net:"CBS",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-135", homeML:"+115", ou:"157.5", edge:"public", note:"Final Four — Lucas Oil Stadium, Indianapolis" },
 ];
 const mlbGames = [
-  { away:"New York Yankees",     home:"Baltimore Orioles",    time:"7:05 PM",  net:"MASN",   awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-130", homeML:"+110", ou:"7.5", edge:"sharp",  note:"Cole vs. Rodriguez" },
-  { away:"Milwaukee Brewers",    home:"St. Louis Cardinals",  time:"2:15 PM",  net:"BSMW",   awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-120", homeML:"+100", ou:"8",   edge:"sharp",  note:"Burnes vs. Gray" },
-  { away:"Tampa Bay Rays",       home:"Boston Red Sox",       time:"7:10 PM",  net:"NESN",   awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+115", homeML:"-138", ou:"7.5", edge:"none",   note:"AL East clash" },
-  { away:"Philadelphia Phillies",home:"Miami Marlins",        time:"6:40 PM",  net:"BSSUN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-155", homeML:"+133", ou:"7",   edge:"public", note:"Wheeler on bump" },
-  { away:"San Diego Padres",     home:"Colorado Rockies",     time:"3:10 PM",  net:"BSSD",   awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-200", homeML:"+170", ou:"8.5", edge:"none",   note:"Coors Field — over alert" },
+  { away:"St. Louis Cardinals",  home:"Detroit Tigers",         time:"1:10 PM",  net:"BSMW",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-150", homeML:"+130", ou:"7.5",  edge:"sharp",  note:"Over 7.5 value — Cardinals bats rolling" },
+  { away:"Toronto Blue Jays",    home:"Chicago White Sox",      time:"2:10 PM",  net:"MLB.TV",awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-175", homeML:"+148", ou:"8",    edge:"public", note:"Blue Jays heavy chalk" },
+  { away:"Philadelphia Phillies",home:"Colorado Rockies",       time:"4:05 PM",  net:"BSRM",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-185", homeML:"+158", ou:"10.5", edge:"sharp",  note:"Coors + wind blowing out — over alert" },
+  { away:"Baltimore Orioles",    home:"Pittsburgh Pirates",     time:"4:05 PM",  net:"MASN",  awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+115", homeML:"-135", ou:"7.5",  edge:"sharp",  note:"Pirates home fav — value vs. Orioles" },
+  { away:"San Diego Padres",     home:"Boston Red Sox",         time:"4:05 PM",  net:"NESN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-140", homeML:"+120", ou:"8.5",  edge:"none",   note:"Padres bats hot early" },
+  { away:"Los Angeles Dodgers",  home:"Washington Nationals",   time:"4:05 PM",  net:"MASN2", awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-250", homeML:"+210", ou:"8.5",  edge:"public", note:"Dodgers heavy road chalk" },
 ];
 const nhlGames = [
-  { away:"Boston Bruins",       home:"New York Rangers",       time:"7:00 PM",  net:"MSG",    awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+125", homeML:"-148", ou:"5.5", edge:"sharp",  note:"Wild card — 4-pt swing" },
-  { away:"Ottawa Senators",     home:"Buffalo Sabres",         time:"7:00 PM",  net:"BSSUN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-135", homeML:"+115", ou:"6",   edge:"public", note:"OTT needs points" },
-  { away:"Florida Panthers",    home:"Tampa Bay Lightning",    time:"7:30 PM",  net:"BSSUN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-155", homeML:"+133", ou:"5.5", edge:"none",   note:"Battle of Florida" },
-  { away:"Carolina Hurricanes", home:"New Jersey Devils",      time:"7:00 PM",  net:"MSGSN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-175", homeML:"+148", ou:"5.5", edge:"sharp",  note:"CAR locking Metro top seed" },
+  { away:"Detroit Red Wings",    home:"New York Rangers",       time:"12:30 PM", net:"MSG",   awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+148", homeML:"-178", ou:"5.5",  edge:"sharp",  note:"Rangers at The Garden — must-win wild card" },
+  { away:"Florida Panthers",     home:"Pittsburgh Penguins",    time:"5:00 PM",  net:"BSSUN", awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-200", homeML:"+168", ou:"5.5",  edge:"none",   note:"Panthers clinching — heavy fav" },
+  { away:"Boston Bruins",        home:"Tampa Bay Lightning",    time:"5:00 PM",  net:"NESN",  awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+155", homeML:"-185", ou:"5.5",  edge:"sharp",  note:"Bruins ML +155 — desperation spot" },
+  { away:"New York Islanders",   home:"Carolina Hurricanes",    time:"7:00 PM",  net:"BSSUN", awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+192", homeML:"-232", ou:"5.5",  edge:"none",   note:"CAR locking Metro top seed" },
+  { away:"Buffalo Sabres",       home:"Washington Capitals",    time:"7:00 PM",  net:"MNMT",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-117", homeML:"-102", ou:"6.5",  edge:"public", note:"Sabres road fav in bubble game" },
+  { away:"Toronto Maple Leafs",  home:"Los Angeles Kings",      time:"7:08 PM",  net:"ESPN",  awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+155", homeML:"-185", ou:"5.5",  edge:"sharp",  note:"Kings -185 ML — sharp vs. Leafs road dogs" },
+  { away:"Vegas Golden Knights", home:"Edmonton Oilers",        time:"10:08 PM", net:"ESPN2", awaySpread:"+1.5", homeSpread:"-1.5", awayML:"-104", homeML:"-115", ou:"6",    edge:"sharp",  note:"Oilers -115 — West top-seed race" },
 ];
 
-/* ── SPORTS NEWS ── */
+/* ── SPORTS NEWS — Apr 4, 2026 ── */
 const sportsNews = [
-  { tag:"ncaab", tagLabel:"NCAAB", date:"Apr 3", title:"Final Four Eve — UConn -3.5 vs Illinois, Arizona -6.5 vs Michigan Tomorrow Night in San Antonio", body:"Sharp action has already moved UConn from -5 to -3.5 vs Illinois. Arizona remains a 6.5-pt favorite vs Michigan with heavy public backing. Model respects UConn to cover; the Arizona side worries given the public steam. Key injury watch: Michigan's Marcus Benson listed Q." },
-  { tag:"nba",   tagLabel:"NBA",   date:"Apr 3", title:"Thunder–Nuggets TNT Showdown — OKC +3 Best Spot on the Board Tonight", body:"Shai Gilgeous-Alexander has hit 30+ in 6 straight and OKC enters Denver as a 3-point dog despite holding the 3rd seed in the West. Sharp money came in on OKC Thursday morning, moving the line from -4.5 to -3. Model projects OKC to cover 62% of the time." },
-  { tag:"mlb",   tagLabel:"MLB",   date:"Apr 3", title:"Burnes vs. Gray in St. Louis — Best Pitching Duel on the MLB Card Today", body:"Corbin Burnes and Sonny Gray square off at Busch Stadium in what should be a low-scoring affair. Total bet down from 8.5 to 8 since open. Burnes had a 0.89 ERA in spring; Gray fanned 13 in his opener. Under is the play here." },
-  { tag:"nhl",   tagLabel:"NHL",   date:"Apr 3", title:"Bruins @ Garden — Wild Card Race Enters Crunch Mode With 4-Point Swing Game Tonight", body:"Boston enters Madison Square Garden with Ottawa 2 back and Detroit 4 back. This is effectively a must-win or must-not-lose scenario for all four teams. BOS ML opened at +130 and sits +125. Sharp interest on the Bruins underdog." },
-  { tag:"nba",   tagLabel:"NBA",   date:"Apr 3", title:"Heat vs. Sixers — Play-In Battle With Real Stakes as Both Teams Fight for 8th Seed", body:"Miami (37-41) needs tonight's result in Philly. Sixers (39-39) have been messy lately with injuries. Line moved from -3.5 to -2.5 — wiseguys see this closer than the records suggest. Heat have covered 7 of their last 9 as road underdogs." },
-  { tag:"bet",   tagLabel:"Bet",   date:"Apr 3", title:"Coors Alert — Padres @ Rockies Total at 8.5, Wind Blowing Out 12 MPH This Afternoon", body:"Afternoon game at Coors with wind blowing out 12 mph. Model shows 10.2 expected runs factoring in altitude and conditions. Rockies bullpen ranks 28th in ERA. Total sitting at 8.5 and hasn't moved. Strong over lean — grab it early." },
+  { tag:"ncaab", tagLabel:"NCAAB", date:"Apr 4", title:"Final Four TONIGHT — Illinois -1.5 vs UConn, Michigan -1.5 vs Arizona at Lucas Oil Stadium", body:"The Final Four tips off tonight in Indianapolis. Illinois opened as -2.5 favorites against UConn and has moved to -1.5 as sharp money trims the number — the Illini are taking 61% of spread tickets. Michigan is a surprising -1.5 against Arizona, reflecting the Wolverines' dominant tournament run. Both totals have barely moved (139.5, 157.5), suggesting a market that doesn't have strong conviction on pace." },
+  { tag:"nba",   tagLabel:"NBA",   date:"Apr 4", title:"Spurs Road Favorites in Denver — San Antonio -2 in a Western Playoff Preview", body:"The San Antonio Spurs (59-18) enter Ball Arena as 2-point road favorites over the Denver Nuggets (49-28) — one of the more eye-catching lines of the regular season stretch run. The Spurs sit just two games behind OKC for the West's top seed. Sharp action opened San Antonio at -1.5 and has pushed it to -2. Denver's inconsistency at home down the stretch makes this a legitimate top-line play." },
+  { tag:"mlb",   tagLabel:"MLB",   date:"Apr 4", title:"Coors Eruption Watch — Phillies @ Rockies O/U 10.5 with Wind Blowing Out at Altitude", body:"The single most important total on today's MLB board: Phillies vs. Rockies at Coors Field with wind blowing out. The total opened at 9.5 and has already climbed to 10.5 — it could push higher before first pitch. Rockies bullpen ranks dead last in ERA. Philadelphia's lineup has been one of the league's most productive through the first week of the season." },
+  { tag:"nhl",   tagLabel:"NHL",   date:"Apr 4", title:"Wild Card Saturday — Bruins ML +155 vs Lightning in the Day's Best NHL Value Play", body:"Boston enters Tampa +155 on the moneyline in a spot where desperation typically fuels performance. The Bruins are fighting for their playoff lives with Ottawa 2 points back. Tampa is a -185 home favorite but has been inconsistent at Amalie Arena. BOS as a big road dog in a must-win scenario has historically been a profitable NHL betting angle." },
+  { tag:"nba",   tagLabel:"NBA",   date:"Apr 4", title:"Pistons @ Sixers — Philadelphia -5.5 Hosts Detroit in a Play-In Bubble Battle Tonight", body:"Philadelphia (42-37) hosts Detroit (38-41) in a mid-stakes play-in positioning game with the Sixers looking to hold their footing around the 6-7 seed line. The Pistons have been competitive but inconsistent on the road. Model shows Philly as roughly a 7-point true favorite — slight lean toward the Sixers covering, though the total at 218.5 looks a touch high given defensive matchup." },
+  { tag:"bet",   tagLabel:"Bet",   date:"Apr 4", title:"Pittsburgh Pirates Home Favorites vs. Baltimore — Sharp Lean on Pirates ML -135 Today", body:"The Pirates open as -135 ML favorites against the Baltimore Orioles in Pittsburgh today. Baltimore's rotation is in flux early in the season and the Orioles bullpen has been one of the most stressed in the league through Week 1. Pittsburgh at home in a spot where public money will fade them makes this a contrarian lean that sharp books have highlighted." },
 ];
 
-/* ── SPORTS EDGES ── */
+/* ── SPORTS EDGES — Apr 4, 2026 ── */
 const sportsEdges = [
-  { icon:"⚡", game:"Thunder @ Nuggets", type:"sharp", typeLabel:"Sharp Move", title:"OKC +3 — steam move from +4.5, sharp groups on Thunder", desc:"SGA has been unstoppable. OKC is 18-6 ATS as road dogs this season. Public sitting 64% Denver. Money has moved this number 1.5 points against the public — classic sharp fade setup.", stat:"Line: +4.5 → +3" },
-  { icon:"📉", game:"Brewers @ Cardinals", type:"sharp", typeLabel:"Under Play", title:"Under 8 — Burnes vs Gray total dropped from 8.5", desc:"Best two-starter matchup on the board. Total bet down 0.5 pts since open. Busch Stadium plays neutral. Model projects 6.9 combined runs. Fading the over is the right call.", stat:"ERAs: Burnes 1.58 · Gray 2.20" },
-  { icon:"🏒", game:"Bruins @ Rangers", type:"sharp", typeLabel:"Value Dog", title:"Bruins ML +125 — sharp money on Boston in a desperation spot", desc:"Sharp books taking BOS ML in a 4-point swing game. Rangers have been shaky at home in March (4-5). BOS desperation + underdog role is a historically profitable spot in the NHL.", stat:"BOS Road Dog ATS: 15-7 L2 yrs" },
-  { icon:"🌬️", game:"Padres @ Rockies", type:"system", typeLabel:"Weather", title:"Coors Over 8.5 — 12 mph wind blowing out this afternoon", desc:"Coors altitude inflates scoring 30% baseline. Wind out adds another multiplier. Rockies bullpen dead last in xFIP over the last 30 days. Padres offense heating up. Strong over before it moves.", stat:"Wind: 12mph out · Altitude: 5,280ft" },
+  { icon:"🏀", game:"Spurs @ Nuggets",      type:"sharp",  typeLabel:"Sharp Move",  title:"Spurs -2 Road Fav — sharp steam on San Antonio from -1.5", desc:"59-18 San Antonio enters Denver as road favorites, a rare mid-season occurrence. Sharp groups pushed the line from -1.5 to -2 overnight. OKC top-seed pressure means Spurs need every win — motivation is real.", stat:"Line: Spurs -1.5 → -2" },
+  { icon:"🌬️", game:"Phillies @ Rockies",   type:"system", typeLabel:"Weather",     title:"Coors Over 10.5 — Wind 12mph out, Altitude, Rockies Pen 28th", desc:"Perfect storm for run scoring: Coors altitude, wind blowing out, last-ranked bullpen, and a Phillies offense ranked top-5 in the NL. Total climbed from 9.5 to 10.5 and may keep moving. Strong over lean.", stat:"Wind: 12mph out · Total: 9.5 → 10.5" },
+  { icon:"🏒", game:"Bruins @ Lightning",   type:"sharp",  typeLabel:"Value Dog",   title:"Bruins ML +155 — desperation dog angle vs. Tampa at Amalie", desc:"Boston in a desperation road spot is historically a profitable NHL betting angle. Bruins ML opened +140 and has drifted to +155 as public piles on Tampa. Ottawa only 2 pts back — BOS motivation at peak.", stat:"BOS Road Dog Angle: +EV historically" },
+  { icon:"⚾", game:"Pirates vs. Orioles",   type:"sharp",  typeLabel:"Home Value",  title:"Pirates -135 ML at Home — fading early-season Baltimore struggles", desc:"Pittsburgh opens as home favorites against an Orioles team with a shaky early rotation and one of the most-used bullpens through Week 1. Public will likely back Baltimore name recognition — sharp lean on PIT.", stat:"BAL Bullpen: Most appearances thru Wk 1" },
 ];
 
-/* ── RACING NEWS ── */
+/* ── RACING NEWS — Apr 4, 2026 (RACE DAY) ── */
 const racingNews = [
-  { cat:"Blue Grass Preview",        title:"Eight Declared for Saturday's Blue Grass G1 — Morning Line Released Friday at Keeneland", body:"Eight horses have been officially declared for the Blue Grass Stakes (G1) at Keeneland on Saturday April 5, the final major 100-point Derby prep at the Lexington track. Morning line odds will be released Friday morning. Expect a contested pace with multiple closers; the trip from behind will be key. This race has produced two of the last five Kentucky Derby winners.", date:"Apr 3", url:"https://www.keeneland.com/" },
-  { cat:"Wood Memorial",             title:"Talk To Me Jimmy Morning Line 5-2 in Full Field of 13 for Saturday's Wood Memorial G2 at Aqueduct", body:"The Wood Memorial (G2) at Aqueduct drew a full field of 13 with Talk To Me Jimmy installed as the 5-2 morning line choice off a dominant 7-length score in the Gotham Stakes. Steel (4-1) and Napoleon Solo (6-1) are the primary dangers. A field this large at Aqueduct often produces a closing winner. Full entries and jockey changes expected by Friday morning.", date:"Apr 3", url:"https://www.nyra.com/" },
-  { cat:"Santa Anita Derby Preview", title:"Baffert Confident in Potente After Sharp Works — Cherokee Nation Also Primed for Saturday", body:"Bob Baffert reported both Potente and Cherokee Nation came out of their final preparations in excellent order. Potente worked 5 furlongs in :59.4 Tuesday; Cherokee Nation went a sharp :47.1 for four furlongs Wednesday. Baffert said he has not yet designated a Derby preference between the two. The Santa Anita Derby (G1) carries 100 qualifying points to the winner.", date:"Apr 3", url:"https://www.santaanita.com/" },
-  { cat:"Commandment",               title:"Connections Confirm Commandment Bypasses Saturday Preps — Heading Straight to the Kentucky Derby", body:"Brad Cox confirmed Thursday afternoon that Commandment will skip all remaining preps and point directly to the Kentucky Derby off his Florida Derby victory. The decision preserves the horse and avoids the wear of another graded race. Commandment sits atop the leaderboard with 150 points and is comfortably inside the likely top-20.", date:"Apr 3", url:"https://www.bloodhorse.com/" },
-  { cat:"Renegade Update",           title:"Renegade Barn Reports Horse 'Doing Beautifully' — Connections Lean Toward Belmont Path Post-Arkansas", body:"Sources close to the Renegade camp told reporters Thursday that connections are leaning toward the Belmont Path rather than running back at Keeneland. The decision is not finalized. With 125 Derby points, Renegade is firmly in the field regardless. Todd Pletcher wants at least three weeks between races for the horse's wellbeing.", date:"Apr 3", url:"https://www.americasbestracing.net/" },
-  { cat:"Derby Trail",               title:"29 Days Out — Saturday Is Super Saturday: Three 100-Point Races That Will Define the 2026 Derby Field", body:"The Blue Grass G1, Santa Anita Derby G1, and Wood Memorial G2 all run Saturday April 5, collectively offering 300 points. Combined with the Spiral G3 on Friday (20 pts), nearly the entire bubble picture will crystallize this weekend. Approximately 35 horses remain in serious Derby contention; only 20 will make the gate May 2.", date:"Apr 3", url:"https://www.kentuckyderby.com/" },
+  { cat:"Blue Grass Stakes G1 — TODAY", title:"Blue Grass G1 Goes Today at Keeneland — Eight-Horse Field, Post Time ~5:30 PM ET", body:"The Blue Grass Stakes (G1) goes this afternoon at Keeneland with a compact field of eight. Brad Cox's Further Ado drew the rail and faces a deep closer-heavy field. The trip from behind will be pivotal on a track that has been playing fair. This race has produced multiple Kentucky Derby winners. Watch for pace scenarios — if the speed duels early, closers could dominate the stretch. 100 Derby points to the winner.", date:"Apr 4", url:"https://www.keeneland.com/" },
+  { cat:"Wood Memorial G2 — TODAY",     title:"Wood Memorial G2 at Aqueduct — Napoleon Solo on Rail, Iron Honor on Outside in 13-Horse Field", body:"The Wood Memorial (G2) at Aqueduct draws 13 horses with Napoleon Solo breaking from the rail as the likely favorite and Grade 1 winner Iron Honor on the far outside. The large field at a tight Aqueduct oval means traffic trouble is a real factor — inside post horses will need a smooth trip. 100 points to the winner and 40 points for second. Post time approximately 4:55 PM ET.", date:"Apr 4", url:"https://www.nyra.com/" },
+  { cat:"Santa Anita Derby G1 — TODAY", title:"Baffert Sends Potente and Cherokee Nation into Santa Anita Derby G1 — Post Time ~5:00 PM PT", body:"Bob Baffert runs two of the meet's top points contenders in today's Santa Anita Derby (G1) at Santa Anita Park. Potente worked 5 furlongs in :59.4 last Tuesday; Cherokee Nation showed a sharp :47.1 for four furlongs Wednesday. Baffert still has not designated a Derby preference between the two. The field is shaping up as one of the most competitively balanced preps of the Derby trail. 100 points to the winner.", date:"Apr 4", url:"https://www.santaanita.com/" },
+  { cat:"Commandment Watch",            title:"Commandment Skips All Preps — Brad Cox Points 150-pt Leader Straight to Churchill Downs", body:"Brad Cox confirmed Commandment will bypass today's prep races entirely and point straight to the Kentucky Derby off his Florida Derby victory. The decision is designed to keep the horse fresh and avoid any risk of injury in a final tune-up. With 150 Derby points, Commandment is comfortably positioned as the current points leader and needs no further qualifying races.", date:"Apr 4", url:"https://www.bloodhorse.com/" },
+  { cat:"Renegade Update",             title:"Renegade Connections Now Leaning Belmont Path — Decision Expected Next Week After Saturday Results", body:"The Renegade camp is monitoring Saturday's results closely before making a final decision on whether to run in a final prep or point directly to Churchill. With 125 Derby points, Renegade is safely inside the top-20 cutoff regardless of today's results. Todd Pletcher is prioritizing the horse's health and freshness with 28 days to Derby day.", date:"Apr 4", url:"https://www.americasbestracing.net/" },
+  { cat:"Derby Trail — 28 Days Out",    title:"Super Saturday: 300 Points on the Line Today — Blue Grass, Wood Memorial and Santa Anita Derby All Go", body:"Today is the biggest single day of the Derby trail in 2026. The Blue Grass G1, Santa Anita Derby G1, and Wood Memorial G2 collectively offer 300 qualifying points. By tonight the Derby field picture will be dramatically clearer. Approximately 35 horses remain in contention; only 20 will make the gate on May 2 at Churchill Downs.", date:"Apr 4", url:"https://www.kentuckyderby.com/" },
 ];
 
 /* ── STAKES ── */
 const stakesData = [
   { date:"Mar 28", race:"Arkansas Derby",       grade:"G1", track:"Oaklawn Park",    dist:"1⅛m Dirt",  purse:"$1.5M", pts:"100", notes:"RESULT: Renegade by 4 lengths" },
   { date:"Mar 28", race:"Florida Derby",        grade:"G1", track:"Gulfstream Park", dist:"1⅛m Dirt",  purse:"$1M",   pts:"100", notes:"RESULT: Commandment by a nose" },
-  { date:"Apr 4",  race:"Spiral Stakes",        grade:"G3", track:"Turfway Park",    dist:"1 1/16m",   purse:"$400K", pts:"20",  notes:"Late bubble points option" },
-  { date:"Apr 5",  race:"Blue Grass Stakes",    grade:"G1", track:"Keeneland",       dist:"1 1/16m",   purse:"$1M",   pts:"100", notes:"8 declared — ML out Friday" },
-  { date:"Apr 5",  race:"Wood Memorial",        grade:"G2", track:"Aqueduct",        dist:"1⅛m Dirt",  purse:"$750K", pts:"100", notes:"Talk To Me Jimmy 5-2 ML fav, 13-horse field" },
-  { date:"Apr 5",  race:"Santa Anita Derby",    grade:"G1", track:"Santa Anita",     dist:"1⅛m Dirt",  purse:"$1M",   pts:"100", notes:"Baffert: Potente + Cherokee Nation" },
+  { date:"Apr 4",  race:"Spiral Stakes",        grade:"G3", track:"Turfway Park",    dist:"1 1/16m",   purse:"$400K", pts:"20",  notes:"RESULT: TBD — ran yesterday" },
+  { date:"Apr 4",  race:"Blue Grass Stakes",    grade:"G1", track:"Keeneland",       dist:"1 1/16m",   purse:"$1M",   pts:"100", notes:"TODAY — 8 declared · Further Ado on rail · Post ~5:30 ET" },
+  { date:"Apr 4",  race:"Wood Memorial",        grade:"G2", track:"Aqueduct",        dist:"1⅛m Dirt",  purse:"$750K", pts:"100", notes:"TODAY — 13 horses · Napoleon Solo rail · Iron Honor outside" },
+  { date:"Apr 4",  race:"Santa Anita Derby",    grade:"G1", track:"Santa Anita",     dist:"1⅛m Dirt",  purse:"$1M",   pts:"100", notes:"TODAY — Baffert: Potente + Cherokee Nation · Post ~5 PT" },
   { date:"Apr 18", race:"Ashland Stakes",       grade:"G1", track:"Keeneland",       dist:"1 1/16m",   purse:"$600K", pts:"—",   notes:"Key Kentucky Oaks prep" },
   { date:"Apr 18", race:"Lexington Stakes",     grade:"G3", track:"Keeneland",       dist:"1 1/16m",   purse:"$300K", pts:"20",  notes:"Final Derby points race" },
   { date:"Apr 25", race:"Derby Trial",          grade:"G3", track:"Churchill Downs", dist:"1m Dirt",   purse:"$175K", pts:"20",  notes:"On the Derby track" },
@@ -899,11 +1178,11 @@ const stakesData = [
 
 /* ── UPCOMING CARDS ── */
 const upcomingCards = [
-  { track:"Keeneland",        date:"Sat, Apr 5",     chips:["Blue Grass G1","8 Declared","Limestone S."],            purse:"Featured: <strong>$1M</strong>" },
-  { track:"Aqueduct",         date:"Sat, Apr 5",     chips:["Wood Memorial G2","Full Field of 13","Gazelle S. G3"],   purse:"Featured: <strong>$750K</strong>" },
-  { track:"Santa Anita",      date:"Sat, Apr 5",     chips:["Santa Anita Derby G1","Baffert 2-Deep","Santa Ana S."],  purse:"Featured: <strong>$1M</strong>" },
-  { track:"Turfway Park",     date:"Fri, Apr 4",     chips:["Spiral Stakes G3","Bubble Race","20 Derby Pts"],         purse:"Featured: <strong>$400K</strong>" },
+  { track:"Keeneland",        date:"TODAY · Apr 4",  chips:["Blue Grass G1 🔥","8 Horses","Post ~5:30 ET"],          purse:"Featured: <strong>$1M</strong>" },
+  { track:"Aqueduct",         date:"TODAY · Apr 4",  chips:["Wood Memorial G2 🔥","Full Field 13","Post ~4:55 ET"],   purse:"Featured: <strong>$750K</strong>" },
+  { track:"Santa Anita",      date:"TODAY · Apr 4",  chips:["Santa Anita Derby G1 🔥","Baffert 2-Deep","Post ~5 PT"],purse:"Featured: <strong>$1M</strong>" },
   { track:"Keeneland",        date:"Fri–Sat Apr 18", chips:["Ashland S. G1","Lexington S. G3","Spring Meet"],         purse:"Featured: <strong>$600K</strong>" },
+  { track:"Churchill Downs",  date:"Sat, Apr 25",    chips:["Derby Trial G3","20 Derby Pts","On Derby Track"],         purse:"Featured: <strong>$175K</strong>" },
   { track:"Churchill Downs",  date:"Sat, May 2",     chips:["KENTUCKY DERBY G1","$5M Purse","152nd Run for the Roses"], purse:"Featured: <strong>$5M</strong>" },
 ];
 </script>
@@ -917,7 +1196,6 @@ import { initializeApp }
 import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, deleteDoc, updateDoc, doc }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-// ⚠️ Replace placeholder values with your REAL Firebase config from Firebase Console
 const cfg = {
   apiKey:            "AIzaSyB6nESEWtK95PUeSaoHWXv0TYrCpVm5vQI",
   authDomain:        "bennythebet.firebaseapp.com",
@@ -927,12 +1205,29 @@ const cfg = {
   appId:             "1:849946766302:web:8a3dc377046d826d368b4f"
 };
 const db  = getFirestore(initializeApp(cfg));
-// Single collection — sports picks tagged {sport:'sports'}, racing {sport:'racing'}
-// Existing racing picks (no sport field) are treated as racing automatically
 const col = collection(db, 'picks');
+
+/* Cache for edit lookups */
+const pickCache = {};
 
 function sortDocs(snap) {
   return [...snap.docs].sort((a,b) => (b.data().ts?.toMillis?.()??0) - (a.data().ts?.toMillis?.()??0));
+}
+
+/* Convert confidence value (string or int) to integer 1-5 */
+function confToInt(c) {
+  if (c === 'lock')   return 5;
+  if (c === 'strong') return 3;
+  if (c === 'lean')   return 2;
+  const n = parseInt(c);
+  return Math.min(5, Math.max(1, isNaN(n) ? 3 : n));
+}
+
+/* Stars HTML for display */
+function starsHtml(conf) {
+  const n = confToInt(conf);
+  return Array.from({length:5}, (_,i) =>
+    `<span class="${i < n ? 'on' : 'off'}">★</span>`).join('');
 }
 
 /* Result badge */
@@ -945,139 +1240,225 @@ function prBadge(result, isRacing) {
 
 /* Sports pick card */
 function sPick(d, id) {
-  const c = d.confidence||'lean', cls = c==='lock'?'sc-lock':c==='strong'?'sc-strong':'sc-lean';
-  const lbl = c==='lock'?'🔒 Lock':c==='strong'?'💪 Strong':'🤔 Lean';
-  const ts = d.ts ? new Date(d.ts.toMillis()).toLocaleString() : '';
-  const res = d.result||'';
-  return `<div class="s-pick-card">
-    <div class="s-pick-top">
-      <div class="s-pick-lbl">${d.game||'Event TBD'}</div>
-      <div style="display:flex;gap:5px;align-items:center">${prBadge(res,false)}<div class="s-pick-conf ${cls}">${lbl}</div></div>
+  const res      = d.result || '';
+  const tag      = d.sportTag || '';
+  const game     = d.game || 'Event TBD';
+  const pick     = d.pick || 'TBD';
+  const betType  = d.betType || '';
+  const odds     = d.odds || '';
+  const note     = d.note || '';
+  const ts       = d.ts ? new Date(d.ts.toMillis()).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+  const desc     = [betType, ts].filter(Boolean).join(' · ');
+  return `<div class="pc">
+    <div class="pc-top">
+      ${tag ? `<div class="pc-tag">${tag}</div>` : ''}
+      <div class="pc-track-lbl">${game}</div>
+      ${prBadge(res, false)}
+      ${odds ? `<div class="pc-odds-right">${odds}</div>` : ''}
     </div>
-    <div class="s-pick-main">${d.pick||'TBD'}</div>
-    <div class="s-pick-sub">${d.odds?`<span class="s-pick-odds">${d.odds}</span>`:''} ${ts?`<span class="s-pick-ts">${ts}</span>`:''}</div>
-    ${d.note?`<div class="s-pick-note">${d.note}</div>`:''}
-    <div class="pick-actions">
-      <button class="pa-win${res==='win'?' pa-active':''}" onclick="markResult('${id}','win')">W</button>
-      <button class="pa-loss${res==='loss'?' pa-active':''}" onclick="markResult('${id}','loss')">L</button>
-      <button class="pa-push${res==='push'?' pa-active':''}" onclick="markResult('${id}','push')">P</button>
-      <button class="pa-del" onclick="deletePick('${id}')">🗑 Delete</button>
+    <div class="pc-name">${pick}</div>
+    ${desc ? `<div class="pc-desc">${desc}</div>` : ''}
+    <div class="pc-stars">${starsHtml(d.confidence)}</div>
+    ${note ? `<div class="pc-desc" style="margin-top:2px;border-top:1px solid var(--s-border);padding-top:6px">${note}</div>` : ''}
+    <div class="pc-actions">
+      <button class="pc-btn pc-btn-w${res==='win'?' active':''}" onclick="markResult('${id}','win')">W</button>
+      <button class="pc-btn pc-btn-l${res==='loss'?' active':''}" onclick="markResult('${id}','loss')">L</button>
+      <button class="pc-btn pc-btn-p${res==='push'?' active':''}" onclick="markResult('${id}','push')">P</button>
+      <button class="pc-btn pc-btn-edit" onclick="openEdit('${id}')">✏ Edit</button>
+      <button class="pc-btn pc-btn-del" onclick="deletePick('${id}')">🗑</button>
     </div>
   </div>`;
 }
 
 /* Racing pick card */
 function rPick(d, id) {
-  const c = d.confidence||'lean', cls = c==='lock'?'rc-lock':c==='strong'?'rc-strong':'rc-lean';
-  const lbl = c==='lock'?'🔒 Lock':c==='strong'?'💪 Strong':'🤔 Lean';
-  const ts = d.ts ? new Date(d.ts.toMillis()).toLocaleString() : '';
-  const res = d.result||'';
-  return `<div class="r-pick-card">
-    <div class="r-pick-top">
-      <div class="r-pick-lbl">${d.race||'Race TBD'}</div>
-      <div style="display:flex;gap:5px;align-items:center">${prBadge(res,true)}<div class="r-pick-conf ${cls}">${lbl}</div></div>
+  const res     = d.result || '';
+  const track   = d.track || d.race || 'TBD';
+  const raceNum = d.raceNum || '';
+  const horse   = d.horse || 'TBD';
+  const betType = d.betType || '';
+  const odds    = d.odds || '';
+  const note    = d.note || '';
+  const ts      = d.ts ? new Date(d.ts.toMillis()).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+  const tag     = raceNum ? `R${String(raceNum).replace(/^R/i,'')}` : '🏇';
+  const desc    = [betType, ts].filter(Boolean).join(' · ');
+  return `<div class="pc">
+    <div class="pc-top">
+      <div class="pc-tag">${tag}</div>
+      <div class="pc-track-lbl">${track}</div>
+      ${prBadge(res, true)}
+      ${odds ? `<div class="pc-odds-right">${odds}</div>` : ''}
     </div>
-    <div class="r-pick-main">${d.horse||'TBD'}</div>
-    <div class="r-pick-sub">${d.odds?`<span class="r-pick-odds">${d.odds}</span>`:''} ${ts?`<span class="r-pick-ts">${ts}</span>`:''}</div>
-    ${d.note?`<div class="r-pick-note">${d.note}</div>`:''}
-    <div class="pick-actions pick-actions--r">
-      <button class="pa-win${res==='win'?' pa-active':''}" onclick="markResult('${id}','win')">W</button>
-      <button class="pa-loss${res==='loss'?' pa-active':''}" onclick="markResult('${id}','loss')">L</button>
-      <button class="pa-push${res==='push'?' pa-active':''}" onclick="markResult('${id}','push')">P</button>
-      <button class="pa-del" onclick="deletePick('${id}')">🗑 Delete</button>
+    <div class="pc-name">${horse}</div>
+    ${desc ? `<div class="pc-desc">${desc}</div>` : ''}
+    <div class="pc-stars">${starsHtml(d.confidence)}</div>
+    ${note ? `<div class="pc-desc" style="margin-top:2px;border-top:1px solid rgba(201,162,39,.15);padding-top:6px">${note}</div>` : ''}
+    <div class="pc-actions">
+      <button class="pc-btn pc-btn-w${res==='win'?' active':''}" onclick="markResult('${id}','win')">W</button>
+      <button class="pc-btn pc-btn-l${res==='loss'?' active':''}" onclick="markResult('${id}','loss')">L</button>
+      <button class="pc-btn pc-btn-edit" onclick="openEdit('${id}')">✏ Edit</button>
+      <button class="pc-btn pc-btn-del" onclick="deletePick('${id}')">🗑</button>
     </div>
   </div>`;
 }
 
-/* Single listener — filters by sport field client-side */
+/* Live listener */
 onSnapshot(col, snap => {
-  const all = sortDocs(snap);
+  snap.docs.forEach(d => { pickCache[d.id] = d.data(); });
+  const all   = sortDocs(snap);
   const sDocs = all.filter(d => d.data().sport === 'sports');
-  const rDocs = all.filter(d => d.data().sport !== 'sports'); // racing + legacy (no sport field)
+  const rDocs = all.filter(d => d.data().sport !== 'sports');
 
-  /* Sports board */
   document.getElementById('sportsPicksGrid').innerHTML = sDocs.length === 0
     ? `<div class="s-empty"><div class="ei">⚡</div><p>No sports picks yet — post your first one!</p></div>`
     : sDocs.map(d => sPick(d.data(), d.id)).join('');
 
-  /* Sports season record */
-  const sWins   = sDocs.filter(d => d.data().result === 'win').length;
-  const sLosses = sDocs.filter(d => d.data().result === 'loss').length;
-  const recEl = document.getElementById('sRecord');
-  if (recEl) recEl.textContent = `${sWins}–${sLosses}`;
-
-  /* Racing board */
   document.getElementById('racingPicksGrid').innerHTML = rDocs.length === 0
     ? `<div class="r-empty"><div class="ri">🏇</div><p>No racing picks yet — be first!</p></div>`
     : rDocs.map(d => rPick(d.data(), d.id)).join('');
 
 }, () => {
   document.getElementById('sportsPicksGrid').innerHTML =
-    `<div class="s-empty"><div class="ei">⚠️</div><p>Firebase not connected — check your API key in the config.</p></div>`;
+    `<div class="picks-empty"><div class="icon">⚠️</div><p>Firebase not connected — check your API key.</p></div>`;
   document.getElementById('racingPicksGrid').innerHTML =
-    `<div class="r-empty"><div class="ri">⚠️</div><p>Firebase not connected — check your API key in the config.</p></div>`;
+    `<div class="picks-empty"><div class="icon">⚠️</div><p>Firebase not connected — check your API key.</p></div>`;
 });
 
 /* Mark Win / Loss / Push */
 window.markResult = async (id, result) => {
   try { await updateDoc(doc(db, 'picks', id), { result }); }
-  catch(e) { console.error('markResult failed', e); alert('Could not update — check connection.'); }
+  catch(e) { console.error(e); alert('Could not update — check connection.'); }
 };
 
-/* Delete pick */
+/* Delete */
 window.deletePick = async (id) => {
   if (!confirm('Delete this pick? This cannot be undone.')) return;
   try { await deleteDoc(doc(db, 'picks', id)); }
-  catch(e) { console.error('deletePick failed', e); alert('Could not delete — check connection.'); }
+  catch(e) { console.error(e); alert('Could not delete — check connection.'); }
+};
+
+/* ── EDIT MODAL ── */
+let _editId = null;
+
+window.openEdit = (id) => {
+  const d = pickCache[id];
+  if (!d) return;
+  _editId = id;
+  const isSports = d.sport === 'sports';
+  document.getElementById('editModalTitle').textContent = isSports ? 'Edit Sports Pick' : 'Edit Racing Pick';
+  document.getElementById('editSportsFields').style.display = isSports ? 'block' : 'none';
+  document.getElementById('editRacingFields').style.display = isSports ? 'none' : 'block';
+  const conf = confToInt(d.confidence || 3);
+  if (isSports) {
+    document.getElementById('esSportTag').value = d.sportTag || '';
+    document.getElementById('esGame').value     = d.game     || '';
+    document.getElementById('esPick').value     = d.pick     || '';
+    document.getElementById('esBetType').value  = d.betType  || 'Spread';
+    document.getElementById('esOdds').value     = d.odds     || '';
+    if (window.setStars) window.setStars('esStarInput', conf);
+    document.getElementById('esNote').value     = d.note     || '';
+  } else {
+    document.getElementById('erTrack').value   = d.track   || d.race || '';
+    document.getElementById('erRaceNum').value = d.raceNum || '';
+    document.getElementById('erBetType').value = d.betType || 'Win';
+    document.getElementById('erHorse').value   = d.horse   || '';
+    document.getElementById('erOdds').value    = d.odds    || '';
+    if (window.setStars) window.setStars('erStarInput', conf);
+    document.getElementById('erNote').value    = d.note    || '';
+  }
+  document.getElementById('editStatus').textContent = '';
+  document.getElementById('editModal').classList.add('open');
+};
+
+window.closeEdit = () => {
+  document.getElementById('editModal').classList.remove('open');
+  _editId = null;
+};
+
+window.saveEdit = async () => {
+  if (!_editId) return;
+  const st = document.getElementById('editStatus');
+  st.textContent = 'Saving…';
+  const isSports = (pickCache[_editId] || {}).sport === 'sports';
+  const updates = isSports ? {
+    sportTag:   document.getElementById('esSportTag').value.trim(),
+    game:       document.getElementById('esGame').value.trim(),
+    pick:       document.getElementById('esPick').value.trim(),
+    betType:    document.getElementById('esBetType').value,
+    odds:       document.getElementById('esOdds').value.trim(),
+    confidence: window.getStars ? window.getStars('esStarInput') : 3,
+    note:       document.getElementById('esNote').value.trim(),
+  } : {
+    track:      document.getElementById('erTrack').value.trim(),
+    raceNum:    document.getElementById('erRaceNum').value.trim(),
+    betType:    document.getElementById('erBetType').value,
+    horse:      document.getElementById('erHorse').value.trim(),
+    odds:       document.getElementById('erOdds').value.trim(),
+    confidence: window.getStars ? window.getStars('erStarInput') : 3,
+    note:       document.getElementById('erNote').value.trim(),
+  };
+  try {
+    await updateDoc(doc(db, 'picks', _editId), updates);
+    st.textContent = '✓ Saved!';
+    setTimeout(closeEdit, 700);
+  } catch(e) {
+    console.error(e);
+    st.textContent = 'Error saving — check connection.';
+  }
 };
 
 /* Post sports pick */
 window.postSportsPick = async function() {
-  const g = document.getElementById('sGame').value.trim();
-  const p = document.getElementById('sPick').value.trim();
+  const g  = document.getElementById('sGame').value.trim();
+  const p  = document.getElementById('sPick').value.trim();
   const st = document.getElementById('sPostStatus');
-  if (!g||!p) { st.textContent='Game and pick are required.'; st.className='s-post-status err'; return; }
-  st.textContent='Posting…'; st.className='s-post-status';
+  if (!g || !p) { st.textContent = 'Game and pick are required.'; st.className = 'pf-status err'; return; }
+  st.textContent = 'Posting…'; st.className = 'pf-status';
   try {
     await addDoc(col, {
-      sport:'sports', game:g, pick:p,
-      odds:document.getElementById('sOdds').value.trim(),
-      confidence:document.getElementById('sConf').value,
-      note:document.getElementById('sNote').value.trim(),
-      ts:serverTimestamp()
+      sport:    'sports',
+      sportTag: document.getElementById('sSportTag').value.trim(),
+      game:     g,
+      pick:     p,
+      betType:  document.getElementById('sBetType').value,
+      odds:     document.getElementById('sOdds').value.trim(),
+      confidence: window.getStars ? window.getStars('sStarInput') : 3,
+      note:     document.getElementById('sNote').value.trim(),
+      ts:       serverTimestamp()
     });
-    st.textContent='✓ Posted!'; st.className='s-post-status ok';
-    ['sGame','sPick','sOdds','sNote'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('sConf').value='strong';
-    setTimeout(()=>{st.textContent='';st.className='s-post-status';},3000);
+    st.textContent = '✓ Posted!'; st.className = 'pf-status ok';
+    if (window.clearSportsForm) window.clearSportsForm();
+    setTimeout(() => { st.textContent = ''; st.className = 'pf-status'; }, 3000);
   } catch(e) {
-    console.error('postSportsPick failed', e);
-    st.textContent='Error posting — check Firebase config & rules.'; st.className='s-post-status err';
+    console.error(e);
+    st.textContent = 'Error — check Firebase config & rules.'; st.className = 'pf-status err';
   }
 };
 
 /* Post racing pick */
 window.postRacingPick = async function() {
-  const race  = document.getElementById('rRace').value.trim();
+  const track = document.getElementById('rTrack').value.trim();
   const horse = document.getElementById('rHorse').value.trim();
-  const st = document.getElementById('rPostStatus');
-  if (!race||!horse) { st.textContent='Race and horse are required.'; st.className='r-post-status err'; return; }
-  st.textContent='Posting…'; st.className='r-post-status';
+  const st    = document.getElementById('rPostStatus');
+  if (!track || !horse) { st.textContent = 'Track and horse are required.'; st.className = 'pf-status err'; return; }
+  st.textContent = 'Posting…'; st.className = 'pf-status';
   try {
     await addDoc(col, {
-      sport:'racing', race, horse,
-      odds:document.getElementById('rOdds').value.trim(),
-      confidence:document.getElementById('rConf').value,
-      note:document.getElementById('rNote').value.trim(),
-      ts:serverTimestamp()
+      sport:    'racing',
+      track,    horse,
+      raceNum:  document.getElementById('rRaceNum').value.trim(),
+      betType:  document.getElementById('rBetType').value,
+      odds:     document.getElementById('rOdds').value.trim(),
+      confidence: window.getStars ? window.getStars('rStarInput') : 3,
+      note:     document.getElementById('rNote').value.trim(),
+      ts:       serverTimestamp()
     });
-    st.textContent='✓ Posted!'; st.className='r-post-status ok';
-    ['rRace','rHorse','rOdds','rNote'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('rConf').value='strong';
-    setTimeout(()=>{st.textContent='';st.className='r-post-status';},3000);
+    st.textContent = '✓ Posted!'; st.className = 'pf-status ok';
+    if (window.clearRacingForm) window.clearRacingForm();
+    setTimeout(() => { st.textContent = ''; st.className = 'pf-status'; }, 3000);
   } catch(e) {
-    console.error('postRacingPick failed', e);
-    st.textContent='Error posting — check Firebase config & rules.'; st.className='r-post-status err';
+    console.error(e);
+    st.textContent = 'Error — check Firebase config & rules.'; st.className = 'pf-status err';
   }
 };
 </script>
@@ -1086,6 +1467,54 @@ window.postRacingPick = async function() {
      RENDER + UI
 ============================================================ -->
 <script>
+/* ── Star input widget ── */
+window.setStars = function(inputId, n) {
+  const el = document.getElementById(inputId);
+  if (!el) return;
+  el.dataset.val = n;
+  el.querySelectorAll('.si').forEach(s =>
+    s.classList.toggle('on', parseInt(s.dataset.val) <= n));
+};
+window.getStars = function(inputId) {
+  const el = document.getElementById(inputId);
+  return parseInt(el ? el.dataset.val : 3) || 3;
+};
+function initStarInput(inputId) {
+  const el = document.getElementById(inputId);
+  if (!el) return;
+  window.setStars(inputId, parseInt(el.dataset.val) || 3);
+  el.querySelectorAll('.si').forEach(s => {
+    s.addEventListener('click', () => window.setStars(inputId, parseInt(s.dataset.val)));
+    s.addEventListener('mouseenter', () => {
+      const n = parseInt(s.dataset.val);
+      el.querySelectorAll('.si').forEach(x =>
+        x.classList.toggle('on', parseInt(x.dataset.val) <= n));
+    });
+    s.addEventListener('mouseleave', () =>
+      window.setStars(inputId, parseInt(el.dataset.val) || 3));
+  });
+}
+initStarInput('sStarInput');
+initStarInput('rStarInput');
+initStarInput('esStarInput');
+initStarInput('erStarInput');
+
+/* ── Clear form helpers ── */
+window.clearSportsForm = function() {
+  ['sSportTag','sGame','sPick','sOdds','sNote'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+  const bt = document.getElementById('sBetType'); if (bt) bt.value = 'Spread';
+  window.setStars('sStarInput', 3);
+};
+window.clearRacingForm = function() {
+  ['rTrack','rRaceNum','rHorse','rOdds','rNote'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+  const bt = document.getElementById('rBetType'); if (bt) bt.value = 'Win';
+  window.setStars('rStarInput', 3);
+};
+
 function switchPage(page) {
   const nav = document.getElementById('mainNav');
   document.getElementById('sports-page').style.display = page==='sports'?'block':'none';
@@ -1109,11 +1538,27 @@ function toggleSportsForm() { document.getElementById('sportsFormBody').classLis
   setTimeout(tick,10000);
 })();
 
-/* Derby countdown */
-(function(){
-  const days = Math.ceil((new Date('2026-05-02T18:31:00-04:00') - Date.now()) / 86400000);
-  const el = document.getElementById('derbyDays');
-  if(el) el.textContent = Math.max(days,0);
+/* Derby live countdown */
+(function derbyCountdown() {
+  const target = new Date('2026-05-02T18:31:00-04:00').getTime();
+  function pad(n) { return String(n).padStart(2,'0'); }
+  function tick() {
+    const diff = Math.max(0, target - Date.now());
+    const days = Math.floor(diff / 86400000);
+    const hrs  = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    const dEl = document.getElementById('cdDays');
+    const hEl = document.getElementById('cdHrs');
+    const mEl = document.getElementById('cdMin');
+    const sEl = document.getElementById('cdSec');
+    if (dEl) dEl.textContent = pad(days);
+    if (hEl) hEl.textContent = pad(hrs);
+    if (mEl) mEl.textContent = pad(mins);
+    if (sEl) sEl.textContent = pad(secs);
+    setTimeout(tick, 1000);
+  }
+  tick();
 })();
 
 /* Game card */
