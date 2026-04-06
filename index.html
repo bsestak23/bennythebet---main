@@ -125,7 +125,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--s-green); border-right: 1px solid var(--s-dim);
 }
 .ticker-wrap { flex: 1; overflow: hidden; }
-.ticker-track { display: flex; width: max-content; animation: scroll-l 40s linear infinite; }
+.ticker-track { display: flex; width: max-content; animation: scroll-l 90s linear infinite; }
 @keyframes scroll-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .st-item {
   display: flex; align-items: center; gap: 7px;
@@ -361,6 +361,22 @@ a { color: inherit; text-decoration: none; }
 .picks-empty .icon { font-size: 32px; margin-bottom: 8px; }
 .picks-empty p { font-size: .85rem; }
 
+/* Filter tabs — sport/track toggle */
+.picks-filter-tabs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+.pf-tab {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 4px;
+  background: var(--s-bg3); border: 1px solid var(--s-dim);
+  color: var(--s-muted); cursor: pointer; transition: all .15s;
+}
+.pf-tab:hover { color: var(--s-text); border-color: var(--s-bhi); }
+.pf-tab.active { background: var(--s-green-dim); border-color: var(--s-bhi); color: var(--s-green); }
+/* Racing overrides */
+.racing-scope .pf-tab { background: var(--r-bg3); border-color: var(--r-dim); color: var(--r-muted); }
+.racing-scope .pf-tab:hover { color: var(--r-text); border-color: var(--r-bhi); }
+.racing-scope .pf-tab.active { background: var(--r-gold-dim); border-color: rgba(201,162,39,.35); color: var(--r-gold); }
+
 /* Racing overrides inside .racing-scope */
 .racing-scope .picks-form-panel { border-color: rgba(201,162,39,.28); }
 .racing-scope .pf-title { color: var(--r-gold); }
@@ -562,7 +578,7 @@ a { color: inherit; text-decoration: none; }
   font-size: .65rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase;
   color: var(--r-gold); border-right: 1px solid rgba(201,162,39,.2);
 }
-.r-ticker-track { display: flex; width: max-content; animation: scroll-l 46s linear infinite; }
+.r-ticker-track { display: flex; width: max-content; animation: scroll-l 100s linear infinite; }
 .r-t-item {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
@@ -719,22 +735,30 @@ a { color: inherit; text-decoration: none; }
     <div class="ticker-lbl-s">Live Lines</div>
     <div class="ticker-wrap">
       <div class="ticker-track">
-        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Thunder @ Nuggets</span><span class="t-odds">DEN -3 · O/U 223</span></span>
-        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Cavaliers vs Pistons</span><span class="t-odds">CLE -10 · O/U 215</span></span>
-        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Lakers vs Trail Blazers</span><span class="t-odds">LAL -8 · O/U 225</span></span>
-        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Heat vs Sixers</span><span class="t-odds">PHI -2.5 · O/U 216</span></span>
-        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Yankees @ Orioles · Cole</span><span class="t-odds">NYY -130 · O/U 7.5</span></span>
-        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Brewers @ Cardinals · Burnes</span><span class="t-odds">MIL -120 · O/U 8</span></span>
-        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Rangers vs Bruins</span><span class="t-odds">NYR -115 · O/U 5.5</span></span>
-        <span class="st-item"><span class="t-sport">NCAAB</span><span class="t-teams">Final Four Tomorrow — Apr 4</span><span class="t-odds">UConn -3.5 · Arizona -6.5</span></span>
-        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Thunder @ Nuggets</span><span class="t-odds">DEN -3 · O/U 223</span></span>
-        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Cavaliers vs Pistons</span><span class="t-odds">CLE -10 · O/U 215</span></span>
-        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Lakers vs Trail Blazers</span><span class="t-odds">LAL -8 · O/U 225</span></span>
-        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Heat vs Sixers</span><span class="t-odds">PHI -2.5 · O/U 216</span></span>
-        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Yankees @ Orioles · Cole</span><span class="t-odds">NYY -130 · O/U 7.5</span></span>
-        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Brewers @ Cardinals · Burnes</span><span class="t-odds">MIL -120 · O/U 8</span></span>
-        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Rangers vs Bruins</span><span class="t-odds">NYR -115 · O/U 5.5</span></span>
-        <span class="st-item"><span class="t-sport">NCAAB</span><span class="t-teams">Final Four Tomorrow — Apr 4</span><span class="t-odds">UConn -3.5 · Arizona -6.5</span></span>
+        <span class="st-item"><span class="t-sport">NCAAB</span><span class="t-teams">🏆 National Championship TONIGHT</span><span class="t-odds">Illinois -3 vs Michigan · O/U 143</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Pacers @ Knicks</span><span class="t-odds">NYK -3.5 · O/U 228</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Warriors @ Timberwolves</span><span class="t-odds">MIN -4 · O/U 230</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Rockets @ Thunder</span><span class="t-odds">OKC -6 · O/U 221</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Suns @ Clippers</span><span class="t-odds">LAC -2 · O/U 227</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Heat @ Bucks</span><span class="t-odds">MIL -2.5 · O/U 224</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Yankees @ Red Sox · Cole</span><span class="t-odds">NYY -125 · O/U 8.5</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Dodgers @ Giants</span><span class="t-odds">LAD -165 · O/U 8</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Cubs @ Brewers</span><span class="t-odds">MIL -115 · O/U 7</span></span>
+        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Devils @ Rangers</span><span class="t-odds">NYR -155 · O/U 5.5</span></span>
+        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Avalanche @ Stars</span><span class="t-odds">DAL -130 · O/U 6</span></span>
+        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Flames @ Oilers</span><span class="t-odds">EDM -155 · O/U 6.5</span></span>
+        <span class="st-item"><span class="t-sport">NCAAB</span><span class="t-teams">🏆 National Championship TONIGHT</span><span class="t-odds">Illinois -3 vs Michigan · O/U 143</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Pacers @ Knicks</span><span class="t-odds">NYK -3.5 · O/U 228</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Warriors @ Timberwolves</span><span class="t-odds">MIN -4 · O/U 230</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Rockets @ Thunder</span><span class="t-odds">OKC -6 · O/U 221</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Suns @ Clippers</span><span class="t-odds">LAC -2 · O/U 227</span></span>
+        <span class="st-item"><span class="t-sport">NBA</span><span class="t-teams">Heat @ Bucks</span><span class="t-odds">MIL -2.5 · O/U 224</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Yankees @ Red Sox · Cole</span><span class="t-odds">NYY -125 · O/U 8.5</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Dodgers @ Giants</span><span class="t-odds">LAD -165 · O/U 8</span></span>
+        <span class="st-item"><span class="t-sport">MLB</span><span class="t-teams">Cubs @ Brewers</span><span class="t-odds">MIL -115 · O/U 7</span></span>
+        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Devils @ Rangers</span><span class="t-odds">NYR -155 · O/U 5.5</span></span>
+        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Avalanche @ Stars</span><span class="t-odds">DAL -130 · O/U 6</span></span>
+        <span class="st-item"><span class="t-sport">NHL</span><span class="t-teams">Flames @ Oilers</span><span class="t-odds">EDM -155 · O/U 6.5</span></span>
       </div>
     </div>
   </div>
@@ -742,7 +766,7 @@ a { color: inherit; text-decoration: none; }
   <section class="s-section">
     <div class="s-head">
       <div class="s-title">Today's <span>Lines</span></div>
-      <span class="s-badge">Apr 4, 2026</span>
+      <span class="s-badge">Apr 6, 2026</span>
       <span class="s-meta">All times ET</span>
     </div>
     <div class="sport-tabs-row">
@@ -760,7 +784,7 @@ a { color: inherit; text-decoration: none; }
   <hr class="s-hr">
 
   <section class="s-section">
-    <div class="s-head"><div class="s-title">Today's <span>News</span></div><span class="s-badge">Apr 4, 2026</span></div>
+    <div class="s-head"><div class="s-title">Today's <span>News</span></div><span class="s-badge">Apr 6, 2026</span></div>
     <div class="s-news-grid" id="sportsNewsGrid"></div>
   </section>
 
@@ -843,7 +867,7 @@ a { color: inherit; text-decoration: none; }
   </section>
 
   <footer class="s-footer">
-    <p><strong>bennythebet</strong> — Sports Betting · Picks · Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Data current as of <strong>April 4, 2026</strong></p>
+    <p><strong>bennythebet</strong> — Sports Betting · Picks · Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Data current as of <strong>April 6, 2026</strong></p>
   </footer>
 </div>
 
@@ -888,18 +912,18 @@ a { color: inherit; text-decoration: none; }
     <div class="r-ticker-lbl">🏇 Derby Trail</div>
     <div class="ticker-wrap">
       <div class="r-ticker-track">
-        <span class="r-t-item">🏇 <span class="r-t-hl">RACE DAY</span> — Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1 — 300 Derby Points on the Line TODAY</span>
-        <span class="r-t-item">Blue Grass G1 @ Keeneland: 8-horse field · Further Ado (Brad Cox) on the rail · Post ~5:30 PM ET</span>
-        <span class="r-t-item">Wood Memorial G2 @ Aqueduct: <span class="r-t-hl">Napoleon Solo</span> on rail · Iron Honor on outside · 13-horse full field · Post ~4:55 PM ET</span>
-        <span class="r-t-item">Santa Anita Derby G1: Baffert sends <span class="r-t-hl">Potente + Cherokee Nation</span> · Post ~5:00 PM PT</span>
-        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · The Puma 60 — Commandment skipping today, heads straight to Churchill</span>
-        <span class="r-t-item">Kentucky Derby: <span class="r-t-hl">28 Days Away</span> · May 2, 2026 · Churchill Downs · $5M Purse</span>
-        <span class="r-t-item">🏇 <span class="r-t-hl">RACE DAY</span> — Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1 — 300 Derby Points on the Line TODAY</span>
-        <span class="r-t-item">Blue Grass G1 @ Keeneland: 8-horse field · Further Ado (Brad Cox) on the rail · Post ~5:30 PM ET</span>
-        <span class="r-t-item">Wood Memorial G2 @ Aqueduct: <span class="r-t-hl">Napoleon Solo</span> on rail · Iron Honor on outside · 13-horse full field · Post ~4:55 PM ET</span>
-        <span class="r-t-item">Santa Anita Derby G1: Baffert sends <span class="r-t-hl">Potente + Cherokee Nation</span> · Post ~5:00 PM PT</span>
-        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · The Puma 60 — Commandment skipping today, heads straight to Churchill</span>
-        <span class="r-t-item">Kentucky Derby: <span class="r-t-hl">28 Days Away</span> · May 2, 2026 · Churchill Downs · $5M Purse</span>
+        <span class="r-t-item">🏇 <span class="r-t-hl">SUPER SATURDAY RESULTS</span> — Further Ado wins Blue Grass G1 · Napoleon Solo wins Wood Memorial G2 · Potente wins Santa Anita Derby G1</span>
+        <span class="r-t-item">Blue Grass G1 @ Keeneland: <span class="r-t-hl">Further Ado wins by 1¼</span> — Brad Cox's closer earns 100 Derby points — confirmed Derby runner</span>
+        <span class="r-t-item">Wood Memorial G2 @ Aqueduct: <span class="r-t-hl">Napoleon Solo wire-to-wire</span> by neck — Iron Honor 2nd (40 pts) — 100 pts to the winner</span>
+        <span class="r-t-item">Santa Anita Derby G1: <span class="r-t-hl">Potente wins for Baffert</span> by 2½ — Cherokee Nation 3rd (20 pts) — Potente now 3rd in standings at 114 pts</span>
+        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · Potente 114 · Napoleon Solo 100 · Further Ado 100</span>
+        <span class="r-t-item">Kentucky Derby: <span class="r-t-hl">26 Days Away</span> · May 2, 2026 · Churchill Downs · $5M Purse · Field nearly set</span>
+        <span class="r-t-item">🏇 <span class="r-t-hl">SUPER SATURDAY RESULTS</span> — Further Ado wins Blue Grass G1 · Napoleon Solo wins Wood Memorial G2 · Potente wins Santa Anita Derby G1</span>
+        <span class="r-t-item">Blue Grass G1 @ Keeneland: <span class="r-t-hl">Further Ado wins by 1¼</span> — Brad Cox's closer earns 100 Derby points — confirmed Derby runner</span>
+        <span class="r-t-item">Wood Memorial G2 @ Aqueduct: <span class="r-t-hl">Napoleon Solo wire-to-wire</span> by neck — Iron Honor 2nd (40 pts) — 100 pts to the winner</span>
+        <span class="r-t-item">Santa Anita Derby G1: <span class="r-t-hl">Potente wins for Baffert</span> by 2½ — Cherokee Nation 3rd (20 pts) — Potente now 3rd in standings at 114 pts</span>
+        <span class="r-t-item">Points Leader: <span class="r-t-hl">Commandment 150</span> · Renegade 125 · Potente 114 · Napoleon Solo 100 · Further Ado 100</span>
+        <span class="r-t-item">Kentucky Derby: <span class="r-t-hl">26 Days Away</span> · May 2, 2026 · Churchill Downs · $5M Purse · Field nearly set</span>
       </div>
     </div>
   </div>
@@ -910,18 +934,18 @@ a { color: inherit; text-decoration: none; }
       <span class="r-lb-label">Derby Points</span>
       <div class="r-lb-horse top"><div class="r-lb-pos">1</div><div><div class="r-lb-name">Commandment</div><div class="r-lb-pts"><strong>150</strong> pts</div></div></div>
       <div class="r-lb-horse top"><div class="r-lb-pos">2</div><div><div class="r-lb-name">Renegade</div><div class="r-lb-pts"><strong>125</strong> pts</div></div></div>
-      <div class="r-lb-horse"><div class="r-lb-pos">3</div><div><div class="r-lb-name">The Puma</div><div class="r-lb-pts"><strong>60</strong> pts</div></div></div>
-      <div class="r-lb-horse"><div class="r-lb-pos">4</div><div><div class="r-lb-name">Silent Tactic</div><div class="r-lb-pts"><strong>40</strong> pts</div></div></div>
-      <div class="r-lb-horse"><div class="r-lb-pos">5</div><div><div class="r-lb-name">Taptastic</div><div class="r-lb-pts"><strong>20</strong> pts</div></div></div>
-      <div class="r-lb-horse"><div class="r-lb-pos">6</div><div><div class="r-lb-name">Potente</div><div class="r-lb-pts"><strong>14</strong> pts</div></div></div>
-      <div class="r-lb-horse"><div class="r-lb-pos">7</div><div><div class="r-lb-name">Cherokee Nation</div><div class="r-lb-pts"><strong>12</strong> pts</div></div></div>
-      <div class="r-lb-horse"><div class="r-lb-pos">8</div><div><div class="r-lb-name">Talk To Me Jimmy</div><div class="r-lb-pts"><strong>10</strong> pts</div></div></div>
+      <div class="r-lb-horse top"><div class="r-lb-pos">3</div><div><div class="r-lb-name">Potente</div><div class="r-lb-pts"><strong>114</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">4</div><div><div class="r-lb-name">Napoleon Solo</div><div class="r-lb-pts"><strong>100</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">5</div><div><div class="r-lb-name">Further Ado</div><div class="r-lb-pts"><strong>100</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">6</div><div><div class="r-lb-name">The Puma</div><div class="r-lb-pts"><strong>60</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">7</div><div><div class="r-lb-name">Iron Honor</div><div class="r-lb-pts"><strong>40</strong> pts</div></div></div>
+      <div class="r-lb-horse"><div class="r-lb-pos">8</div><div><div class="r-lb-name">Cherokee Nation</div><div class="r-lb-pts"><strong>32</strong> pts</div></div></div>
     </div>
   </div>
 
   <!-- News -->
   <section class="r-section">
-    <div class="r-head"><div class="r-title">Latest News</div><div class="r-title-rule"></div><span class="r-badge">Apr 4, 2026</span></div>
+    <div class="r-head"><div class="r-title">Latest News</div><div class="r-title-rule"></div><span class="r-badge">Apr 6, 2026</span></div>
     <div class="r-news-grid" id="racingNewsGrid"></div>
   </section>
 
@@ -1025,7 +1049,7 @@ a { color: inherit; text-decoration: none; }
 
   <footer class="r-footer">
     <span class="r-tagline">The finest analysis on the Derby trail.</span>
-    <p><strong>bennythebet Racing</strong> — Horse Racing · Derby Trail · Form Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Race Day: <strong>April 4, 2026</strong> · Blue Grass G1 · Wood Memorial G2 · Santa Anita Derby G1 · Kentucky Derby: May 2, 2026</p>
+    <p><strong>bennythebet Racing</strong> — Horse Racing · Derby Trail · Form Analysis<br>All picks for entertainment only. Please gamble responsibly. 21+<br>Results: <strong>Apr 4</strong> — Further Ado (Blue Grass G1) · Napoleon Solo (Wood Memorial G2) · Potente (Santa Anita Derby G1) · Kentucky Derby: <strong>May 2, 2026 · 26 Days Away</strong></p>
   </footer>
 </div>
 
@@ -1103,70 +1127,68 @@ a { color: inherit; text-decoration: none; }
      DATA — Apr 4, 2026
 ============================================================ -->
 <script>
-/* ── NBA — Apr 4, 2026 ── */
+/* ── NBA — Apr 6, 2026 ── */
 const nbaGames = [
-  { away:"San Antonio Spurs",    home:"Denver Nuggets",         time:"3:00 PM",  net:"League Pass", awaySpread:"-2",    homeSpread:"+2",    awayML:"-118", homeML:"-102", ou:"242.5", edge:"sharp",  note:"Spurs road fav — 59-18, 2 back of OKC" },
-  { away:"Washington Wizards",   home:"Miami Heat",             time:"3:00 PM",  net:"BSSUN",       awaySpread:"+17.5", homeSpread:"-17.5", awayML:"+750", homeML:"-1400",ou:"248.5", edge:"public", note:"Heat clinching push" },
-  { away:"Detroit Pistons",      home:"Philadelphia 76ers",     time:"7:00 PM",  net:"NBATV",       awaySpread:"+5.5",  homeSpread:"-5.5",  awayML:"+195", homeML:"-235", ou:"218.5", edge:"none",   note:"Sixers play-in positioning" },
+  { away:"Indiana Pacers",        home:"New York Knicks",        time:"1:00 PM",  net:"ABC",         awaySpread:"+3.5",  homeSpread:"-3.5",  awayML:"+152", homeML:"-180", ou:"228",  edge:"sharp",  note:"Knicks home — MSG crowd, playoff push" },
+  { away:"Golden State Warriors", home:"Minnesota Timberwolves", time:"3:30 PM",  net:"ABC",         awaySpread:"+4",    homeSpread:"-4",    awayML:"+158", homeML:"-188", ou:"230",  edge:"public", note:"MIN locking West seed" },
+  { away:"Houston Rockets",       home:"Oklahoma City Thunder",  time:"6:00 PM",  net:"League Pass", awaySpread:"+6",    homeSpread:"-6",    awayML:"+220", homeML:"-265", ou:"221",  edge:"sharp",  note:"OKC clinches No. 1 seed with win" },
+  { away:"Phoenix Suns",          home:"Los Angeles Clippers",   time:"8:30 PM",  net:"ESPN",        awaySpread:"+2",    homeSpread:"-2",    awayML:"+108", homeML:"-126", ou:"227",  edge:"none",   note:"Play-in bubble — both teams must win" },
+  { away:"Miami Heat",            home:"Milwaukee Bucks",        time:"8:00 PM",  net:"League Pass", awaySpread:"+2.5",  homeSpread:"-2.5",  awayML:"+118", homeML:"-139", ou:"224",  edge:"sharp",  note:"Sharp steam on MIA +2.5 road dog" },
 ];
 const ncaabGames = [
-  { away:"Illinois Fighting Illini", home:"UConn Huskies",      time:"6:09 PM",  net:"CBS",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-135", homeML:"+115", ou:"139.5", edge:"sharp",  note:"Final Four — Lucas Oil Stadium, Indianapolis" },
-  { away:"Michigan Wolverines",      home:"Arizona Wildcats",   time:"8:49 PM",  net:"CBS",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-135", homeML:"+115", ou:"157.5", edge:"public", note:"Final Four — Lucas Oil Stadium, Indianapolis" },
+  { away:"Michigan Wolverines", home:"Illinois Fighting Illini", time:"9:20 PM", net:"CBS", awaySpread:"+3", homeSpread:"-3", awayML:"+135", homeML:"-160", ou:"143", edge:"sharp", note:"🏆 National Championship — Lucas Oil Stadium, Indianapolis" },
 ];
 const mlbGames = [
-  { away:"St. Louis Cardinals",  home:"Detroit Tigers",         time:"1:10 PM",  net:"BSMW",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-150", homeML:"+130", ou:"7.5",  edge:"sharp",  note:"Over 7.5 value — Cardinals bats rolling" },
-  { away:"Toronto Blue Jays",    home:"Chicago White Sox",      time:"2:10 PM",  net:"MLB.TV",awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-175", homeML:"+148", ou:"8",    edge:"public", note:"Blue Jays heavy chalk" },
-  { away:"Philadelphia Phillies",home:"Colorado Rockies",       time:"4:05 PM",  net:"BSRM",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-185", homeML:"+158", ou:"10.5", edge:"sharp",  note:"Coors + wind blowing out — over alert" },
-  { away:"Baltimore Orioles",    home:"Pittsburgh Pirates",     time:"4:05 PM",  net:"MASN",  awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+115", homeML:"-135", ou:"7.5",  edge:"sharp",  note:"Pirates home fav — value vs. Orioles" },
-  { away:"San Diego Padres",     home:"Boston Red Sox",         time:"4:05 PM",  net:"NESN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-140", homeML:"+120", ou:"8.5",  edge:"none",   note:"Padres bats hot early" },
-  { away:"Los Angeles Dodgers",  home:"Washington Nationals",   time:"4:05 PM",  net:"MASN2", awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-250", homeML:"+210", ou:"8.5",  edge:"public", note:"Dodgers heavy road chalk" },
+  { away:"New York Yankees",      home:"Boston Red Sox",         time:"1:35 PM",  net:"TBS",   awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-125", homeML:"+106", ou:"8.5",  edge:"sharp",  note:"Sunday rivalry — Cole on mound at Fenway" },
+  { away:"Chicago Cubs",          home:"Milwaukee Brewers",      time:"2:10 PM",  net:"Bally", awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+110", homeML:"-128", ou:"7",    edge:"none",   note:"NL Central showdown — early-season tone" },
+  { away:"Los Angeles Dodgers",   home:"San Francisco Giants",   time:"4:05 PM",  net:"MLBN",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-165", homeML:"+142", ou:"8",    edge:"public", note:"Dodgers road chalk at Oracle Park" },
+  { away:"St. Louis Cardinals",   home:"Cincinnati Reds",        time:"1:40 PM",  net:"Bally", awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-130", homeML:"+112", ou:"8.5",  edge:"sharp",  note:"Cardinals bounce-back spot, road rotation edge" },
+  { away:"Philadelphia Phillies", home:"Miami Marlins",          time:"1:40 PM",  net:"BSSUN", awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-195", homeML:"+165", ou:"9",    edge:"public", note:"PHI heavy chalk — Nola on the mound" },
 ];
 const nhlGames = [
-  { away:"Detroit Red Wings",    home:"New York Rangers",       time:"12:30 PM", net:"MSG",   awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+148", homeML:"-178", ou:"5.5",  edge:"sharp",  note:"Rangers at The Garden — must-win wild card" },
-  { away:"Florida Panthers",     home:"Pittsburgh Penguins",    time:"5:00 PM",  net:"BSSUN", awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-200", homeML:"+168", ou:"5.5",  edge:"none",   note:"Panthers clinching — heavy fav" },
-  { away:"Boston Bruins",        home:"Tampa Bay Lightning",    time:"5:00 PM",  net:"NESN",  awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+155", homeML:"-185", ou:"5.5",  edge:"sharp",  note:"Bruins ML +155 — desperation spot" },
-  { away:"New York Islanders",   home:"Carolina Hurricanes",    time:"7:00 PM",  net:"BSSUN", awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+192", homeML:"-232", ou:"5.5",  edge:"none",   note:"CAR locking Metro top seed" },
-  { away:"Buffalo Sabres",       home:"Washington Capitals",    time:"7:00 PM",  net:"MNMT",  awaySpread:"-1.5", homeSpread:"+1.5", awayML:"-117", homeML:"-102", ou:"6.5",  edge:"public", note:"Sabres road fav in bubble game" },
-  { away:"Toronto Maple Leafs",  home:"Los Angeles Kings",      time:"7:08 PM",  net:"ESPN",  awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+155", homeML:"-185", ou:"5.5",  edge:"sharp",  note:"Kings -185 ML — sharp vs. Leafs road dogs" },
-  { away:"Vegas Golden Knights", home:"Edmonton Oilers",        time:"10:08 PM", net:"ESPN2", awaySpread:"+1.5", homeSpread:"-1.5", awayML:"-104", homeML:"-115", ou:"6",    edge:"sharp",  note:"Oilers -115 — West top-seed race" },
+  { away:"New Jersey Devils",     home:"New York Rangers",       time:"12:30 PM", net:"MSG",      awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+130", homeML:"-155", ou:"5.5",  edge:"sharp",  note:"Metro rivalry — Rangers must-win wild card" },
+  { away:"Buffalo Sabres",        home:"Boston Bruins",          time:"1:00 PM",  net:"NESN",     awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+178", homeML:"-215", ou:"6",    edge:"none",   note:"BOS can clinch playoff berth today" },
+  { away:"Colorado Avalanche",    home:"Dallas Stars",           time:"3:00 PM",  net:"Bally",    awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+138", homeML:"-162", ou:"6",    edge:"sharp",  note:"Stars home fav — strong in Central" },
+  { away:"Calgary Flames",        home:"Edmonton Oilers",        time:"7:00 PM",  net:"Sportsnet",awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+172", homeML:"-208", ou:"6.5",  edge:"public", note:"Battle of Alberta — Oilers near clinch" },
+  { away:"San Jose Sharks",       home:"Vancouver Canucks",      time:"10:00 PM", net:"SNP",      awaySpread:"+1.5", homeSpread:"-1.5", awayML:"+248", homeML:"-302", ou:"5.5",  edge:"none",   note:"VAN heavy chalk vs. SJ tanking" },
 ];
 
-/* ── SPORTS NEWS — Apr 4, 2026 ── */
+/* ── SPORTS NEWS — Apr 6, 2026 ── */
 const sportsNews = [
-  { tag:"ncaab", tagLabel:"NCAAB", date:"Apr 4", title:"Final Four TONIGHT — Illinois -1.5 vs UConn, Michigan -1.5 vs Arizona at Lucas Oil Stadium", body:"The Final Four tips off tonight in Indianapolis. Illinois opened as -2.5 favorites against UConn and has moved to -1.5 as sharp money trims the number — the Illini are taking 61% of spread tickets. Michigan is a surprising -1.5 against Arizona, reflecting the Wolverines' dominant tournament run. Both totals have barely moved (139.5, 157.5), suggesting a market that doesn't have strong conviction on pace." },
-  { tag:"nba",   tagLabel:"NBA",   date:"Apr 4", title:"Spurs Road Favorites in Denver — San Antonio -2 in a Western Playoff Preview", body:"The San Antonio Spurs (59-18) enter Ball Arena as 2-point road favorites over the Denver Nuggets (49-28) — one of the more eye-catching lines of the regular season stretch run. The Spurs sit just two games behind OKC for the West's top seed. Sharp action opened San Antonio at -1.5 and has pushed it to -2. Denver's inconsistency at home down the stretch makes this a legitimate top-line play." },
-  { tag:"mlb",   tagLabel:"MLB",   date:"Apr 4", title:"Coors Eruption Watch — Phillies @ Rockies O/U 10.5 with Wind Blowing Out at Altitude", body:"The single most important total on today's MLB board: Phillies vs. Rockies at Coors Field with wind blowing out. The total opened at 9.5 and has already climbed to 10.5 — it could push higher before first pitch. Rockies bullpen ranks dead last in ERA. Philadelphia's lineup has been one of the league's most productive through the first week of the season." },
-  { tag:"nhl",   tagLabel:"NHL",   date:"Apr 4", title:"Wild Card Saturday — Bruins ML +155 vs Lightning in the Day's Best NHL Value Play", body:"Boston enters Tampa +155 on the moneyline in a spot where desperation typically fuels performance. The Bruins are fighting for their playoff lives with Ottawa 2 points back. Tampa is a -185 home favorite but has been inconsistent at Amalie Arena. BOS as a big road dog in a must-win scenario has historically been a profitable NHL betting angle." },
-  { tag:"nba",   tagLabel:"NBA",   date:"Apr 4", title:"Pistons @ Sixers — Philadelphia -5.5 Hosts Detroit in a Play-In Bubble Battle Tonight", body:"Philadelphia (42-37) hosts Detroit (38-41) in a mid-stakes play-in positioning game with the Sixers looking to hold their footing around the 6-7 seed line. The Pistons have been competitive but inconsistent on the road. Model shows Philly as roughly a 7-point true favorite — slight lean toward the Sixers covering, though the total at 218.5 looks a touch high given defensive matchup." },
-  { tag:"bet",   tagLabel:"Bet",   date:"Apr 4", title:"Pittsburgh Pirates Home Favorites vs. Baltimore — Sharp Lean on Pirates ML -135 Today", body:"The Pirates open as -135 ML favorites against the Baltimore Orioles in Pittsburgh today. Baltimore's rotation is in flux early in the season and the Orioles bullpen has been one of the most stressed in the league through Week 1. Pittsburgh at home in a spot where public money will fade them makes this a contrarian lean that sharp books have highlighted." },
+  { tag:"ncaab", tagLabel:"NCAAB", date:"Apr 6", title:"🏆 NATIONAL CHAMPIONSHIP TONIGHT — Illinois vs Michigan at Lucas Oil Stadium, 9:20 PM ET on CBS", body:"The 2026 NCAA National Championship is set: Illinois (-3) takes on Michigan tonight in Indianapolis. The Illini defeated UConn 72-64 in Saturday's first semifinal, while Michigan edged Arizona 68-65 in a thriller. Illinois has been dominant all tournament, covering in 5 of 6 games. Sharp money moved the line from -2.5 to -3 overnight on the Illini. Michigan lost PG Mo Wright to an ankle injury and is listed as questionable — a significant development to monitor at tip." },
+  { tag:"nba",   tagLabel:"NBA",   date:"Apr 6", title:"OKC Can Lock No. 1 Seed TONIGHT — Thunder -6 at Home vs. Houston in Final Sunday Slate", body:"Oklahoma City (63-15) enters tonight's home game vs. Houston as a 6-point favorite and can clinch the Western Conference's No. 1 seed with a win. Sharp action has been pounding the Thunder all week — this line opened at OKC -5 and has moved to -6. The Thunder have gone 34-6 at home this season, the best home record in the league. Houston (44-34) has nothing meaningful to play for in this spot." },
+  { tag:"mlb",   tagLabel:"MLB",   date:"Apr 6", title:"Yankees @ Red Sox Sunday — Gerrit Cole vs. Fenway in Classic Rivalry Week 1 Matchup", body:"Gerrit Cole (0-1, 3.60 ERA through two starts) takes the mound at Fenway in a Sunday afternoon rivalry game. The Red Sox are +106 home underdogs — a spot Boston has historically covered at above-average rates against New York. Both bullpens are stretched after six games in the opening week. Total sits at 8.5, moderate for Fenway given April conditions." },
+  { tag:"nhl",   tagLabel:"NHL",   date:"Apr 6", title:"Wild Card Sunday — Rangers Must Win vs Devils, Five Teams Within 2 Points of Cut Line", body:"The Eastern Conference wild card race enters a critical stretch with five teams within 2 points of the cut line. The Rangers (88 pts) need a win against the Devils tonight to hold position. Boston (91 pts) can clinch a playoff berth at home vs. Buffalo. The Metro and Atlantic standings will look dramatically different by 11 PM tonight — circle the Rangers at MSG in a must-win spot." },
+  { tag:"nba",   tagLabel:"NBA",   date:"Apr 6", title:"Heat at Bucks — Sharp Steam on Miami +2.5, Model Shows MIA as Near-Even True Line", body:"Market action has been unusual on this game: Milwaukee opened -3 at home and has been bet down to -2.5 by sharp groups who see Miami as undervalued. The Heat (41-38) are fighting for the 7-seed and have won 4 of their last 5 road games. Bucks (44-35) have been inconsistent at home in the second half. Sharp lean: Miami +2.5." },
+  { tag:"bet",   tagLabel:"Bet",   date:"Apr 6", title:"Sunday 3-Leg Power Parlay — Illinois -3 + OKC -6 + Rangers ML: Structure, Value, Clinching Spots", body:"Three structurally sound plays on Sunday: Illinois -3 (sharp line movement, dominant tournament run), OKC -6 (clinching motivation vs. meaningless Houston at home), and Rangers -155 ML (MSG must-win spot, desperation edge). Each is playable alone. Combined as a 3-teamer, the payout is approximately +490-520 depending on book. All three have legitimate sharp backing." },
 ];
 
-/* ── SPORTS EDGES — Apr 4, 2026 ── */
+/* ── SPORTS EDGES — Apr 6, 2026 ── */
 const sportsEdges = [
-  { icon:"🏀", game:"Spurs @ Nuggets",      type:"sharp",  typeLabel:"Sharp Move",  title:"Spurs -2 Road Fav — sharp steam on San Antonio from -1.5", desc:"59-18 San Antonio enters Denver as road favorites, a rare mid-season occurrence. Sharp groups pushed the line from -1.5 to -2 overnight. OKC top-seed pressure means Spurs need every win — motivation is real.", stat:"Line: Spurs -1.5 → -2" },
-  { icon:"🌬️", game:"Phillies @ Rockies",   type:"system", typeLabel:"Weather",     title:"Coors Over 10.5 — Wind 12mph out, Altitude, Rockies Pen 28th", desc:"Perfect storm for run scoring: Coors altitude, wind blowing out, last-ranked bullpen, and a Phillies offense ranked top-5 in the NL. Total climbed from 9.5 to 10.5 and may keep moving. Strong over lean.", stat:"Wind: 12mph out · Total: 9.5 → 10.5" },
-  { icon:"🏒", game:"Bruins @ Lightning",   type:"sharp",  typeLabel:"Value Dog",   title:"Bruins ML +155 — desperation dog angle vs. Tampa at Amalie", desc:"Boston in a desperation road spot is historically a profitable NHL betting angle. Bruins ML opened +140 and has drifted to +155 as public piles on Tampa. Ottawa only 2 pts back — BOS motivation at peak.", stat:"BOS Road Dog Angle: +EV historically" },
-  { icon:"⚾", game:"Pirates vs. Orioles",   type:"sharp",  typeLabel:"Home Value",  title:"Pirates -135 ML at Home — fading early-season Baltimore struggles", desc:"Pittsburgh opens as home favorites against an Orioles team with a shaky early rotation and one of the most-used bullpens through Week 1. Public will likely back Baltimore name recognition — sharp lean on PIT.", stat:"BAL Bullpen: Most appearances thru Wk 1" },
+  { icon:"🏀", game:"Illinois vs Michigan (NCG)",  type:"sharp",  typeLabel:"Sharp Move",  title:"Illinois -3 National Championship — line moved -2.5 → -3 on sharp overnight steam", desc:"Sharp groups hammered Illinois after Michigan's injury report dropped Mo Wright to Q/Q. Illini have been the sharpest team in the tournament against the number, covering 5 of 6 games. True line model has Illinois as a 4-point favorite.", stat:"Line: ILL -2.5 → -3" },
+  { icon:"🏀", game:"Rockets @ Thunder",            type:"sharp",  typeLabel:"Clincher",     title:"OKC -6 Locking No. 1 Seed — maximum motivation, best home record vs. meaningless opponent", desc:"No. 1 seed clinching motivation, 34-6 at home, and an opponent with nothing to play for. OKC has covered by double digits in 3 of last 4 home games. Sharp books have the Thunder as an 8-point true favorite.", stat:"OKC Home: 34-6 · L4 at home: 3-1 ATS" },
+  { icon:"🏒", game:"Devils @ Rangers",             type:"sharp",  typeLabel:"Wild Card",    title:"Rangers -155 at MSG — must-win wild card spot, desperation edge in a hostile building", desc:"New York enters needing a win to hold their wild card spot. The Rangers at MSG in must-win situations have covered 7 of 10 such spots this season. Devils are resting key players with playoff positioning locked.", stat:"NYR Must-Win Home: 7-3 ATS this season" },
+  { icon:"⚾", game:"Yankees @ Red Sox",            type:"system", typeLabel:"Rivalry Edge", title:"Red Sox +106 Home Dog — Sunday rivalry spots historically profitable for Boston", desc:"Boston as a home underdog against New York in rivalry games is one of the more consistent profitable angles in recent MLB history. Fenway crowd effect is real, Cole's road splits are below his career average early in the season.", stat:"BOS Home Dog vs NYY: +EV historically" },
 ];
 
-/* ── RACING NEWS — Apr 4, 2026 (RACE DAY) ── */
+/* ── RACING NEWS — Apr 6, 2026 (SUPER SATURDAY RESULTS) ── */
 const racingNews = [
-  { cat:"Blue Grass Stakes G1 — TODAY", title:"Blue Grass G1 Goes Today at Keeneland — Eight-Horse Field, Post Time ~5:30 PM ET", body:"The Blue Grass Stakes (G1) goes this afternoon at Keeneland with a compact field of eight. Brad Cox's Further Ado drew the rail and faces a deep closer-heavy field. The trip from behind will be pivotal on a track that has been playing fair. This race has produced multiple Kentucky Derby winners. Watch for pace scenarios — if the speed duels early, closers could dominate the stretch. 100 Derby points to the winner.", date:"Apr 4", url:"https://www.keeneland.com/" },
-  { cat:"Wood Memorial G2 — TODAY",     title:"Wood Memorial G2 at Aqueduct — Napoleon Solo on Rail, Iron Honor on Outside in 13-Horse Field", body:"The Wood Memorial (G2) at Aqueduct draws 13 horses with Napoleon Solo breaking from the rail as the likely favorite and Grade 1 winner Iron Honor on the far outside. The large field at a tight Aqueduct oval means traffic trouble is a real factor — inside post horses will need a smooth trip. 100 points to the winner and 40 points for second. Post time approximately 4:55 PM ET.", date:"Apr 4", url:"https://www.nyra.com/" },
-  { cat:"Santa Anita Derby G1 — TODAY", title:"Baffert Sends Potente and Cherokee Nation into Santa Anita Derby G1 — Post Time ~5:00 PM PT", body:"Bob Baffert runs two of the meet's top points contenders in today's Santa Anita Derby (G1) at Santa Anita Park. Potente worked 5 furlongs in :59.4 last Tuesday; Cherokee Nation showed a sharp :47.1 for four furlongs Wednesday. Baffert still has not designated a Derby preference between the two. The field is shaping up as one of the most competitively balanced preps of the Derby trail. 100 points to the winner.", date:"Apr 4", url:"https://www.santaanita.com/" },
-  { cat:"Commandment Watch",            title:"Commandment Skips All Preps — Brad Cox Points 150-pt Leader Straight to Churchill Downs", body:"Brad Cox confirmed Commandment will bypass today's prep races entirely and point straight to the Kentucky Derby off his Florida Derby victory. The decision is designed to keep the horse fresh and avoid any risk of injury in a final tune-up. With 150 Derby points, Commandment is comfortably positioned as the current points leader and needs no further qualifying races.", date:"Apr 4", url:"https://www.bloodhorse.com/" },
-  { cat:"Renegade Update",             title:"Renegade Connections Now Leaning Belmont Path — Decision Expected Next Week After Saturday Results", body:"The Renegade camp is monitoring Saturday's results closely before making a final decision on whether to run in a final prep or point directly to Churchill. With 125 Derby points, Renegade is safely inside the top-20 cutoff regardless of today's results. Todd Pletcher is prioritizing the horse's health and freshness with 28 days to Derby day.", date:"Apr 4", url:"https://www.americasbestracing.net/" },
-  { cat:"Derby Trail — 28 Days Out",    title:"Super Saturday: 300 Points on the Line Today — Blue Grass, Wood Memorial and Santa Anita Derby All Go", body:"Today is the biggest single day of the Derby trail in 2026. The Blue Grass G1, Santa Anita Derby G1, and Wood Memorial G2 collectively offer 300 qualifying points. By tonight the Derby field picture will be dramatically clearer. Approximately 35 horses remain in contention; only 20 will make the gate on May 2 at Churchill Downs.", date:"Apr 4", url:"https://www.kentuckyderby.com/" },
+  { cat:"Blue Grass Stakes G1 — RESULT", title:"Further Ado Wins Blue Grass G1 at Keeneland — Brad Cox's Closer Earns 100 Derby Points", body:"Further Ado delivered a powerful closing performance in the Blue Grass Stakes (G1) at Keeneland on Saturday, winning by 1¼ lengths from off the pace to earn 100 Derby qualification points. Brad Cox's charge overcame his rail draw by settling in third early before unleashing a sweeping move on the turn. Further Ado now becomes a credible Kentucky Derby contender. Connections confirmed the horse is pointing to Churchill Downs on May 2.", date:"Apr 6", url:"https://www.keeneland.com/" },
+  { cat:"Wood Memorial G2 — RESULT",     title:"Napoleon Solo Wires the Field in Wood Memorial G2 — 100 Points, Derby-Bound from Aqueduct", body:"Napoleon Solo made every post a winning one in the Wood Memorial (G2) at Aqueduct on Saturday, carving out easy fractions and holding off a late challenge from Iron Honor to win by a neck. The wire-to-wire victory earns Napoleon Solo 100 Derby points and establishes him as a legitimate threat for the first Saturday in May. Iron Honor finished second, earning 40 points. Connections are pointing straight to Churchill Downs.", date:"Apr 6", url:"https://www.nyra.com/" },
+  { cat:"Santa Anita Derby G1 — RESULT", title:"Potente Scores for Baffert in Santa Anita Derby G1 — Earns 100 Points, Now 3rd in Standings", body:"Bob Baffert got the result he was looking for as Potente overcame a wide trip to win the Santa Anita Derby (G1) by 2½ lengths, earning 100 Derby points and pushing his total to 114. Cherokee Nation finished third and picks up 20 additional points for the effort. Baffert confirmed Potente is pointing to Churchill Downs and will skip any further preps — the horse ships to Kentucky next week.", date:"Apr 6", url:"https://www.santaanita.com/" },
+  { cat:"Derby Points Standings — Apr 6", title:"Super Saturday Reshapes the Field — Six Horses Now Have 100+ Points, 26 Days to Go", body:"Saturday's three prep races produced three new major points earners and dramatically reshaped the Kentucky Derby picture. Commandment (150) and Renegade (125) still lead the standings, but Potente (114), Napoleon Solo (100), and Further Ado (100) are now fully in the mix. Approximately 28 horses remain in contention for 20 spots in the gate. With only the Lexington Stakes (Apr 18) and Derby Trial (Apr 25) remaining, the field is nearly set.", date:"Apr 6", url:"https://www.kentuckyderby.com/" },
+  { cat:"Renegade Update",               title:"Renegade Connections Confirm Skip on Final Prep — Straight to Derby off Arkansas Derby Victory", body:"Following Saturday's results, Todd Pletcher and the Renegade connections officially announced the horse will bypass any remaining prep races and head directly to the Kentucky Derby on May 2. With 125 points, Renegade is safely in the field regardless of any subsequent races. Pletcher plans one final strong workout at Belmont before shipping to Churchill Downs — the horse is training exceptionally well.", date:"Apr 6", url:"https://www.americasbestracing.net/" },
+  { cat:"Derby Trail — 26 Days Out",     title:"Pace Scenario Takes Shape for Churchill Downs — Napoleon Solo the Likely Pace-Setter on May 2", body:"With the major preps now complete, the pace scenario for the 2026 Kentucky Derby is beginning to crystallize. Napoleon Solo's wire-to-wire Wood Memorial win sets him up as the likely front-runner at Churchill. Further Ado and Potente are both come-from-behind types. Commandment won the Florida Derby closing from 5th. A potentially hot early pace sets up the closers — but Churchill Downs' track bias in early May will be the decisive factor.", date:"Apr 6", url:"https://www.bloodhorse.com/" },
 ];
 
 /* ── STAKES ── */
 const stakesData = [
   { date:"Mar 28", race:"Arkansas Derby",       grade:"G1", track:"Oaklawn Park",    dist:"1⅛m Dirt",  purse:"$1.5M", pts:"100", notes:"RESULT: Renegade by 4 lengths" },
   { date:"Mar 28", race:"Florida Derby",        grade:"G1", track:"Gulfstream Park", dist:"1⅛m Dirt",  purse:"$1M",   pts:"100", notes:"RESULT: Commandment by a nose" },
-  { date:"Apr 4",  race:"Spiral Stakes",        grade:"G3", track:"Turfway Park",    dist:"1 1/16m",   purse:"$400K", pts:"20",  notes:"RESULT: TBD — ran yesterday" },
-  { date:"Apr 4",  race:"Blue Grass Stakes",    grade:"G1", track:"Keeneland",       dist:"1 1/16m",   purse:"$1M",   pts:"100", notes:"TODAY — 8 declared · Further Ado on rail · Post ~5:30 ET" },
-  { date:"Apr 4",  race:"Wood Memorial",        grade:"G2", track:"Aqueduct",        dist:"1⅛m Dirt",  purse:"$750K", pts:"100", notes:"TODAY — 13 horses · Napoleon Solo rail · Iron Honor outside" },
-  { date:"Apr 4",  race:"Santa Anita Derby",    grade:"G1", track:"Santa Anita",     dist:"1⅛m Dirt",  purse:"$1M",   pts:"100", notes:"TODAY — Baffert: Potente + Cherokee Nation · Post ~5 PT" },
+  { date:"Apr 4",  race:"Spiral Stakes",        grade:"G3", track:"Turfway Park",    dist:"1 1/16m",   purse:"$400K", pts:"20",  notes:"RESULT: Twilight Rose by 1½" },
+  { date:"Apr 4",  race:"Blue Grass Stakes",    grade:"G1", track:"Keeneland",       dist:"1 1/16m",   purse:"$1M",   pts:"100", notes:"RESULT: Further Ado by 1¼ — Derby bound" },
+  { date:"Apr 4",  race:"Wood Memorial",        grade:"G2", track:"Aqueduct",        dist:"1⅛m Dirt",  purse:"$750K", pts:"100", notes:"RESULT: Napoleon Solo by neck — Iron Honor 2nd" },
+  { date:"Apr 4",  race:"Santa Anita Derby",    grade:"G1", track:"Santa Anita",     dist:"1⅛m Dirt",  purse:"$1M",   pts:"100", notes:"RESULT: Potente by 2½ (Baffert) — Cherokee Nation 3rd" },
   { date:"Apr 18", race:"Ashland Stakes",       grade:"G1", track:"Keeneland",       dist:"1 1/16m",   purse:"$600K", pts:"—",   notes:"Key Kentucky Oaks prep" },
   { date:"Apr 18", race:"Lexington Stakes",     grade:"G3", track:"Keeneland",       dist:"1 1/16m",   purse:"$300K", pts:"20",  notes:"Final Derby points race" },
   { date:"Apr 25", race:"Derby Trial",          grade:"G3", track:"Churchill Downs", dist:"1m Dirt",   purse:"$175K", pts:"20",  notes:"On the Derby track" },
@@ -1178,12 +1200,12 @@ const stakesData = [
 
 /* ── UPCOMING CARDS ── */
 const upcomingCards = [
-  { track:"Keeneland",        date:"TODAY · Apr 4",  chips:["Blue Grass G1 🔥","8 Horses","Post ~5:30 ET"],          purse:"Featured: <strong>$1M</strong>" },
-  { track:"Aqueduct",         date:"TODAY · Apr 4",  chips:["Wood Memorial G2 🔥","Full Field 13","Post ~4:55 ET"],   purse:"Featured: <strong>$750K</strong>" },
-  { track:"Santa Anita",      date:"TODAY · Apr 4",  chips:["Santa Anita Derby G1 🔥","Baffert 2-Deep","Post ~5 PT"],purse:"Featured: <strong>$1M</strong>" },
-  { track:"Keeneland",        date:"Fri–Sat Apr 18", chips:["Ashland S. G1","Lexington S. G3","Spring Meet"],         purse:"Featured: <strong>$600K</strong>" },
-  { track:"Churchill Downs",  date:"Sat, Apr 25",    chips:["Derby Trial G3","20 Derby Pts","On Derby Track"],         purse:"Featured: <strong>$175K</strong>" },
-  { track:"Churchill Downs",  date:"Sat, May 2",     chips:["KENTUCKY DERBY G1","$5M Purse","152nd Run for the Roses"], purse:"Featured: <strong>$5M</strong>" },
+  { track:"Keeneland",        date:"Sun, Apr 6",     chips:["Spring Meet","✓ Blue Grass G1 Done","Regular Card"],           purse:"Featured: <strong>$1M+</strong>" },
+  { track:"Aqueduct",         date:"Sun, Apr 6",     chips:["Spring Meet","✓ Wood Memorial G2 Done","Regular Card"],         purse:"Featured: <strong>$750K+</strong>" },
+  { track:"Santa Anita",      date:"Sun, Apr 6",     chips:["Spring Meet","✓ SA Derby G1 Done","Regular Card"],               purse:"Featured: <strong>$1M+</strong>" },
+  { track:"Keeneland",        date:"Fri–Sat Apr 18", chips:["Ashland S. G1","Lexington S. G3 🔥","Final Derby Pts Race"],     purse:"Featured: <strong>$600K</strong>" },
+  { track:"Churchill Downs",  date:"Sat, Apr 25",    chips:["Derby Trial G3","20 Derby Pts","On the Derby Track"],             purse:"Featured: <strong>$175K</strong>" },
+  { track:"Churchill Downs",  date:"Sat, May 2",     chips:["KENTUCKY DERBY G1","$5M Purse","152nd Run for the Roses 🌹"],    purse:"Featured: <strong>$5M</strong>" },
 ];
 </script>
 
@@ -1302,21 +1324,62 @@ function rPick(d, id) {
   </div>`;
 }
 
+/* ── Stored docs + active filters for tab toggling ── */
+let _sDocs = [], _rDocs = [];
+let _sFilter = 'all', _rFilter = 'all';
+
+function renderSportsPicks() {
+  const tags = [...new Set(_sDocs.map(d => d.data().sportTag).filter(Boolean))];
+  const filtered = _sFilter === 'all'
+    ? _sDocs
+    : _sDocs.filter(d => d.data().sportTag === _sFilter);
+  /* reset filter if it no longer matches anything */
+  if (filtered.length === 0 && _sFilter !== 'all') { _sFilter = 'all'; return renderSportsPicks(); }
+
+  const tabsHtml = tags.length > 1
+    ? `<div class="picks-filter-tabs">
+        <button class="pf-tab${_sFilter==='all'?' active':''}" onclick="filterSports('all')">All</button>
+        ${tags.map(t => `<button class="pf-tab${_sFilter===t?' active':''}" onclick="filterSports('${t}')">${t}</button>`).join('')}
+       </div>` : '';
+
+  const cardsHtml = filtered.length === 0
+    ? `<div class="picks-empty"><div class="icon">⚡</div><p>No sports picks yet — post your first one!</p></div>`
+    : filtered.map(d => sPick(d.data(), d.id)).join('');
+
+  document.getElementById('sportsPicksGrid').innerHTML = tabsHtml + cardsHtml;
+}
+
+function renderRacingPicks() {
+  const tracks = [...new Set(_rDocs.map(d => d.data().track || d.data().race).filter(Boolean))];
+  const filtered = _rFilter === 'all'
+    ? _rDocs
+    : _rDocs.filter(d => (d.data().track || d.data().race) === _rFilter);
+  if (filtered.length === 0 && _rFilter !== 'all') { _rFilter = 'all'; return renderRacingPicks(); }
+
+  const tabsHtml = tracks.length > 1
+    ? `<div class="picks-filter-tabs">
+        <button class="pf-tab${_rFilter==='all'?' active':''}" onclick="filterRacing('all')">All</button>
+        ${tracks.map(t => `<button class="pf-tab${_rFilter===t?' active':''}" onclick="filterRacing('${t}')">${t}</button>`).join('')}
+       </div>` : '';
+
+  const cardsHtml = filtered.length === 0
+    ? `<div class="picks-empty"><div class="icon">🏇</div><p>No racing picks yet — be first!</p></div>`
+    : filtered.map(d => rPick(d.data(), d.id)).join('');
+
+  document.getElementById('racingPicksGrid').innerHTML = tabsHtml + cardsHtml;
+}
+
+window.filterSports = (tag)   => { _sFilter = tag; renderSportsPicks(); };
+window.filterRacing = (track) => { _rFilter = track; renderRacingPicks(); };
+
 /* Live listener */
 onSnapshot(col, snap => {
   snap.docs.forEach(d => { pickCache[d.id] = d.data(); });
-  const all   = sortDocs(snap);
-  const sDocs = all.filter(d => d.data().sport === 'sports');
-  const rDocs = all.filter(d => d.data().sport !== 'sports');
-
-  document.getElementById('sportsPicksGrid').innerHTML = sDocs.length === 0
-    ? `<div class="s-empty"><div class="ei">⚡</div><p>No sports picks yet — post your first one!</p></div>`
-    : sDocs.map(d => sPick(d.data(), d.id)).join('');
-
-  document.getElementById('racingPicksGrid').innerHTML = rDocs.length === 0
-    ? `<div class="r-empty"><div class="ri">🏇</div><p>No racing picks yet — be first!</p></div>`
-    : rDocs.map(d => rPick(d.data(), d.id)).join('');
-
+  const all = sortDocs(snap);
+  _sDocs = all.filter(d => d.data().sport === 'sports');
+  _rDocs = all.filter(d => d.data().sport !== 'sports');
+  renderSportsPicks();
+  renderRacingPicks();
 }, () => {
   document.getElementById('sportsPicksGrid').innerHTML =
     `<div class="picks-empty"><div class="icon">⚠️</div><p>Firebase not connected — check your API key.</p></div>`;
