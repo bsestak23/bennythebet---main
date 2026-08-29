@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bennythebet</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:     #0b1622;
+  --navy-mid: #0e1c30;
+  --card-bg:  #0d1f35;
+  --gold:     #b8962a;
+  --gold-lt:  #d4aa3a;
+  --cream:    #f0e8d4;
+  --cream-d:  #d8cdb8;
+  --border:   rgba(184,150,42,.25);
+  --dim:      rgba(240,232,212,.4);
+  --green:    #3a9e5f;
+  --red:      #b84040;
+}
+body { background: var(--navy); color: var(--cream); font-family: 'Inter', sans-serif; min-height: 100vh; }
+header { background: var(--navy-mid); border-bottom: 1px solid var(--border); }
+.hdr { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.brand { font-family: 'Playfair Display', serif; font-size: 1.55rem; font-weight: 900; color: var(--gold); letter-spacing: .03em; }
+.brand em { color: var(--cream); font-style: normal; }
+.tagline { font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; color: var(--cream-d); }
+.hdr-right { display: flex; align-items: center; gap: 1rem; }
+.hdr-date { font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+.live-dot { display: flex; align-items: center; gap: .4rem; font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); }
+.live-dot::before { content: ''; width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 1.4s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.tab-bar { background: var(--navy); border-bottom: 1px solid var(--border); }
+.tab-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; }
+.tab-btn { background: none; border: none; border-bottom: 3px solid transparent; color: var(--cream-d); font-size: .82rem; font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: .85rem 1.5rem; cursor: pointer; transition: all .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream); }
+.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+.sub-nav { background: rgba(13,31,53,.6); border-bottom: 1px solid rgba(184,150,42,.12); }
+.sub-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; overflow-x: auto; }
+.sub-inner a { color: rgba(240,232,212,.45); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; padding: .55rem 1rem; text-decoration: none; white-space: nowrap; transition: color .15s; }
+.sub-inner a:hover { color: var(--gold-lt); }
+.page { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+section { margin-bottom: 2.75rem; }
+.sec-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: .55rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: .55rem; }
+.sec-title::before { content: ''; display: inline-block; width: 3px; height: 1.1em; background: var(--gold); border-radius: 2px; flex-shrink: 0; }
+.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.nc { background: var(--card-bg); padding: 1.2rem 1.35rem; display: flex; flex-direction: column; gap: .45rem; }
+.nc-cat { font-size: .63rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.nc-title { font-family: 'Playfair Display', serif; font-size: .98rem; font-weight: 700; color: var(--cream); line-height: 1.38; }
+.nc a { text-decoration: none; color: inherit; }
+.nc a:hover .nc-title { color: var(--gold-lt); }
+.nc-body { font-size: .79rem; color: var(--cream-d); line-height: 1.57; }
+.nc-date { font-size: .67rem; color: var(--dim); margin-top: auto; padding-top: .35rem; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.gc { background: var(--card-bg); padding: 1.1rem 1.35rem; display: flex; flex-direction: column; gap: .35rem; }
+.gc-matchup { font-family: 'Playfair Display', serif; font-size: .98rem; font-weight: 700; color: var(--cream); line-height: 1.3; }
+.gc-time { font-size: .75rem; color: var(--cream-d); }
+.gc-line { font-size: .73rem; color: rgba(240,232,212,.45); font-style: italic; margin-top: .1rem; }
+.badge { display: inline-block; font-size: .61rem; font-weight: 700; padding: .13rem .4rem; border-radius: 3px; margin-bottom: .35rem; letter-spacing: .06em; }
+.b-nfl { background: rgba(100,149,237,.15); color: #8ab0f0; border: 1px solid rgba(100,149,237,.3); }
+.b-mlb { background: rgba(60,180,100,.1); color: #70d090; border: 1px solid rgba(60,180,100,.25); }
+.b-cfb { background: rgba(200,100,50,.12); color: #e0a070; border: 1px solid rgba(200,100,50,.28); }
+.b-tonight { background: rgba(200,160,20,.15); color: #e0c040; border: 1px solid rgba(200,160,20,.35); }
+.chips { display: flex; flex-wrap: wrap; gap: .3rem; margin: .3rem 0 .5rem; }
+.chip { font-size: .67rem; padding: .18rem .5rem; border-radius: 20px; background: rgba(184,150,42,.1); color: var(--gold); border: 1px solid var(--border); letter-spacing: .05em; }
+.chip.s { background: rgba(184,150,42,.2); border-color: rgba(184,150,42,.6); }
+.tc { background: var(--card-bg); padding: 1.2rem 1.35rem; }
+.tc-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--cream); margin-bottom: .25rem; }
+.tc-meta { font-size: .71rem; color: var(--cream-d); margin-bottom: .6rem; }
+.purse-line { font-size: .74rem; color: var(--cream-d); }
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .81rem; }
+thead th { background: var(--navy-mid); color: var(--gold); font-size: .67rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; padding: .65rem .9rem; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+tbody tr { border-bottom: 1px solid rgba(184,150,42,.09); }
+tbody tr:hover { background: rgba(184,150,42,.04); }
+tbody tr.today { background: rgba(184,150,42,.06); }
+td { padding: .65rem .9rem; color: var(--cream-d); vertical-align: top; }
+td:first-child { color: var(--cream); font-weight: 500; white-space: nowrap; }
+.race-name { font-weight: 600; }
+.g1 .race-name { color: var(--gold-lt); }
+.grade { display: inline-block; padding: .12rem .4rem; border-radius: 3px; font-size: .63rem; font-weight: 700; letter-spacing: .07em; }
+.gr1 { background: rgba(184,150,42,.2); color: var(--gold-lt); border: 1px solid var(--gold); }
+.gr2 { background: rgba(180,180,180,.12); color: #ccc; border: 1px solid #888; }
+.gr3 { background: rgba(180,120,60,.12); color: #cd9060; border: 1px solid #a07040; }
+.grl { background: rgba(120,180,120,.12); color: #90c890; border: 1px solid #507050; }
+.today-pill { display: inline-block; font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: rgba(184,150,42,.25); color: var(--gold-lt); border: 1px solid var(--gold); padding: .1rem .38rem; border-radius: 3px; margin-left: .4rem; }
+.tn { font-size: .72rem; color: rgba(240,232,212,.45); }
+.standings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.sc { background: var(--card-bg); padding: 1.2rem 1.35rem; }
+.sc-title { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: .7rem; }
+.sr { display: flex; justify-content: space-between; align-items: center; padding: .32rem 0; border-bottom: 1px solid rgba(184,150,42,.08); font-size: .79rem; }
+.sr:last-child { border-bottom: none; }
+.sr.leader .tn-name { color: var(--gold-lt); font-weight: 600; }
+.tn-rec { color: var(--cream-d); }
+.tn-gb { font-size: .7rem; color: var(--dim); }
+/* PICKS LAYOUT */
+.picks-layout { display: grid; grid-template-columns: 310px 1fr; gap: 1.5rem; align-items: start; }
+@media (max-width: 820px) { .picks-layout { grid-template-columns: 1fr; } }
+.pick-form-panel { background: var(--card-bg); border: 1px solid var(--border); padding: 1.35rem; position: sticky; top: 1rem; }
+.form-title { font-size: .7rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.field { margin-bottom: .85rem; }
+.field label { display: block; font-size: .62rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: var(--cream-d); margin-bottom: .32rem; }
+.field input, .field select, .field textarea { width: 100%; background: rgba(11,22,34,.7); border: 1px solid var(--border); color: var(--cream); font-family: 'Inter', sans-serif; font-size: .82rem; padding: .52rem .7rem; border-radius: 3px; outline: none; transition: border-color .15s; }
+.field input::placeholder, .field textarea::placeholder { color: rgba(240,232,212,.22); }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); }
+.field select option { background: #0e1c30; }
+.field textarea { resize: vertical; min-height: 68px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+.stars-row { display: flex; gap: .25rem; cursor: pointer; }
+.star { font-size: 1.25rem; color: rgba(184,150,42,.22); transition: color .1s; user-select: none; }
+.star.on { color: var(--gold); }
+.btn-row { display: flex; gap: .6rem; margin-top: 1rem; }
+.btn-post { flex: 1; background: var(--gold); color: var(--navy); font-family: 'Inter', sans-serif; font-size: .77rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border: none; padding: .68rem; border-radius: 3px; cursor: pointer; transition: background .15s; }
+.btn-post:hover { background: var(--gold-lt); }
+.btn-clear { background: none; border: 1px solid var(--border); color: var(--cream-d); font-family: 'Inter', sans-serif; font-size: .77rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .68rem 1rem; border-radius: 3px; cursor: pointer; transition: all .15s; }
+.btn-clear:hover { border-color: var(--cream-d); color: var(--cream); }
+.edit-mode .btn-post { background: #4a7fb5; }
+.edit-mode .btn-post:hover { background: #5a90c8; }
+.feed-panel { }
+.feed-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: .85rem; gap: .5rem; flex-wrap: wrap; }
+.feed-title { font-size: .77rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cream); }
+.feed-live { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green); background: rgba(58,158,95,.1); border: 1px solid rgba(58,158,95,.3); padding: .15rem .5rem; border-radius: 3px; display: flex; align-items: center; gap: .3rem; }
+.feed-live::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 1.4s infinite; }
+.filter-tabs { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .9rem; }
+.ftab { background: none; border: 1px solid var(--border); color: var(--cream-d); font-family: 'Inter', sans-serif; font-size: .66rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: .28rem .72rem; border-radius: 20px; cursor: pointer; transition: all .15s; white-space: nowrap; }
+.ftab:hover { color: var(--gold); border-color: rgba(184,150,42,.5); }
+.ftab.active { background: rgba(184,150,42,.15); color: var(--gold-lt); border-color: var(--gold); }
+.picks-feed { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.pick-card { background: var(--card-bg); padding: 1.05rem 1.3rem; }
+.pick-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; margin-bottom: .45rem; }
+.pick-card-meta { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+.pick-badge { font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .14rem .42rem; border-radius: 3px; }
+.pb-track { background: rgba(184,150,42,.15); color: var(--gold-lt); border: 1px solid var(--border); }
+.pb-sport { background: rgba(100,149,237,.12); color: #8ab0f0; border: 1px solid rgba(100,149,237,.25); }
+.pb-win  { background: rgba(58,158,95,.15); color: #5dd68a; border: 1px solid rgba(58,158,95,.4); }
+.pb-loss { background: rgba(184,64,64,.15); color: #e07070; border: 1px solid rgba(184,64,64,.35); }
+.pb-push { background: rgba(180,180,60,.12); color: #d4d060; border: 1px solid rgba(180,180,60,.3); }
+.pick-odds-badge { font-size: .85rem; font-weight: 700; color: var(--gold-lt); white-space: nowrap; }
+.pick-horse { font-family: 'Playfair Display', serif; font-size: 1.08rem; font-weight: 700; color: var(--cream); margin-bottom: .22rem; }
+.pick-detail { font-size: .75rem; color: var(--cream-d); margin-bottom: .22rem; }
+.pick-stars { display: flex; gap: .2rem; margin-bottom: .35rem; }
+.pick-stars span { font-size: .85rem; }
+.pick-notes-text { font-size: .73rem; color: rgba(240,232,212,.5); font-style: italic; border-top: 1px solid rgba(184,150,42,.1); padding-top: .42rem; margin-top: .32rem; line-height: 1.5; }
+.pick-actions { display: flex; align-items: center; gap: .45rem; margin-top: .55rem; flex-wrap: wrap; }
+.act-btn { font-family: 'Inter', sans-serif; font-size: .67rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .26rem .62rem; border-radius: 3px; border: 1px solid; cursor: pointer; transition: all .15s; background: none; }
+.act-w    { color: var(--green); border-color: rgba(58,158,95,.45); }
+.act-w:hover, .act-w.active  { background: rgba(58,158,95,.15); border-color: var(--green); }
+.act-l    { color: var(--red); border-color: rgba(184,64,64,.45); }
+.act-l:hover, .act-l.active  { background: rgba(184,64,64,.15); border-color: var(--red); }
+.act-push { color: #d4d060; border-color: rgba(180,180,60,.35); }
+.act-push:hover, .act-push.active { background: rgba(180,180,60,.12); border-color: #d4d060; }
+.act-edit { color: var(--cream-d); border-color: var(--border); }
+.act-edit:hover { color: var(--cream); border-color: var(--cream-d); }
+.act-del  { color: rgba(240,232,212,.28); border-color: transparent; margin-left: auto; }
+.act-del:hover  { color: var(--red); }
+.no-picks { padding: 2.5rem; text-align: center; color: rgba(240,232,212,.3); font-size: .84rem; background: var(--card-bg); border: 1px solid var(--border); }
+.no-picks-icon { font-size: 2rem; margin-bottom: .5rem; opacity: .4; }
+.countdown { background: var(--navy-mid); border: 1px solid var(--border); padding: .9rem 1.4rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2.25rem; }
+.cd-lbl { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cream-d); }
+.cd-title { font-family: 'Playfair Display', serif; font-size: .95rem; color: var(--cream); font-weight: 700; }
+.cd-units { display: flex; gap: .9rem; }
+.cu { text-align: center; min-width: 2.5rem; }
+.cu-val { font-size: 1.45rem; font-weight: 700; color: var(--gold-lt); line-height: 1; }
+.cu-lbl { font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream-d); }
+footer { border-top: 1px solid var(--border); padding: 1.4rem; text-align: center; font-size: .7rem; color: rgba(240,232,212,.28); }
+@media (max-width: 600px) {
+  .hdr { flex-direction: column; height: auto; padding: .85rem 1rem; gap: .25rem; text-align: center; }
+  .hdr-date { display: none; }
+  thead th, td { padding: .5rem .6rem; font-size: .74rem; }
+  .pick-form-panel { position: static; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <div>
+      <div class="brand">benny<em>thebet</em></div>
+      <div class="tagline">Sports &amp; Horse Racing Picks</div>
+    </div>
+    <div class="hdr-right">
+      <div class="live-dot">Live</div>
+      <div class="hdr-date">Fri &middot; Aug 28, 2026</div>
+    </div>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <div class="tab-inner">
+    <button class="tab-btn active" onclick="switchTab('sports',this)">&#9889; Sports</button>
+    <button class="tab-btn" onclick="switchTab('racing',this)">&#127943; Horse Racing</button>
+  </div>
+</div>
+
+<div class="sub-nav" id="sub-sports">
+  <div class="sub-inner">
+    <a href="#s-news">News</a><a href="#s-games">Games</a>
+    <a href="#s-standings">Standings</a><a href="#s-picks">My Picks</a>
+  </div>
+</div>
+<div class="sub-nav" id="sub-racing" style="display:none">
+  <div class="sub-inner">
+    <a href="#r-news">News</a><a href="#r-stakes">Stakes</a>
+    <a href="#r-cards">Cards</a><a href="#r-picks">My Picks</a>
+  </div>
+</div>
+
+<!-- ===== SPORTS TAB ===== -->
+<div id="tab-sports" class="tab-panel active">
+<div class="page">
+
+  <section id="s-news">
+    <div class="sec-title">Sports News &mdash; Aug 28</div>
+    <div class="news-grid">
+      <div class="nc"><div class="nc-cat">NFL Preseason — Tonight</div><div class="nc-title">NFL Dress Rehearsal: Four Big Games Tonight &mdash; Starters Play Into Q3</div><div class="nc-body">The Week 3 dress rehearsal hits tonight with four marquee games. Giants vs Jets (7:30 PM ET), Bengals at Eagles on CBS (8 PM), Seahawks at Chiefs, and Washington at Baltimore on NFL Network (6 PM). Starters expected 3+ quarters — these games matter for roster cuts and betting lines.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">NFL Preseason — Tonight</div><div class="nc-title">Mahomes Gets Final Reps vs Seahawks &mdash; Watch the Chiefs O-Line</div><div class="nc-body">Patrick Mahomes is expected to play into the third quarter vs Seattle tonight. Chiefs offensive line cohesion and the new WR2 role are the storylines to watch. Seahawks testing their revamped secondary ahead of the regular season opener in 10 days.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">College Football</div><div class="nc-title">CFB Week 0 Kicks Off Tomorrow &mdash; Eight Games Including Dublin Bowl</div><div class="nc-body">College football officially starts Saturday with UNC vs TCU in Dublin, Ireland (ESPN, noon ET). NC State at Virginia (3:30 PM), FSU hosts New Mexico State (7 PM, CW), and Memphis vs UNLV in Las Vegas (10 PM, FOX) round out the top matchups. Futures still available &mdash; shop before Week 1 public money hits.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">College Football</div><div class="nc-title">Oregon & Texas Headline the AP Top 25 &mdash; Indiana Defending at #4</div><div class="nc-body">The preseason AP Poll dropped this week: Oregon #1 (Dante Moore, best roster in school history), Texas #2 (brutal schedule), Ohio State #3, Indiana #4 defending CFP champs. LSU enters at #12 under Kiffin. Notre Dame and Michigan round out the top 10 — biggest story is whether Indiana can repeat.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">MLB</div><div class="nc-title">Wild Card Race Tightening — Yankees & Red Sox Both Win Wednesday</div><div class="nc-body">New York and Boston both won Wednesday to keep pressure on Tampa Bay (AL East lead: 3.5 games). NL Wild Card is a mess with five teams within 4 games. With five weeks left, every game is a swing. Brewers still lead the NL by 1 over LA. Tonight features 13 games across the league.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">Betting</div><div class="nc-title">NFL Season Futures: Where the Sharp Money Is Going</div><div class="nc-body">Chiefs are -220 to win the AFC, Eagles -160 NFC favorites. Bills getting sharp action at +500 (AFC). Bengals sneaky +750 with Burrow healthy. On the NFC side, Lions +400 have the most two-way action. CFB futures: Oregon -180 Pac-12, Texas +250 Big 12 — both moving. Get in before openers.</div><div class="nc-date">Aug 28, 2026</div></div>
+    </div>
+  </section>
+
+  <section id="s-games">
+    <div class="sec-title">Games Today &amp; This Weekend</div>
+    <div class="card-grid">
+      <div class="gc"><div><span class="badge b-tonight">&#128308; Tonight</span></div><div class="gc-matchup">Washington Commanders at Baltimore Ravens</div><div class="gc-time">Fri Aug 28 &middot; 6:00 PM ET &middot; NFL Network</div><div class="gc-line">Lamar Jackson final tune-up reps &mdash; Ravens -6.5</div></div>
+      <div class="gc"><div><span class="badge b-tonight">&#128308; Tonight</span></div><div class="gc-matchup">New York Giants at New York Jets</div><div class="gc-time">Fri Aug 28 &middot; 7:30 PM ET</div><div class="gc-line">Battle of New York &mdash; Jets -3</div></div>
+      <div class="gc"><div><span class="badge b-tonight">&#128308; Tonight</span></div><div class="gc-matchup">Cincinnati Bengals at Philadelphia Eagles</div><div class="gc-time">Fri Aug 28 &middot; 8:00 PM ET &middot; CBS</div><div class="gc-line">Eagles -4.5 &mdash; National TV marquee</div></div>
+      <div class="gc"><div><span class="badge b-tonight">&#128308; Tonight</span></div><div class="gc-matchup">Seattle Seahawks at Kansas City Chiefs</div><div class="gc-time">Fri Aug 28 &middot; 8:00 PM ET</div><div class="gc-line">Chiefs -5 &mdash; Mahomes into Q3</div></div>
+      <div class="gc"><div><span class="badge b-mlb">&#128308; Tonight — MLB</span></div><div class="gc-matchup">Full 13-Game MLB Slate</div><div class="gc-time">Fri Aug 28 &middot; Starting 7:00 PM ET</div><div class="gc-line">Wild card races in every division &mdash; check ESPN</div></div>
+      <div class="gc"><div><span class="badge b-cfb">Saturday — CFB Week 0</span></div><div class="gc-matchup">North Carolina vs TCU — Dublin, Ireland</div><div class="gc-time">Sat Aug 29 &middot; 12:00 PM ET &middot; ESPN</div><div class="gc-line">TCU -7.5 &mdash; International opener</div></div>
+      <div class="gc"><div><span class="badge b-cfb">Saturday — CFB Week 0</span></div><div class="gc-matchup">NC State at Virginia</div><div class="gc-time">Sat Aug 29 &middot; 3:30 PM ET &middot; ESPN</div><div class="gc-line">Virginia -5.5</div></div>
+      <div class="gc"><div><span class="badge b-cfb">Saturday — CFB Week 0</span></div><div class="gc-matchup">New Mexico State at Florida State</div><div class="gc-time">Sat Aug 29 &middot; 7:00 PM ET &middot; CW</div><div class="gc-line">FSU -30.5 &mdash; Easy opener for Noles</div></div>
+      <div class="gc"><div><span class="badge b-cfb">Saturday — CFB Week 0</span></div><div class="gc-matchup">Memphis vs UNLV &mdash; Las Vegas</div><div class="gc-time">Sat Aug 29 &middot; 10:00 PM ET &middot; FOX</div><div class="gc-line">UNLV -4.5 &mdash; Home field in Vegas</div></div>
+      <div class="gc"><div><span class="badge b-nfl">Sunday — NFL Pre</span></div><div class="gc-matchup">Final NFL Preseason Games</div><div class="gc-time">Sun Aug 30 &middot; Multiple times</div><div class="gc-line">Roster cut to 53 on Tuesday &mdash; backups playing for jobs</div></div>
+    </div>
+  </section>
+
+  <section id="s-standings">
+    <div class="sec-title">MLB Playoff Picture &mdash; Aug 28</div>
+    <div class="standings-grid">
+      <div class="sc"><div class="sc-title">AL East</div><div class="sr leader"><span class="tn-name">&#128310; Tampa Bay Rays</span><span class="tn-rec">79-55</span><span class="tn-gb">&mdash;</span></div><div class="sr"><span class="tn-name">New York Yankees</span><span class="tn-rec">76-58</span><span class="tn-gb">3.0</span></div><div class="sr"><span class="tn-name">Boston Red Sox</span><span class="tn-rec">75-59</span><span class="tn-gb">4.0</span></div></div>
+      <div class="sc"><div class="sc-title">NL Central</div><div class="sr leader"><span class="tn-name">&#128310; Milwaukee Brewers</span><span class="tn-rec">82-52</span><span class="tn-gb">&mdash;</span></div><div class="sr"><span class="tn-name">Chicago Cubs</span><span class="tn-rec">77-57</span><span class="tn-gb">5.0</span></div><div class="sr"><span class="tn-name">St. Louis Cardinals</span><span class="tn-rec">74-61</span><span class="tn-gb">8.5</span></div></div>
+      <div class="sc"><div class="sc-title">NL West</div><div class="sr leader"><span class="tn-name">&#128310; Los Angeles Dodgers</span><span class="tn-rec">81-53</span><span class="tn-gb">&mdash;</span></div><div class="sr"><span class="tn-name">Atlanta Braves</span><span class="tn-rec">78-56</span><span class="tn-gb">3.0</span></div><div class="sr"><span class="tn-name">Philadelphia Phillies</span><span class="tn-rec">74-61</span><span class="tn-gb">7.5</span></div></div>
+      <div class="sc"><div class="sc-title">Wild Card Watch</div><div class="sr"><span class="tn-name">NY Yankees (AL)</span><span class="tn-rec">76-58</span><span class="tn-gb">WC 1 &mdash; hot</span></div><div class="sr"><span class="tn-name">Boston Red Sox (AL)</span><span class="tn-rec">75-59</span><span class="tn-gb">WC 2</span></div><div class="sr"><span class="tn-name">Atlanta Braves (NL)</span><span class="tn-rec">78-56</span><span class="tn-gb">WC 1 locked</span></div></div>
+    </div>
+  </section>
+
+  <section id="s-picks">
+    <div class="sec-title">My Picks</div>
+    <div class="picks-layout">
+      <div class="pick-form-panel" id="sports-form-panel">
+        <div class="form-title">Post a Pick</div>
+        <input type="hidden" id="s-edit-id">
+        <div class="field"><label>Sport / League</label><input type="text" id="s-sport" placeholder="e.g. NFL, MLB, CFB"></div>
+        <div class="field"><label>Game / Event</label><input type="text" id="s-game" placeholder="e.g. Eagles vs Cowboys"></div>
+        <div class="field"><label>Pick / Bet</label><input type="text" id="s-pick" placeholder="e.g. Eagles -4.5"></div>
+        <div class="field-row">
+          <div class="field"><label>Bet Type</label>
+            <select id="s-bettype">
+              <option>Spread</option><option>Moneyline</option><option>Total (Over)</option>
+              <option>Total (Under)</option><option>Parlay</option><option>Prop</option>
+              <option>Futures</option><option>Teaser</option>
+            </select>
+          </div>
+          <div class="field"><label>Odds</label><input type="text" id="s-odds" placeholder="e.g. -110"></div>
+        </div>
+        <div class="field"><label>Confidence</label>
+          <div class="stars-row" id="s-stars">
+            <span class="star on" data-v="1">&#9733;</span><span class="star on" data-v="2">&#9733;</span>
+            <span class="star on" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span>
+          </div>
+        </div>
+        <div class="field"><label>Notes / Analysis</label><textarea id="s-notes" placeholder="Why do you like this..."></textarea></div>
+        <div class="btn-row">
+          <button class="btn-post" id="s-submit-btn" onclick="submitSportsPick()">Post Pick</button>
+          <button class="btn-clear" onclick="clearSportsForm()">Clear</button>
+        </div>
+      </div>
+      <div class="feed-panel">
+        <div class="feed-header">
+          <div class="feed-title">Active Plays</div>
+          <div class="feed-live">Live</div>
+        </div>
+        <div id="sports-feed"><div class="no-picks"><div class="no-picks-icon">&#9889;</div>No sports picks yet &mdash; post your first one!</div></div>
+      </div>
+    </div>
+  </section>
+
+</div></div>
+
+<!-- ===== RACING TAB ===== -->
+<div id="tab-racing" class="tab-panel">
+<div class="page">
+
+  <div class="countdown">
+    <div><div class="cd-lbl">Tomorrow &mdash; Travers Stakes Day</div><div class="cd-title">&#127942; DraftKings Travers Stakes &mdash; Saratoga &mdash; Saturday Aug 29</div></div>
+    <div class="cd-units" id="countdown"></div>
+  </div>
+
+  <section id="r-news">
+    <div class="sec-title">Racing News &mdash; Aug 28</div>
+    <div class="news-grid">
+      <div class="nc"><div class="nc-cat">Travers Eve — Today</div><div class="nc-title">Waya Stakes (G3) Highlights Saratoga Card Today &mdash; F&M Turf Mile</div><div class="nc-body">The Waya Stakes (G3, $150k, 1m turf, F&M 4yo+) is today's feature at Saratoga. A sharp field of older fillies and mares — look for European-bred closers on the grass. Also on tap: the Charles Town Classic in West Virginia tonight for local dirt sprinters.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">Travers Stakes Preview</div><div class="nc-title">Golden Tempo Eyes Historic Summer Sweep in Saturday's Travers</div><div class="nc-body">Kentucky Derby and Belmont winner Golden Tempo is 8-5 in the morning line for Saturday's 157th Travers ($1.25M, 6:35 PM ET). The colt has been training sensationally at the Spa. Main threats: Coastal Run (trained Pletcher, improving) and longshot Breeders' Cup Juvenile winner Marquee Moon shipping in.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">Saturday Stakes Day</div><div class="nc-title">Four Grade 1s on Saturday &mdash; Three Are BC "Win and You're In" Qualifiers</div><div class="nc-body">Saturday's Saratoga card features the H. Allen Jerkens (G1, 3yo, 7f dirt), Personal Ensign (G1, F&M, 1⅛m), Forego (G1, 4yo+, 7f dirt), and Ballerina (G1, F&M, 7f dirt) — all BC qualifiers. Plus the Lake Placid (G2) on turf for 3yo fillies. One of the biggest racing days of the calendar year.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">Kentucky Downs</div><div class="nc-title">Kentucky Downs Boutique Meet Opens Tomorrow &mdash; Big Prices Expected</div><div class="nc-body">Kentucky Downs launches its weekend all-turf meet Saturday with some of the richest per-race purses in North America. The unique downhill turf configuration produces wild results and big prices every year. Multiple European shippers booked in — a handicapper's paradise. Exotic payoffs are routinely massive.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">Charles Town — Tonight</div><div class="nc-title">Charles Town Classic Stakes Tonight &mdash; Local Dirt Sprinters Battle</div><div class="nc-body">The Charles Town Classic runs tonight (Aug 28) at historic Charles Town Races in West Virginia. A nice spot for regional dirt sprinters cutting their teeth in stakes company. Good card for live local betting action and a preview of horses who may point toward bigger fall assignments.</div><div class="nc-date">Aug 28, 2026</div></div>
+      <div class="nc"><div class="nc-cat">Breeders' Cup Prep</div><div class="nc-title">Saratoga Meet Concludes Labor Day &mdash; All Eyes Now on Keeneland & Del Mar</div><div class="nc-body">The Saratoga meet wraps Labor Day weekend before the fall prep circuit rolls to Keeneland (opens Oct 1) and Santa Anita. Breeders' Cup is Nov 7-8 at Del Mar this year. Horses earning Win &amp; You're In spots Saturday go straight to the starting gate — no conditions to meet.</div><div class="nc-date">Aug 28, 2026</div></div>
+    </div>
+  </section>
+
+  <section id="r-stakes">
+    <div class="sec-title">Stakes Schedule &mdash; Aug 28&ndash;30</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Race</th><th>Track</th><th>Grade</th><th>Dist / Surface</th><th>Purse</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr class="today"><td>Fri Aug 28 <span class="today-pill">TODAY</span></td><td class="race-name">Waya Stakes</td><td>Saratoga</td><td><span class="grade gr3">G3</span></td><td>1m &middot; Turf</td><td>$150,000</td><td class="tn">F&M 4yo+ &middot; Feature today</td></tr>
+          <tr class="today"><td>Fri Aug 28 <span class="today-pill">TONIGHT</span></td><td class="race-name">Charles Town Classic</td><td>Charles Town</td><td><span class="grade grl">Listed</span></td><td>7f &middot; Dirt</td><td>$75,000</td><td class="tn">Evening card &mdash; regional sprinters</td></tr>
+          <tr class="g1"><td>Sat Aug 29</td><td class="race-name">H. Allen Jerkens Memorial</td><td>Saratoga</td><td><span class="grade gr1">G1</span></td><td>7f &middot; Dirt</td><td>$500,000</td><td class="tn">3yo &middot; BC Win &amp; You're In</td></tr>
+          <tr class="g1"><td>Sat Aug 29</td><td class="race-name">Personal Ensign Stakes</td><td>Saratoga</td><td><span class="grade gr1">G1</span></td><td>1&#8539;m &middot; Dirt</td><td>$400,000</td><td class="tn">F&amp;M &middot; BC Win &amp; You're In</td></tr>
+          <tr><td>Sat Aug 29</td><td class="race-name">Lake Placid Stakes</td><td>Saratoga</td><td><span class="grade gr2">G2</span></td><td>1&#8539;m &middot; Turf</td><td>$250,000</td><td class="tn">3yo fillies</td></tr>
+          <tr class="g1"><td>Sat Aug 29</td><td class="race-name">Forego Stakes</td><td>Saratoga</td><td><span class="grade gr1">G1</span></td><td>7f &middot; Dirt</td><td>$500,000</td><td class="tn">4yo+ &middot; BC Dirt Mile prep</td></tr>
+          <tr class="g1"><td>Sat Aug 29</td><td class="race-name">Resorts World Ballerina Stakes</td><td>Saratoga</td><td><span class="grade gr1">G1</span></td><td>7f &middot; Dirt</td><td>$400,000</td><td class="tn">F&amp;M &middot; BC Win &amp; You're In</td></tr>
+          <tr class="g1"><td>Sat Aug 29</td><td class="race-name">&#127942; DraftKings Travers Stakes</td><td>Saratoga</td><td><span class="grade gr1">G1</span></td><td>1&frac14;m &middot; Dirt</td><td>$1,250,000</td><td class="tn">157th running &middot; Golden Tempo fav &middot; 6:35 PM ET</td></tr>
+          <tr><td>Sat Aug 29</td><td class="race-name">Kentucky Downs Day 1</td><td>Kentucky Downs</td><td><span class="grade grl">Stakes</span></td><td>All Turf</td><td>$500,000+</td><td class="tn">Boutique meet opens &mdash; rich purses, big prices</td></tr>
+          <tr><td>Sun Aug 30</td><td class="race-name">Kentucky Downs Day 2</td><td>Kentucky Downs</td><td><span class="grade grl">Stakes</span></td><td>All Turf</td><td>$500,000+</td><td class="tn">European shippers expected</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="r-cards">
+    <div class="sec-title">Today's Cards &amp; Tomorrow's Big Day</div>
+    <div class="card-grid">
+      <div class="tc"><div class="tc-name">Saratoga Race Course &mdash; TODAY</div><div class="tc-meta">Thoroughbred &middot; Friday Aug 28 &middot; First Post 1:10 PM ET</div><div class="chips"><span class="chip">8 Races</span><span class="chip">Dirt &amp; Turf</span><span class="chip s">Waya Stakes G3</span><span class="chip">F&M Turf Mile</span></div><div class="purse-line">Featured: $150,000 Waya Stakes (G3) &mdash; 1m Turf</div></div>
+      <div class="tc"><div class="tc-name">Charles Town Races &mdash; TONIGHT</div><div class="tc-meta">Thoroughbred &middot; Friday Aug 28 &middot; Evening Card</div><div class="chips"><span class="chip">Stakes Night</span><span class="chip s">Charles Town Classic</span><span class="chip">Dirt Sprinters</span></div><div class="purse-line">Featured: $75,000 Charles Town Classic</div></div>
+      <div class="tc"><div class="tc-name">Del Mar Thoroughbred Club</div><div class="tc-meta">Thoroughbred &middot; Friday Aug 28 &middot; First Post 2:00 PM PT</div><div class="chips"><span class="chip">8 Races</span><span class="chip">Dirt &amp; Turf</span><span class="chip">Pacific Classic Week</span></div><div class="purse-line">Featured Purse: $100,000</div></div>
+      <div class="tc"><div class="tc-name">Saratoga &mdash; TRAVERS DAY (Tomorrow)</div><div class="tc-meta">Thoroughbred &middot; Saturday Aug 29 &middot; First Post 12:00 PM ET</div><div class="chips"><span class="chip s">Travers G1 — $1.25M</span><span class="chip s">Jerkens G1</span><span class="chip s">Personal Ensign G1</span><span class="chip s">Ballerina G1</span><span class="chip s">Forego G1</span><span class="chip">3x BC Qualifiers</span><span class="chip">Golden Tempo</span></div><div class="purse-line">Featured: $1,250,000 Travers Stakes &mdash; 6:35 PM ET</div></div>
+      <div class="tc"><div class="tc-name">Kentucky Downs (Opens Tomorrow)</div><div class="tc-meta">Thoroughbred &middot; Sat&ndash;Sun Aug 29&ndash;30 &middot; Boutique All-Turf Meet</div><div class="chips"><span class="chip s">All Turf</span><span class="chip">Rich Purses</span><span class="chip">Euro Shippers</span><span class="chip">Big Prices Expected</span></div><div class="purse-line">Featured Purse: $500,000+ (multiple races)</div></div>
+    </div>
+  </section>
+
+  <section id="r-picks">
+    <div class="sec-title">My Picks</div>
+    <div class="picks-layout">
+      <div class="pick-form-panel" id="racing-form-panel">
+        <div class="form-title">Post a Racing Pick</div>
+        <input type="hidden" id="r-edit-id">
+        <div class="field"><label>Track</label><input type="text" id="r-track" placeholder="e.g. Saratoga"></div>
+        <div class="field-row">
+          <div class="field"><label>Race #</label><input type="text" id="r-race" placeholder="e.g. R7"></div>
+          <div class="field"><label>Bet Type</label>
+            <select id="r-bettype">
+              <option>Win</option><option>Place</option><option>Show</option>
+              <option>Exacta</option><option>Trifecta</option><option>Superfecta</option>
+              <option>Win/Place</option><option>Daily Double</option>
+              <option>Pick 3</option><option>Pick 4</option><option>Pick 5</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Horse</label><input type="text" id="r-horse" placeholder="e.g. 3 Golden Tempo"></div>
+        <div class="field"><label>Odds</label><input type="text" id="r-odds" placeholder="e.g. 8-5"></div>
+        <div class="field"><label>Confidence</label>
+          <div class="stars-row" id="r-stars">
+            <span class="star on" data-v="1">&#9733;</span><span class="star on" data-v="2">&#9733;</span>
+            <span class="star on" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span>
+          </div>
+        </div>
+        <div class="field"><label>Notes / Analysis</label><textarea id="r-notes" placeholder="Track bias, pace scenario, form angle..."></textarea></div>
+        <div class="btn-row">
+          <button class="btn-post" id="r-submit-btn" onclick="submitRacingPick()">Post Pick</button>
+          <button class="btn-clear" onclick="clearRacingForm()">Clear</button>
+        </div>
+      </div>
+      <div class="feed-panel">
+        <div class="feed-header">
+          <div class="feed-title">Active Plays</div>
+          <div class="feed-live">Live</div>
+        </div>
+        <div id="racing-filter-tabs" class="filter-tabs"></div>
+        <div id="racing-feed"><div class="no-picks"><div class="no-picks-icon">&#127943;</div>No racing picks yet &mdash; post your first one!</div></div>
+      </div>
+    </div>
+  </section>
+
+</div></div>
+
+<footer>bennythebet &middot; @bennythebet on X &middot; For entertainment purposes only. Please gamble responsibly.</footer>
+
+<script>
+function switchTab(tab,btn){
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('sub-sports').style.display=tab==='sports'?'':'none';
+  document.getElementById('sub-racing').style.display=tab==='racing'?'':'none';
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+}
+function tick(){
+  var t=new Date('2026-08-29T23:35:00Z'),n=new Date(),d=t-n,el=document.getElementById('countdown');
+  if(!el)return;
+  if(d<=0){el.innerHTML='<span style="color:var(--gold-lt);font-weight:700">Race Day!</span>';return;}
+  var p=[['Days',Math.floor(d/86400000)],['Hrs',Math.floor(d%86400000/3600000)],['Min',Math.floor(d%3600000/60000)],['Sec',Math.floor(d%60000/1000)]];
+  el.innerHTML=p.map(function(x){return'<div class="cu"><div class="cu-val">'+String(x[1]).padStart(2,'0')+'</div><div class="cu-lbl">'+x[0]+'</div></div>';}).join('');
+}
+tick();setInterval(tick,1000);
+
+var sConf=3,rConf=3;
+function initStars(gid,getter){
+  var row=document.getElementById(gid);
+  if(!row)return;
+  function paint(v){row.querySelectorAll('.star').forEach(function(x){x.classList.toggle('on',parseInt(x.dataset.v)<=v);});}
+  row.querySelectorAll('.star').forEach(function(s){
+    s.addEventListener('click',function(){getter(parseInt(this.dataset.v));paint(getter());});
+    s.addEventListener('mouseover',function(){paint(parseInt(this.dataset.v));});
+    s.addEventListener('mouseout',function(){paint(getter());});
+  });
+}
+initStars('s-stars',function(v){if(v!==undefined)sConf=v;return sConf;});
+initStars('r-stars',function(v){if(v!==undefined)rConf=v;return rConf;});
+function setStars(gid,v){var row=document.getElementById(gid);if(!row)return;row.querySelectorAll('.star').forEach(function(x){x.classList.toggle('on',parseInt(x.dataset.v)<=v);});}
+function starsHtml(n){var h='';for(var i=1;i<=5;i++)h+='<span style="color:'+(i<=n?'var(--gold)':'rgba(184,150,42,.2)')+'">&#9733;</span>';return h;}
+function outBadge(o){if(!o)return'';if(o==='win')return'<span class="pick-badge pb-win">WIN &#10003;</span>';if(o==='loss')return'<span class="pick-badge pb-loss">LOSS &#10007;</span>';if(o==='push')return'<span class="pick-badge pb-push">PUSH</span>';return'';}
+function fmtTs(ts){if(!ts)return'';var d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' &middot; '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});}
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+var firebaseConfig={apiKey:"AIzaSyB6nESEWtK95PUeSaoHWXv0TYrCpVm5vQI",authDomain:"bennythebet.firebaseapp.com",projectId:"bennythebet",storageBucket:"bennythebet.firebasestorage.app",messagingSenderId:"849946766302",appId:"1:849946766302:web:8a3dc377046d826d368b4f"};
+var db;
+try{firebase.initializeApp(firebaseConfig);db=firebase.firestore();}catch(e){console.error('Firebase:',e);}
+
+/* Data stores — keyed by doc ID so edit never embeds JSON in onclick */
+var sStore={},rStore={};
+
+function setOutcome(col,id,o){if(!db)return;db.collection(col).doc(id).update({outcome:o});}
+function deletePick(col,id){if(!db)return;if(!confirm('Delete this pick?'))return;db.collection(col).doc(id).delete();}
+
+/* ---- SPORTS ---- */
+function submitSportsPick(){
+  if(!db)return alert('Firebase not connected.');
+  var eid=document.getElementById('s-edit-id').value;
+  var data={sport:document.getElementById('s-sport').value.trim(),game:document.getElementById('s-game').value.trim(),pick:document.getElementById('s-pick').value.trim(),betType:document.getElementById('s-bettype').value,odds:document.getElementById('s-odds').value.trim(),confidence:sConf,notes:document.getElementById('s-notes').value.trim()};
+  if(!data.game&&!data.pick)return alert('Enter at least a game and pick.');
+  var btn=document.getElementById('s-submit-btn');btn.textContent='Posting…';btn.disabled=true;
+  var op;
+  if(eid){
+    /* edit: no ts update so card stays in place */
+    op=db.collection('sports-picks').doc(eid).update(data);
+  } else {
+    data.ts=firebase.firestore.FieldValue.serverTimestamp();
+    op=db.collection('sports-picks').add(data);
+  }
+  op.then(function(){clearSportsForm();}).catch(function(e){alert('Error: '+e.message);btn.textContent=eid?'Update Pick':'Post Pick';btn.disabled=false;});
+}
+function clearSportsForm(){
+  ['s-sport','s-game','s-pick','s-odds','s-notes'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('s-bettype').value='Spread';document.getElementById('s-edit-id').value='';
+  sConf=3;setStars('s-stars',3);document.getElementById('s-submit-btn').textContent='Post Pick';document.getElementById('s-submit-btn').disabled=false;document.getElementById('sports-form-panel').classList.remove('edit-mode');
+}
+function editSportsPick(id){
+  var data=sStore[id];if(!data)return;
+  document.getElementById('s-edit-id').value=id;
+  document.getElementById('s-sport').value=data.sport||'';
+  document.getElementById('s-game').value=data.game||'';
+  document.getElementById('s-pick').value=data.pick||'';
+  document.getElementById('s-bettype').value=data.betType||'Spread';
+  document.getElementById('s-odds').value=data.odds||'';
+  document.getElementById('s-notes').value=data.notes||'';
+  sConf=data.confidence||3;setStars('s-stars',sConf);
+  document.getElementById('s-submit-btn').textContent='Update Pick';
+  document.getElementById('sports-form-panel').classList.add('edit-mode');
+  document.getElementById('s-picks').scrollIntoView({behavior:'smooth'});
+}
+function buildSportCard(id,p){
+  var card=document.createElement('div');card.className='pick-card';card.dataset.id=id;
+  var meta='<span class="pick-badge pb-sport">'+(p.sport||'Pick')+'</span>';
+  if(p.betType)meta+='<span class="pick-badge" style="background:rgba(184,150,42,.1);color:var(--cream-d);border:1px solid var(--border)">'+p.betType+'</span>';
+  meta+=outBadge(p.outcome);
+  card.innerHTML=
+    '<div class="pick-card-top"><div class="pick-card-meta">'+meta+'</div><span class="pick-odds-badge">'+(p.odds||'')+'</span></div>'+
+    '<div class="pick-horse">'+(p.game||'&mdash;')+'</div>'+
+    (p.pick?'<div class="pick-detail" style="color:var(--gold-lt);font-weight:600">&rarr; '+p.pick+'</div>':'')+
+    '<div class="pick-stars">'+starsHtml(p.confidence||3)+'</div>'+
+    (p.ts?'<div class="pick-detail">'+fmtTs(p.ts)+'</div>':'')+
+    (p.notes?'<div class="pick-notes-text">'+p.notes+'</div>':'')+
+    '<div class="pick-actions"></div>';
+  var acts=card.querySelector('.pick-actions');
+  function mkBtn(cls,label,fn){var b=document.createElement('button');b.className='act-btn '+cls;b.innerHTML=label;b.onclick=fn;return b;}
+  var bw=mkBtn('act-w'+(p.outcome==='win'?' active':''),'W',function(){setOutcome('sports-picks',id,'win');});
+  var bl=mkBtn('act-l'+(p.outcome==='loss'?' active':''),'L',function(){setOutcome('sports-picks',id,'loss');});
+  var bp=mkBtn('act-push'+(p.outcome==='push'?' active':''),'Push',function(){setOutcome('sports-picks',id,'push');});
+  var be=mkBtn('act-edit','&#9998; Edit',function(){editSportsPick(id);});
+  var bd=mkBtn('act-del','&#128465;',function(){deletePick('sports-picks',id);});
+  [bw,bl,bp,be,bd].forEach(function(b){acts.appendChild(b);});
+  return card;
+}
+if(db){
+  db.collection('sports-picks').orderBy('ts','desc').onSnapshot(function(snap){
+    var feed=document.getElementById('sports-feed');
+    sStore={};
+    if(!snap||snap.empty){feed.innerHTML='<div class="no-picks"><div class="no-picks-icon">&#9889;</div>No sports picks yet &mdash; post your first one!</div>';return;}
+    snap.forEach(function(doc){sStore[doc.id]=doc.data();});
+    /* Update in place — replace changed cards, keep positions */
+    var pf=feed.querySelector('.picks-feed');
+    if(!pf){feed.innerHTML='<div class="picks-feed"></div>';pf=feed.querySelector('.picks-feed');}
+    var seen={};
+    snap.forEach(function(doc){
+      seen[doc.id]=true;
+      var existing=pf.querySelector('[data-id="'+doc.id+'"]');
+      var fresh=buildSportCard(doc.id,doc.data());
+      if(existing){pf.replaceChild(fresh,existing);}else{pf.appendChild(fresh);}
+    });
+    pf.querySelectorAll('.pick-card').forEach(function(c){if(!seen[c.dataset.id])c.remove();});
+  },function(){document.getElementById('sports-feed').innerHTML='<div class="no-picks">Could not load picks &mdash; check Firebase.</div>';});
+}
+
+/* ---- RACING ---- */
+var racingAll=[],activeTrack='';
+
+/* Parse any race-number format: "R7", "Race 7", "7", "r14", etc. → integer */
+function raceNum(r){var m=(r||'').match(/\d+/);return m?parseInt(m[0],10):9999;}
+
+/* Sort racingAll by race number ascending, then by timestamp for same race# */
+function sortRacing(){
+  racingAll.sort(function(a,b){
+    var na=raceNum(a.d.race),nb=raceNum(b.d.race);
+    if(na!==nb)return na-nb;
+    var ta=a.d.ts&&a.d.ts.toMillis?a.d.ts.toMillis():0;
+    var tb=b.d.ts&&b.d.ts.toMillis?b.d.ts.toMillis():0;
+    return ta-tb;
+  });
+}
+
+function submitRacingPick(){
+  if(!db)return alert('Firebase not connected.');
+  var eid=document.getElementById('r-edit-id').value;
+  var data={track:document.getElementById('r-track').value.trim(),race:document.getElementById('r-race').value.trim(),betType:document.getElementById('r-bettype').value,horse:document.getElementById('r-horse').value.trim(),odds:document.getElementById('r-odds').value.trim(),confidence:rConf,notes:document.getElementById('r-notes').value.trim()};
+  if(!data.horse)return alert('Enter a horse name.');
+  var btn=document.getElementById('r-submit-btn');btn.textContent='Posting…';btn.disabled=true;
+  var op;
+  if(eid){
+    op=db.collection('picks').doc(eid).update(data);
+  } else {
+    data.ts=firebase.firestore.FieldValue.serverTimestamp();
+    op=db.collection('picks').add(data);
+  }
+  op.then(function(){clearRacingForm();}).catch(function(e){alert('Error: '+e.message);btn.textContent=eid?'Update Pick':'Post Pick';btn.disabled=false;});
+}
+function clearRacingForm(){
+  ['r-track','r-race','r-horse','r-odds','r-notes'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('r-bettype').value='Win';document.getElementById('r-edit-id').value='';
+  rConf=3;setStars('r-stars',3);document.getElementById('r-submit-btn').textContent='Post Pick';document.getElementById('r-submit-btn').disabled=false;document.getElementById('racing-form-panel').classList.remove('edit-mode');
+}
+function editRacingPick(id){
+  var data=rStore[id];if(!data)return;
+  document.getElementById('r-edit-id').value=id;
+  document.getElementById('r-track').value=data.track||'';
+  document.getElementById('r-race').value=data.race||'';
+  document.getElementById('r-bettype').value=data.betType||'Win';
+  document.getElementById('r-horse').value=data.horse||'';
+  document.getElementById('r-odds').value=data.odds||'';
+  document.getElementById('r-notes').value=data.notes||'';
+  rConf=data.confidence||3;setStars('r-stars',rConf);
+  document.getElementById('r-submit-btn').textContent='Update Pick';
+  document.getElementById('racing-form-panel').classList.add('edit-mode');
+  document.getElementById('r-picks').scrollIntoView({behavior:'smooth'});
+}
+function buildRaceCard(id,p){
+  var card=document.createElement('div');card.className='pick-card';card.dataset.id=id;
+  /* Order: Race# · Track · BetType · outcome */
+  var meta='';
+  if(p.race)meta+='<span style="font-size:.72rem;font-weight:700;color:var(--gold-lt)">'+p.race+'</span>';
+  if(p.track)meta+='<span class="pick-badge pb-track">'+p.track+'</span>';
+  if(p.betType)meta+='<span class="pick-badge" style="background:rgba(184,150,42,.1);color:var(--cream-d);border:1px solid var(--border)">'+p.betType+'</span>';
+  meta+=outBadge(p.outcome);
+  card.innerHTML=
+    '<div class="pick-card-top"><div class="pick-card-meta">'+meta+'</div><span class="pick-odds-badge">'+(p.odds||'')+'</span></div>'+
+    '<div class="pick-horse">'+(p.horse||'&mdash;')+'</div>'+
+    '<div class="pick-stars">'+starsHtml(p.confidence||3)+'</div>'+
+    (p.ts?'<div class="pick-detail">'+fmtTs(p.ts)+'</div>':'')+
+    (p.notes?'<div class="pick-notes-text">'+p.notes+'</div>':'')+
+    '<div class="pick-actions"></div>';
+  var acts=card.querySelector('.pick-actions');
+  function mkBtn(cls,label,fn){var b=document.createElement('button');b.className='act-btn '+cls;b.innerHTML=label;b.onclick=fn;return b;}
+  var bw=mkBtn('act-w'+(p.outcome==='win'?' active':''),'W',function(){setOutcome('picks',id,'win');});
+  var bl=mkBtn('act-l'+(p.outcome==='loss'?' active':''),'L',function(){setOutcome('picks',id,'loss');});
+  var bp=mkBtn('act-push'+(p.outcome==='push'?' active':''),'Push',function(){setOutcome('picks',id,'push');});
+  var be=mkBtn('act-edit','&#9998; Edit',function(){editRacingPick(id);});
+  var bd=mkBtn('act-del','&#128465;',function(){deletePick('picks',id);});
+  [bw,bl,bp,be,bd].forEach(function(b){acts.appendChild(b);});
+  return card;
+}
+function renderRacingFeed(){
+  var feed=document.getElementById('racing-feed');
+  /* Filter by active track, preserving race-number sort order */
+  var list=activeTrack?racingAll.filter(function(x){return(x.d.track||'').toUpperCase()===activeTrack;}):racingAll;
+  if(!list.length){
+    feed.innerHTML='<div class="no-picks"><div class="no-picks-icon">&#127943;</div>'+(racingAll.length?'No picks for this track.':'No racing picks yet &mdash; post your first one!')+'</div>';
+    return;
+  }
+  /* Full rebuild so DOM order always matches race-number sort */
+  feed.innerHTML='<div class="picks-feed"></div>';
+  var pf=feed.querySelector('.picks-feed');
+  list.forEach(function(item){pf.appendChild(buildRaceCard(item.id,item.d));});
+}
+function buildTabs(){
+  var tracks=[],ct=document.getElementById('racing-filter-tabs');
+  racingAll.forEach(function(x){var t=(x.d.track||'').toUpperCase();if(t&&tracks.indexOf(t)<0)tracks.push(t);});
+  ct.innerHTML='';
+  if(tracks.length<2){ct.style.display='none';return;}
+  ct.style.display='';
+  tracks.forEach(function(t){
+    var btn=document.createElement('button');
+    btn.className='ftab'+(t===activeTrack?' active':'');
+    btn.textContent=t;
+    btn.onclick=function(){
+      if(activeTrack===t){activeTrack='';btn.classList.remove('active');}
+      else{activeTrack=t;ct.querySelectorAll('.ftab').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');}
+      renderRacingFeed();
+    };
+    ct.appendChild(btn);
+  });
+}
+var rStore={};
+if(db){
+  /* No Firestore orderBy — we sort client-side by race number */
+  db.collection('picks').onSnapshot(function(snap){
+    racingAll=[];rStore={};
+    if(snap&&!snap.empty)snap.forEach(function(doc){racingAll.push({id:doc.id,d:doc.data()});rStore[doc.id]=doc.data();});
+    sortRacing(); /* always R1→R14 regardless of when picks were entered or edited */
+    buildTabs();renderRacingFeed();
+  },function(){document.getElementById('racing-feed').innerHTML='<div class="no-picks">Could not load picks &mdash; check Firebase.</div>';});
+}
+</script>
+</body>
+</html>
